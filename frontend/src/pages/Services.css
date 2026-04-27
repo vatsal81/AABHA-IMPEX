@@ -202,3 +202,28 @@
     .quality-wrapper { grid-template-columns: 1fr; gap: 60px; }
     .quality-content h2 { font-size: 2.8rem; }
 }
+
+@media (max-width: 768px) {
+    .services-grid-modern { gap: 25px; }
+    .service-card-premium { padding: 35px 25px; }
+    .service-card-top { margin-bottom: 20px; }
+    .quality-content h2 { font-size: 2.2rem; margin: 15px 0; }
+    .quality-content p { font-size: 1rem; }
+    .image-stack img { height: 350px; }
+    .experience-tag { bottom: 20px; right: 20px; padding: 20px; }
+    .experience-tag .years { font-size: 2.5rem; }
+    .service-card-body h3 { font-size: 1.3rem; }
+    .assurance-badges { gap: 10px; }
+    .badge-item { font-size: 0.78rem; padding: 8px 15px; }
+}
+
+@media (max-width: 480px) {
+    .service-card-premium { padding: 25px 20px; }
+    .service-icon-modern { width: 55px; height: 55px; }
+    .service-number { font-size: 2rem; }
+    .quality-content h2 { font-size: 1.8rem; }
+    .image-stack img { height: 250px; }
+    .experience-tag { padding: 15px; }
+    .experience-tag .years { font-size: 2rem; }
+}
+

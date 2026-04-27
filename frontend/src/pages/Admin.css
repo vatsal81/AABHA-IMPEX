@@ -399,3 +399,50 @@
     .form-grid { grid-template-columns: 1fr; }
     .overview-charts-grid { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 768px) {
+    .admin-header-content { flex-direction: column; align-items: flex-start; gap: 20px; }
+    
+    /* Scrollable tables on mobile */
+    .admin-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .admin-table { min-width: 600px; }
+    .admin-table th, .admin-table td { padding: 14px 18px; }
+    
+    /* Tabs scrollable row */
+    .admin-tabs { 
+        overflow-x: auto; 
+        white-space: nowrap; 
+        padding-bottom: 5px; 
+        gap: 15px; 
+        -webkit-overflow-scrolling: touch;
+    }
+    .tab-btn { padding: 12px 8px; font-size: 0.72rem; flex-shrink: 0; }
+    
+    /* Filters stack vertically */
+    .admin-actions { flex-direction: column; align-items: flex-start; }
+    .admin-filters { flex-direction: column; width: 100%; }
+    .search-input { max-width: 100%; width: 100%; }
+    .filter-select { width: 100%; }
+    
+    /* Forms */
+    .add-product-form { padding: 25px; }
+    .form-grid { grid-template-columns: 1fr; gap: 0; }
+    
+    /* Stats */
+    .stats-grid-premium { grid-template-columns: 1fr 1fr; }
+    
+    /* Inquiry card */
+    .inquiry-card { padding: 25px; }
+    .inq-msg { padding: 15px; }
+}
+
+@media (max-width: 480px) {
+    .stats-grid-premium { grid-template-columns: 1fr; }
+    .stat-card-modern { flex-direction: column; text-align: center; gap: 15px; }
+    .stat-trend { position: static; margin-top: 5px; display: inline-block; }
+    .admin-tabs { gap: 8px; }
+    .tab-btn { font-size: 0.65rem; padding: 10px 6px; }
+    .inquiry-card { padding: 20px; }
+    .dummy-chart-circle { width: 140px; height: 140px; }
+    .inner-circle { width: 100px; height: 100px; }
+}

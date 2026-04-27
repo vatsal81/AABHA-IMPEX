@@ -290,6 +290,7 @@ const Admin = () => {
                         </form>
                     </motion.div>
                 )}
+                <div className="admin-table-wrapper">
                 <table className="admin-table">
                     <thead><tr><th>Product</th><th>Category</th><th>Actions</th></tr></thead>
                     <tbody>
@@ -304,6 +305,7 @@ const Admin = () => {
                         ))}
                     </tbody>
                 </table>
+                </div>
               </div>
             )}
 
@@ -329,6 +331,7 @@ const Admin = () => {
                             </form>
                         </motion.div>
                     )}
+                    <div className="admin-table-wrapper">
                     <table className="admin-table">
                         <thead><tr><th>Title</th><th>Category</th><th>Published</th><th>Actions</th></tr></thead>
                         <tbody>
@@ -344,6 +347,7 @@ const Admin = () => {
                             ))}
                         </tbody>
                     </table>
+                    </div>
                 </div>
             )}
           </div>

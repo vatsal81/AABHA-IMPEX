@@ -393,3 +393,15 @@
         font-size: 1.4rem;
     }
 }
+
+@media (max-width: 480px) {
+    .navbar-wrapper { padding: 18px 0; }
+    .navbar-wrapper.scrolled, .navbar-wrapper.solid { padding: 10px 0; }
+    
+    /* Full-width drawer on tiny phones */
+    .mobile-drawer { width: 100%; border-left: none; padding: 25px 20px; }
+    .mobile-drawer-header { margin-bottom: 35px; }
+    .mobile-links { gap: 20px; }
+    .mobile-link { font-size: 1rem; letter-spacing: 1.5px; }
+    .mobile-lang-section { margin-top: 30px; }
+}

@@ -569,6 +569,63 @@
     .hero-visual { width: 100%; opacity: 0.3; }
     .about-grid, .global-flex, .why-grid, .industry-grid, .testimonials-grid, .contact-premium-box { grid-template-columns: 1fr; }
     .industry-card { height: 400px; }
+    .industry-grid { grid-template-columns: repeat(2, 1fr); }
     .about-image-stack { margin-bottom: 50px; }
     .cp-visual { order: -1; height: 300px; }
+    .why-features { grid-template-columns: 1fr 1fr; }
 }
+
+@media (max-width: 768px) {
+    /* Hero */
+    .hero-premium { min-height: 600px; }
+    .hero-text-block h1 { font-size: 2.8rem; }
+    .hero-text-block p { font-size: 1rem; margin-bottom: 30px; }
+    .hero-button-group { flex-direction: column; gap: 15px; align-items: flex-start; }
+    .hero-badge-float { display: none; }
+    .premium-label { font-size: 0.75rem; letter-spacing: 3px; }
+
+    /* About */
+    .about-info h2 { font-size: 2.2rem; margin: 15px 0; }
+    .img-overlay-box { position: static; margin-top: 20px; max-width: 100%; }
+
+    /* Services */
+    .services-modern-grid { grid-template-columns: 1fr; }
+
+    /* Global */
+    .global-content h2 { font-size: 2.2rem; }
+    .region-tags { gap: 10px; }
+    .region-tags span { padding: 8px 15px; font-size: 0.8rem; }
+
+    /* Industry */
+    .industry-grid { grid-template-columns: 1fr; }
+    .industry-card { height: 350px; }
+
+    /* Why Choose */
+    .why-header h2 { font-size: 2.2rem; }
+    .why-features { grid-template-columns: 1fr; gap: 20px; }
+    .why-feature-card { padding: 30px; }
+
+    /* Testimonials */
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .testimonial-card { padding: 35px 25px; }
+
+    /* Contact CTA */
+    .cp-content { padding: 40px 25px; }
+    .cp-content h2 { font-size: 2rem; }
+    .c-item { font-size: 0.9rem; }
+}
+
+@media (max-width: 480px) {
+    .hero-premium { min-height: 500px; }
+    .hero-text-block h1 { font-size: 2.2rem; }
+    .hero-scroll-indicator { display: none; }
+    .experience-badge { padding: 25px; }
+    .exp-num { font-size: 2.5rem; }
+    .exp-text { font-size: 0.75rem; letter-spacing: 1px; }
+    .industry-card { height: 280px; }
+    .ind-overlay h3 { font-size: 1.4rem; }
+    .ind-overlay { padding: 20px; }
+    .cp-content { padding: 30px 20px; }
+    .cp-content h2 { font-size: 1.7rem; }
+}
+

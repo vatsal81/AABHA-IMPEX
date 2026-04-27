@@ -201,4 +201,24 @@
   .form-header-v2 { flex-direction: column; align-items: flex-start; gap: 20px; }
   .form-row { grid-template-columns: 1fr; gap: 15px; margin-bottom: 0; }
   .form-header-v2 h2 { font-size: 2.2rem; }
+  .contact-info-cards { grid-template-columns: 1fr; gap: 20px; margin-bottom: 50px; }
+  .info-card { padding: 35px 25px; }
+  .info-card:hover { transform: translateY(-5px); }
+  .map-glass-overlay { width: 85%; padding: 25px; }
+  .map-glass-overlay h3 { font-size: 1.2rem; }
+  .form-actions-premium { flex-direction: column; }
+  .form-actions-premium .btn { width: 100%; text-align: center; }
+  .step-indicator { display: none; }
 }
+
+@media (max-width: 480px) {
+  .contact-form-section-premium { padding: 25px 15px; }
+  .form-header-v2 h2 { font-size: 1.8rem; }
+  .info-card { padding: 25px 20px; }
+  .icon-circle { width: 55px; height: 55px; margin-bottom: 20px; }
+  .info-card h3 { font-size: 1.1rem; }
+  .form-group input, .form-group select, .form-group textarea { padding: 14px 18px; font-size: 0.9rem; }
+  .map-container-premium { height: 300px; }
+  .map-glass-overlay { width: 92%; padding: 20px; }
+}
+

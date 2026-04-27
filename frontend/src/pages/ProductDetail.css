@@ -218,8 +218,28 @@
 }
 
 @media (max-width: 768px) {
-  .detail-hero { height: 50vh; }
+  .detail-hero { height: 50vh; min-height: 350px; }
   .hero-content h1 { font-size: 2.8rem; }
   .hero-meta { flex-direction: column; gap: 10px; }
   .info-card { padding: 30px; }
+  .info-card h3 { font-size: 1.4rem; }
+  .description-long { font-size: 1rem; }
+  .benefits-grid { grid-template-columns: 1fr 1fr; }
+  .specs-body { padding: 25px; }
+  .packing-footer { padding: 20px 25px; }
+  .premium-actions { padding: 20px 25px; }
+  .card-header { padding: 20px 25px; }
 }
+
+@media (max-width: 480px) {
+  .detail-hero { height: 40vh; min-height: 280px; }
+  .hero-content h1 { font-size: 2rem; }
+  .back-link-premium { margin-bottom: 20px; font-size: 0.7rem; }
+  .info-card { padding: 20px; }
+  .info-card h3 { font-size: 1.2rem; gap: 10px; }
+  .description-long { font-size: 0.9rem; line-height: 1.8; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .benefit-pill { font-size: 0.8rem; padding: 10px 15px; }
+  .hero-meta span { font-size: 0.75rem; }
+}
+
