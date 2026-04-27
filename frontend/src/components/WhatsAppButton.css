@@ -12,8 +12,9 @@
   justify-content: center;
   box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
+  will-change: transform, box-shadow, background-color;
 }
 
 .whatsapp-float:hover {
@@ -30,6 +31,7 @@
   border-radius: 50%;
   z-index: -1;
   animation: pulse 2s infinite;
+  will-change: transform, opacity;
 }
 
 @keyframes pulse {

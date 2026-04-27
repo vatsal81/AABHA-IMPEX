@@ -13,6 +13,16 @@ const AnimatedBackground = () => {
     { Icon: Truck, size: 35, top: '50%', left: '70%', duration: 20 },
     { Icon: Ship, size: 30, top: '30%', left: '90%', duration: 35 },
     { Icon: Package, size: 20, top: '70%', left: '40%', duration: 24 },
+    { Icon: Plane, size: 25, top: '5%', left: '50%', duration: 20 },
+    { Icon: Truck, size: 30, top: '85%', left: '60%', duration: 26 },
+    { Icon: Package, size: 22, top: '25%', left: '30%', duration: 23 },
+    { Icon: Anchor, size: 28, top: '45%', left: '95%', duration: 29 },
+    { Icon: Globe, size: 35, top: '12%', left: '25%', duration: 32 },
+    { Icon: Ship, size: 45, top: '55%', left: '5%', duration: 27 },
+    { Icon: Plane, size: 20, top: '92%', left: '20%', duration: 15 },
+    { Icon: Package, size: 30, top: '35%', left: '55%', duration: 21 },
+    { Icon: Truck, size: 25, top: '65%', left: '45%', duration: 24 },
+    { Icon: Anchor, size: 32, top: '75%', left: '75%', duration: 30 },
   ];
 
   return (

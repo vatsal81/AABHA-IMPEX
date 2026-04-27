@@ -100,50 +100,47 @@ const GlobalExport = () => {
         </div>
       </section>
 
-      {/* Market Presence Section */}
       <section className="section-padding bg-dark market-presence">
         <div className="container">
-          <div className="market-wrapper">
-            <motion.div 
-                className="market-content"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-            >
-              <span className="label">{t('global_export.geography.label')}</span>
-              <h2>{t('global_export.geography.title')}</h2>
-              <p>{t('global_export.geography.desc')}</p>
-              
-              <div className="country-grid">
-                {countries.map((c, i) => (
-                    <div key={i} className="region-box">
-                        <h4>{c.region}</h4>
-                        <ul>
-                            {c.list.map((item, idx) => (
-                                <li key={idx}><CheckCircle size={14} className="text-gold" /> {item}</li>
-                            ))}
-                        </ul>
-                    </div>
-                ))}
-              </div>
-            </motion.div>
+          <motion.div 
+              className="market-intro-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+          >
+            <span className="label">{t('global_export.geography.label')}</span>
+            <h2>{t('global_export.geography.title')}</h2>
+            <p className="intro-text-wide">{t('global_export.geography.desc')}</p>
+          </motion.div>
 
-            <motion.div 
-                className="market-map"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-            >
-                <div className="map-overlay-box">
-                    <Globe size={100} className="globe-icon" />
-                    <div className="map-stats">
-                        <div className="m-stat"><span>15+</span> Countries</div>
-                        <div className="m-stat"><span>100%</span> Compliance</div>
-                    </div>
-                </div>
-                <WorldMap countries={countries} />
-            </motion.div>
+          <div className="market-region-grid">
+            {countries.map((c, i) => (
+                <motion.div 
+                  key={i} 
+                  className="region-box-modern"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                    <h4>{c.region}</h4>
+                    <ul>
+                        {c.list.map((item, idx) => (
+                            <li key={idx}><CheckCircle size={14} className="text-gold" /> {item}</li>
+                        ))}
+                    </ul>
+                </motion.div>
+            ))}
           </div>
+
+          <motion.div 
+              className="full-width-export-map"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+          >
+              <WorldMap />
+          </motion.div>
         </div>
       </section>
 

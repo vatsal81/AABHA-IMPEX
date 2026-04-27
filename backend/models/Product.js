@@ -9,6 +9,9 @@ const productSchema = new mongoose.Schema({
   specifications: [{ label: String, value: String }],
   benefits: [String],
   packing: String,
+  hsCode: String,
+  origin: { type: String, default: 'India' },
+  loadingPort: { type: String, default: 'Mundra / Pipavav, India' },
   available: { type: Boolean, default: true }
 });
 

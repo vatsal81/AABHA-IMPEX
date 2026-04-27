@@ -5,6 +5,7 @@
     "services": "Services",
     "export": "Global Export",
     "about": "About Us",
+    "insights": "Insights",
     "contact": "Contact",
     "getQuote": "Get Quote",
     "admin": "Admin Portal"
@@ -12,8 +13,8 @@
   "home": {
     "hero": {
       "label": "BEYOND BOUNDARIES",
-      "title": "Welcome To <br /><span class=\"text-gold\">AABHA IMPEX</span>",
-      "desc": "Our Company is engaged in the trading and marketing of agricultural produce and commodities such as sugar, spices like dry red chillies, turmeric, coriander, cumin seeds, food grains like rice, wheat, corn, sorghum, and tea, pulses, and agricultural feed.",
+      "title": "<span class=\"text-gold\">AABHA IMPEX</span>",
+      "desc": "A premier global partner in the export and trade of high-quality agricultural commodities. From premium spices and essential food grains to nutritious pulses and animal feed, we deliver excellence from Indian farms to the global market with integrity and precision.",
       "cta_quote": "Get a Quote",
       "cta_services": "Our Services",
       "experience": "Years of <br />Excellence"

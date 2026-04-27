@@ -7,6 +7,7 @@
     padding: 30px 0;
     transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
     background: transparent;
+    will-change: padding, background, backdrop-filter, border, box-shadow;
 }
 
 /* Glassmorphism & Light State on Scroll */

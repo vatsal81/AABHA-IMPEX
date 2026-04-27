@@ -31,7 +31,7 @@ const Admin = () => {
   const [filterCategory, setFilterCategory] = useState('All');
 
   const initialProductState = {
-    name: '', category: 'Seeds', description: '', longDescription: '', image: '', packing: '', available: true
+    name: '', category: 'Seeds', description: '', longDescription: '', image: '', packing: '', hsCode: '', origin: 'India', loadingPort: 'Mundra / Pipavav, India', available: true
   };
 
   const initialBlogState = {
@@ -198,7 +198,29 @@ const Admin = () => {
 
                     <div className="overview-charts-grid">
                         <div className="overview-card info-list">
-                            <div className="card-header"><h4>Recent Inquiries</h4><TrendingUp size={18} /></div>
+                            <div className="card-header"><h4>Inquiry Distribution</h4><PieChart size={18} /></div>
+                            <div className="simple-bar-chart">
+                                {['Seeds', 'Spices', 'Pulses', 'Other'].map(cat => {
+                                    const count = inquiries.filter(inq => inq.subject?.toLowerCase().includes(cat.toLowerCase())).length;
+                                    const percentage = inquiries.length > 0 ? (count / inquiries.length) * 100 : 0;
+                                    return (
+                                        <div key={cat} className="bar-wrapper">
+                                            <motion.div 
+                                                className="bar-fill-premium" 
+                                                initial={{ height: 0 }}
+                                                animate={{ height: `${Math.max(percentage, 5)}%` }}
+                                                transition={{ duration: 1, ease: "easeOut" }}
+                                            >
+                                                <span className="bar-tooltip">{count}</span>
+                                            </motion.div>
+                                            <span className="bar-label">{cat}</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        <div className="overview-card info-list">
+                            <div className="card-header"><h4>Recent Activity</h4><TrendingUp size={18} /></div>
                             <div className="activity-list">
                                 {inquiries.slice(0, 4).map((inq, i) => (
                                     <div key={i} className="activity-item">
@@ -206,20 +228,6 @@ const Admin = () => {
                                         <div className="activity-text">
                                             <strong>{inq.name}</strong> inquiry about <em>{inq.subject}</em>
                                             <span>{new Date(inq.createdAt).toLocaleDateString()}</span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="overview-card info-list">
-                            <div className="card-header"><h4>Published Insights</h4><BookOpen size={18} /></div>
-                            <div className="activity-list">
-                                {blogs.slice(0, 4).map((blog, i) => (
-                                    <div key={i} className="activity-item">
-                                        <div className="activity-dot success"></div>
-                                        <div className="activity-text">
-                                            <strong>{blog.title}</strong>
-                                            <span>{blog.category} | {new Date(blog.publishedAt).toLocaleDateString()}</span>
                                         </div>
                                     </div>
                                 ))}
@@ -280,6 +288,11 @@ const Admin = () => {
                                 <div className="form-group"><label>Name</label><input type="text" value={newProduct.name} onChange={e => setNewProduct({...newProduct, name: e.target.value})} required /></div>
                                 <div className="form-group"><label>Category</label><select value={newProduct.category} onChange={e => setNewProduct({...newProduct, category: e.target.value})}><option>Seeds</option><option>Pulses</option><option>Spices</option><option>Construction</option></select></div>
                             </div>
+                            <div className="form-grid">
+                                <div className="form-group"><label>HS Code</label><input type="text" value={newProduct.hsCode} onChange={e => setNewProduct({...newProduct, hsCode: e.target.value})} placeholder="e.g. 1001.10" /></div>
+                                <div className="form-group"><label>Origin</label><input type="text" value={newProduct.origin} onChange={e => setNewProduct({...newProduct, origin: e.target.value})} /></div>
+                            </div>
+                            <div className="form-group"><label>Loading Port</label><input type="text" value={newProduct.loadingPort} onChange={e => setNewProduct({...newProduct, loadingPort: e.target.value})} /></div>
                             <div className="form-group"><label>Short Description</label><input type="text" value={newProduct.description} onChange={e => setNewProduct({...newProduct, description: e.target.value})} /></div>
                             <div className="form-group"><label>Detailed Description</label><textarea rows="3" value={newProduct.longDescription} onChange={e => setNewProduct({...newProduct, longDescription: e.target.value})}></textarea></div>
                             <div className="form-grid">

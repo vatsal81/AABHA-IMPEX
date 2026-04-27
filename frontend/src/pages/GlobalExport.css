@@ -81,106 +81,69 @@
 }
 
 /* Market Presence */
-.market-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-}
-
-.market-content h2 {
-    color: var(--white);
-    font-size: 3.5rem;
-    margin: 25px 0;
-}
-
-.market-content p {
-    color: var(--light-slate);
-    margin-bottom: 40px;
-}
-
-.country-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-}
-
-.region-box h4 {
-    color: var(--secondary);
-    font-size: 1rem;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.region-box ul {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.region-box ul li {
-    color: var(--light-slate);
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.market-map {
-    position: relative;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-}
-
-.market-map img {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    filter: brightness(0.6);
-}
-
-.map-overlay-box {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--white);
-}
-
-.globe-icon {
-    color: var(--secondary);
-    opacity: 0.2;
-    margin-bottom: 30px;
-    animation: rotate 20s linear infinite;
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.map-stats {
-    display: flex;
-    gap: 40px;
-}
-
-.m-stat {
+/* Market Presence Vertical Overhaul */
+.market-intro-center {
     text-align: center;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.8rem;
+    max-width: 850px;
+    margin: 0 auto 60px;
 }
 
-.m-stat span {
-    display: block;
-    font-size: 2.5rem;
+.intro-text-wide {
+    color: var(--light-slate);
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
+
+.market-region-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    margin-bottom: 70px;
+}
+
+.region-box-modern {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 35px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition);
+}
+
+.region-box-modern:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--secondary);
+    transform: translateY(-8px);
+}
+
+.region-box-modern h4 {
     color: var(--secondary);
-    margin-bottom: 5px;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.region-box-modern ul {
+    list-style: none;
+    padding: 0;
+}
+
+.region-box-modern li {
+    color: var(--light-slate);
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.full-width-export-map {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.market-wrapper {
+    display: none; /* Deactivate old layout */
 }
 
 /* Cert Grid */

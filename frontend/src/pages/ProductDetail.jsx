@@ -12,6 +12,20 @@ const ProductDetail = () => {
   const { t } = useTranslation();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [unitType, setUnitType] = useState('metric'); // 'metric' or 'imperial'
+
+  const convertValue = (value, label) => {
+    if (!value) return '';
+    if (unitType === 'metric') return value;
+    
+    // Simple regex to find numbers and convert if likely KG to LBS
+    const num = parseFloat(value);
+    if (!isNaN(num) && (value.toLowerCase().includes('kg') || label.toLowerCase().includes('weight') || label.toLowerCase().includes('packing'))) {
+      const converted = (num * 2.20462).toFixed(2);
+      return value.replace(/[0-9.]+/, converted).replace(/kg/i, 'lbs');
+    }
+    return value;
+  };
   
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -109,16 +123,31 @@ const ProductDetail = () => {
 
             <div className="detail-right">
                <div className="specs-card-premium">
-                  <div className="card-header">
-                    <FileText size={20} />
-                    <h3>{t('product_detail.specs')}</h3>
+                  <div className="card-header-flex">
+                    <div className="header-left">
+                       <FileText size={20} />
+                       <h3>{t('product_detail.specs')}</h3>
+                    </div>
+                    <div className="unit-toggle">
+                       <button className={unitType === 'metric' ? 'active' : ''} onClick={() => setUnitType('metric')}>KG</button>
+                       <button className={unitType === 'imperial' ? 'active' : ''} onClick={() => setUnitType('imperial')}>LBS</button>
+                    </div>
                   </div>
                   <div className="specs-body">
+                    {/* Trade Metadata */}
+                    {(product.hsCode || product.origin) && (
+                      <div className="trade-meta-section">
+                        {product.hsCode && <div className="spec-row-premium trade"><span className="s-label">HS Code</span><span className="s-value">{product.hsCode}</span></div>}
+                        {product.origin && <div className="spec-row-premium trade"><span className="s-label">Origin</span><span className="s-value">{product.origin}</span></div>}
+                        {product.loadingPort && <div className="spec-row-premium trade"><span className="s-label">Loading Port</span><span className="s-value">{product.loadingPort}</span></div>}
+                      </div>
+                    )}
+                    
                     {product.specifications && product.specifications.length > 0 ? (
                       product.specifications.map((spec, i) => (
                         <div key={i} className="spec-row-premium">
                           <span className="s-label">{spec.label}</span>
-                          <span className="s-value">{spec.value}</span>
+                          <span className="s-value">{convertValue(spec.value, spec.label)}</span>
                         </div>
                       ))
                     ) : (
@@ -131,7 +160,7 @@ const ProductDetail = () => {
                        <Package size={20} />
                        <div>
                           <strong>{t('product_detail.packing')}</strong>
-                          <p>{product.packing}</p>
+                          <p>{convertValue(product.packing, 'Packing')}</p>
                        </div>
                     </div>
                   )}

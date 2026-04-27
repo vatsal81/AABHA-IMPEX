@@ -387,6 +387,57 @@
     line-height: 1.4;
 }
 
+.simple-bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    height: 200px;
+    padding-top: 30px;
+    margin-top: 20px;
+}
+
+.bar-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.bar-fill-premium {
+    width: 100%;
+    background: var(--gold-gradient);
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    transition: height 1s ease;
+}
+
+.bar-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.bar-tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: var(--white);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.bar-wrapper:hover .bar-tooltip {
+    opacity: 1;
+    top: -35px;
+}
+
 .activity-text span {
     display: block;
     font-size: 0.75rem;

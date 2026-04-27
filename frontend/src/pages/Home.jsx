@@ -9,12 +9,21 @@ import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { fetchProducts } from '../services/api';
 import SEO from '../components/SEO';
+import TestimonialSlider from '../components/TestimonialSlider';
+import WorldMap from '../components/WorldMap';
 import './Home.css';
 
 const Home = () => {
   const { t } = useTranslation();
   const { lng } = useParams();
   const [featuredProducts, setFeaturedProducts] = useState([]);
+
+  const countries = [
+    { region: t('global_export.geography.middle_east'), list: ["UAE", "Saudi Arabia", "Qatar", "Oman", "Kuwait"] },
+    { region: t('global_export.geography.europe'), list: ["UK", "Germany", "Netherlands", "Belgium", "Spain"] },
+    { region: t('global_export.geography.asia'), list: ["Singapore", "Malaysia", "Vietnam", "Thailand"] },
+    { region: t('global_export.geography.americas'), list: ["USA", "Canada"] }
+  ];
 
   useEffect(() => {
     const getFeaturedProducts = async () => {
@@ -34,14 +43,15 @@ const Home = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15,
+        delayChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
   };
 
   const getProductImage = (p) => {
@@ -56,58 +66,58 @@ const Home = () => {
       />
 
       {/* 1. Hero Section */}
-      <section className="hero-premium">
-        <div className="hero-visual">
-          <div className="hero-overlay-gradient"></div>
+      {/* 1. Premium Classic Hero Section */}
+      <section className="hero-classic-v2">
+        <div className="hero-atmosphere">
+          <div className="hero-sky-overlay"></div>
           <img 
-            src="https://www.umaexports.net/images/slider-mainbg-001.jpg" 
-            alt="Global Trade Cargo" 
-            className="hero-main-img" 
+            src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=2000" 
+            alt="International Trade" 
+            className="hero-backdrop" 
           />
         </div>
         
-        <div className="container hero-container">
-          <div className="hero-content-wrapper">
+        <div className="container hero-inner-classic">
+          <div className="hero-main-layout">
             <motion.div 
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -60 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="hero-text-block"
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="hero-classic-text"
             >
-              <span className="premium-label">{t('home.hero.label')}</span>
-              <h1 dangerouslySetInnerHTML={{ __html: t('home.hero.title') }}></h1>
-              <p>{t('home.hero.desc')}</p>
+              <div className="classic-pre-title">
+                <span className="gold-line"></span>
+                <span>BEYOND BOUNDARIES</span>
+              </div>
+              <h1 className="classic-heading" dangerouslySetInnerHTML={{ __html: t('home.hero.title') }}></h1>
+              <p className="classic-subtext">
+                {t('home.hero.desc')}
+              </p>
               
-              <div className="hero-button-group">
-                <Link to={`/${lng}/contact`} className="btn btn-primary">
+              <div className="classic-button-row">
+                <Link to={`/${lng}/contact`} className="btn-gold-filled">
                   {t('home.hero.cta_quote')} <ArrowRight size={18} />
                 </Link>
-                <Link to={`/${lng}/services`} className="btn btn-outline-white">
+                <Link to={`/${lng}/services`} className="btn-glass-outline">
                   {t('home.hero.cta_services')}
                 </Link>
               </div>
             </motion.div>
 
             <motion.div 
-              className="hero-badge-float"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 1 }}
+              className="hero-premium-badge-box"
+              initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ delay: 0.4, duration: 1, type: "spring" }}
             >
-              <div className="experience-badge">
-                <span className="exp-num">15+</span>
-                <span className="exp-text" dangerouslySetInnerHTML={{ __html: t('home.hero.experience') }}></span>
+              <div className="classic-glass-badge">
+                <div className="badge-inner-glow"></div>
+                <span className="badge-number">15+</span>
+                <span className="badge-label">YEARS OF</span>
+                <span className="badge-sub">EXCELLENCE</span>
               </div>
             </motion.div>
           </div>
-        </div>
-        
-        <div className="hero-scroll-indicator">
-          <motion.div 
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="mouse-icon"
-          ></motion.div>
         </div>
       </section>
 
@@ -212,36 +222,34 @@ const Home = () => {
       {/* 4. Global Presence Section */}
       <section className="section-padding global-presence">
         <div className="container">
-          <div className="global-flex">
-            <motion.div 
-              className="global-content"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <span className="label">{t('home.global.label')}</span>
-              <h2>{t('home.global.title')}</h2>
-              <p>{t('home.global.desc')}</p>
-              
-              <div className="region-tags">
-                <span>{t('global_export.geography.asia')}</span>
-                <span>{t('global_export.geography.middle_east')}</span>
-                <span>{t('global_export.geography.europe')}</span>
-                <span>Africa</span>
-                <span>{t('global_export.geography.americas')}</span>
-              </div>
-            </motion.div>
+          <motion.div 
+            className="global-content-vertical"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="label">{t('home.global.label')}</span>
+            <h2>{t('home.global.title')}</h2>
+            <p className="global-desc-wide">{t('home.global.desc')}</p>
             
-            <div className="map-container">
-              <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80&w=1200" alt="World Map Trade" className="world-map-img" />
-              <div className="map-overlay-dots">
-                <div className="dot d1"></div>
-                <div className="dot d2"></div>
-                <div className="dot d3"></div>
-                <div className="dot d4"></div>
-              </div>
+            <div className="region-tags-centered">
+              <span>{t('global_export.geography.asia')}</span>
+              <span>{t('global_export.geography.middle_east')}</span>
+              <span>{t('global_export.geography.europe')}</span>
+              <span>Africa</span>
+              <span>{t('global_export.geography.americas')}</span>
             </div>
-          </div>
+          </motion.div>
+          
+          <motion.div 
+            className="full-width-map-container"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <WorldMap />
+          </motion.div>
         </div>
       </section>
 
@@ -338,32 +346,14 @@ const Home = () => {
       </section>
 
       {/* 7. Testimonials Section */}
-      <section className="section-padding testimonials-section">
+      <section className="section-padding testimonials-section bg-alt">
         <div className="container">
           <div className="section-header text-center">
             <span className="label">{t('home.testimonials.label')}</span>
             <h2>{t('home.testimonials.title')}</h2>
           </div>
 
-          <div className="testimonials-grid">
-            {(t('home.testimonials.list', { returnObjects: true }) || []).map((t, i) => (
-              <motion.div 
-                key={i} 
-                className="testimonial-card"
-                whileHover={{ y: -10 }}
-              >
-                <div className="quote-icon">"</div>
-                <p>{t.text}</p>
-                <div className="t-author">
-                  <div className="t-avatar">{t.name ? t.name[0] : 'U'}</div>
-                  <div className="t-meta">
-                    <h4>{t.name}</h4>
-                    <span>{t.role}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <TestimonialSlider testimonials={t('home.testimonials.list', { returnObjects: true }) || []} />
         </div>
       </section>
 

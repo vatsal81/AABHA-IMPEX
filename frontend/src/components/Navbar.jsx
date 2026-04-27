@@ -37,7 +37,7 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -47,14 +47,20 @@ const Navbar = () => {
     { name: t('nav.services'), path: `/${lng}/services` },
     { name: t('nav.export'), path: `/${lng}/global-export` },
     { name: t('nav.about'), path: `/${lng}/about` },
-    { name: 'Insights', path: `/${lng}/blog` },
+    { name: t('nav.insights'), path: `/${lng}/blog` },
     { name: t('nav.contact'), path: `/${lng}/contact` },
   ];
 
   const languages = [
-    { code: 'en', label: 'English', flag: '🇺🇸' },
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'ar', label: 'العربية', flag: '🇦🇪' },
     { code: 'hi', label: 'हिन्दी', flag: '🇮🇳' },
-    { code: 'gu', label: 'ગુજરાતી', flag: '🇮🇳' }
+    { code: 'gu', label: 'ગુજરાતી', flag: '🇮🇳' },
+    { code: 'ur', label: 'اردو', flag: '🇵🇰' },
+    { code: 'ml', label: 'മലയാളം', flag: '🇮🇳' },
+    { code: 'ta', label: 'தமிழ்', flag: '🇮🇳' },
+    { code: 'bn', label: 'বাংলা', flag: '🇧🇩' },
+    { code: 'tl', label: 'Tagalog', flag: '🇵🇭' }
   ];
 
 
@@ -111,7 +117,7 @@ const Navbar = () => {
               <a href="#"><Linkedin size={18} /></a>
             </div>
 
-            <Link to={`/${lng}/contact`} className="btn btn-cta">
+            <Link to={`/${lng}/contact`} className="btn-elite-quote">
               {t('nav.getQuote')}
             </Link>
           </div>

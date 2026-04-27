@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
@@ -28,7 +28,7 @@ const LanguageLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const supportedLngs = ['en', 'hi', 'gu'];
+  const supportedLngs = ['en', 'hi', 'gu', 'ar', 'ur', 'ml', 'ta', 'bn', 'tl'];
 
   useEffect(() => {
     if (lng && supportedLngs.includes(lng)) {
@@ -56,7 +56,7 @@ const LanguageLayout = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             style={{ minHeight: '80vh' }}
           >
             <Outlet />
@@ -75,12 +75,18 @@ const ProtectedAdminRoute = () => {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   useEffect(() => {
-    // Simulate initial loading for professional feel
+    // Simulate initial loading for professional feel - reduced for better UX
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    }, 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -88,6 +94,20 @@ function App() {
 
   return (
     <Router>
+      <motion.div
+        className="scroll-progress-bar"
+        style={{
+          scaleX,
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '4px',
+          background: 'var(--secondary)',
+          transformOrigin: '0%',
+          zIndex: 9999
+        }}
+      />
       <Toaster position="top-right" />
       <ScrollToTop />
       <div className="app">
