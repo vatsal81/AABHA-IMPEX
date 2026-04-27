@@ -62,7 +62,7 @@ export const submitInquiry = async (inquiryData) => {
 // Admin Routes (PROTECTED)
 export const fetchAllInquiries = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/admin/inquiries`, {
+      const response = await fetch(`${API_BASE_URL}/inquiries/admin`, {
           headers: getAuthHeaders()
       });
       if (!response.ok) throw new Error('Failed to fetch inquiries');
@@ -75,7 +75,7 @@ export const fetchAllInquiries = async () => {
 
 export const addProduct = async (productData) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/admin/products`, {
+      const response = await fetch(`${API_BASE_URL}/products/admin`, {
         method: 'POST',
         headers: getAuthHeaders(),
         body: JSON.stringify(productData),
@@ -90,7 +90,7 @@ export const addProduct = async (productData) => {
 
 export const updateProduct = async (id, productData) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/admin/products/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/products/admin/${id}`, {
         method: 'PUT',
         headers: getAuthHeaders(),
         body: JSON.stringify(productData),
@@ -105,7 +105,7 @@ export const updateProduct = async (id, productData) => {
 
 export const deleteProduct = async (id) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/admin/products/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/products/admin/${id}`, {
         method: 'DELETE',
         headers: getAuthHeaders()
       });
@@ -119,7 +119,7 @@ export const deleteProduct = async (id) => {
 
 export const deleteInquiry = async (id) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/admin/inquiries/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/inquiries/admin/${id}`, {
         method: 'DELETE',
         headers: getAuthHeaders()
       });
@@ -133,7 +133,7 @@ export const deleteInquiry = async (id) => {
 
 export const updateInquiryStatus = async (id, status) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/admin/inquiries/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/inquiries/admin/${id}`, {
         method: 'PATCH',
         headers: getAuthHeaders(),
         body: JSON.stringify({ status }),

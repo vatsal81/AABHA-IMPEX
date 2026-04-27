@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Target, Eye, Plus, Minus, HelpCircle } from 'lucide-react';
+import { Target, Eye, Plus, Minus, HelpCircle, User } from 'lucide-react';
 import './About.css';
 
 const FAQItem = ({ question, answer }) => {

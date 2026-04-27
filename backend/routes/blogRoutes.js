@@ -34,4 +34,14 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
+// Update blog (Admin Only)
+router.put('/:id', auth, async (req, res) => {
+  try {
+    const updatedBlog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updatedBlog);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 module.exports = router;

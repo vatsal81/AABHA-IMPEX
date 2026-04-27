@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Lock, User, Loader2, AlertCircle } from 'lucide-react';
 import { login } from '../services/api';
 import './Login.css';
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { lng } = useParams();
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -23,7 +24,7 @@ const Login = () => {
       const data = await login(credentials);
       localStorage.setItem('adminToken', data.token);
       localStorage.setItem('adminUser', JSON.stringify(data.user));
-      navigate('/admin-portal');
+      navigate(`/${lng}/admin-portal`);
     } catch (err) {
       setError(err.message);
     }
@@ -53,15 +54,15 @@ const Login = () => {
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>Username</label>
+              <label>Email Address</label>
               <div className="input-with-icon">
                 <User size={18} />
                 <input 
-                  type="text" 
-                  name="username" 
-                  placeholder="admin"
+                  type="email" 
+                  name="email" 
+                  placeholder="admin@aabhaimpex.com"
                   required 
-                  value={credentials.username}
+                  value={credentials.email}
                   onChange={handleChange}
                 />
               </div>
