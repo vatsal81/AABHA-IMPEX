@@ -20,10 +20,17 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/aabha_impex';
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB Successfully'))
-  .catch(err => console.error('MongoDB Connection Error:', err));
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/aabha_impex';
+
+mongoose.connect(MONGODB_URI, {
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+})
+  .then(() => console.log('✅ Connected to MongoDB Successfully'))
+  .catch(err => {
+    console.error('❌ MongoDB Connection Error:', err.message);
+    process.exit(1); // Exit if DB connection fails
+  });
 
 // Routes
 app.use('/api/auth', authRoutes);
