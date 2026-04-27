@@ -77,7 +77,7 @@ const Contact = () => {
           <div className="contact-info-cards">
             {[
               { icon: <Mail size={24} />, title: t('contact_page.cards.email'), details: ["aabhaimpex209@gmail.com", "info@aabhaimpex.com"] },
-              { icon: <Phone size={24} />, title: t('contact_page.cards.call'), details: ["+91 99042 12151", "+91 82002 07666"] },
+              { icon: <Phone size={24} />, title: t('contact_page.cards.call'), details: ["+91 94268 68883", "+91 82002 07666"] },
               { icon: <MapPin size={24} />, title: t('contact_page.cards.visit'), details: ["Vavdi Industrial Area,", "Rajkot, Gujarat, India"] },
               { icon: <Clock size={24} />, title: t('contact_page.cards.hours'), details: [t('contact_page.cards.mon_sat'), t('contact_page.cards.sun')] }
             ].map((card, i) => (

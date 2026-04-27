@@ -376,7 +376,7 @@ const Home = () => {
               <p>{t('home.contact_cta.desc')}</p>
               
               <div className="cp-contact-info">
-                <div className="c-item"><Phone size={20} className="text-gold" /> <span>+91 99042 12151</span></div>
+                <div className="c-item"><Phone size={20} className="text-gold" /> <span>+91 94268 68883</span></div>
                 <div className="c-item"><Mail size={20} className="text-gold" /> <span>aabhaimpex209@gmail.com</span></div>
                 <div className="c-item"><MapPin size={20} className="text-gold" /> <span>Rajkot, Gujarat, India</span></div>
               </div>

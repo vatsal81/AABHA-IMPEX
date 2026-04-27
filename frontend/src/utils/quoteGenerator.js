@@ -62,7 +62,7 @@ export const generateQuotePDF = (data) => {
   doc.line(20, 260, 190, 260);
   doc.setFontSize(8);
   doc.text('This is an automated quotation based on initial inquiry. Official proforma invoice will follow.', 20, 267);
-  doc.text('Contact: info@aabhaimpex.com | +91 99042 12151', 20, 272);
+  doc.text('Contact: info@aabhaimpex.com | +91 94268 68883', 20, 272);
   
   // Save PDF
   doc.save(`AABHA_Quote_${data.name.replace(/ /g, '_')}.pdf`);
