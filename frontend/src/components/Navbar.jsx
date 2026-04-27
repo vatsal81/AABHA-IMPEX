@@ -66,7 +66,7 @@ const Navbar = () => {
       <div className="container nav-content">
         <div className="nav-left">
           <Link to={`/${lng}`} className="logo-container">
-            <Logo light={!scrolled && isHome} size={scrolled || !isHome ? 45 : 60} />
+            <Logo light={!scrolled && isHome} size={scrolled || !isHome ? 70 : 90} />
           </Link>
         </div>
 
