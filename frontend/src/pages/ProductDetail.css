@@ -1,0 +1,225 @@
+.product-detail-page {
+  background-color: var(--bg-main);
+}
+
+.detail-hero {
+  position: relative;
+  height: 70vh;
+  min-height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: var(--white);
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 140%; /* Tall for parallax */
+  z-index: 1;
+}
+
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(10, 25, 47, 0.4), var(--primary));
+  z-index: 2;
+}
+
+.detail-hero .container {
+  position: relative;
+  z-index: 3;
+}
+
+.back-link-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--secondary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  margin-bottom: 40px;
+  transition: var(--transition);
+}
+
+.back-link-premium:hover {
+  transform: translateX(-10px);
+  color: var(--white);
+}
+
+.hero-content h1 {
+  font-size: 5rem;
+  color: var(--white) !important;
+  margin-bottom: 20px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 30px;
+}
+
+.hero-meta span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--secondary-light);
+}
+
+/* Main Content */
+.detail-grid-v2 {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 60px;
+  align-items: flex-start;
+}
+
+.info-card {
+  background: var(--white);
+  padding: 50px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--bg-alt);
+  margin-bottom: 40px;
+}
+
+.info-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: var(--primary);
+}
+
+.description-long {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 2;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.benefit-pill {
+  background: var(--bg-alt);
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--primary);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Specs Card Premium */
+.specs-card-premium {
+  background: var(--primary);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  position: sticky;
+  top: 120px;
+}
+
+.card-header {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px 40px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-header h3 {
+  color: var(--white) !important;
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.specs-body {
+  padding: 40px;
+}
+
+.spec-row-premium {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.spec-row-premium:last-child {
+  border-bottom: none;
+}
+
+.s-label {
+  color: var(--light-slate);
+  font-size: 0.9rem;
+}
+
+.s-value {
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.packing-footer {
+  background: rgba(212, 175, 55, 0.1);
+  padding: 25px 40px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.packing-footer p {
+  font-size: 0.9rem;
+  margin: 0;
+  color: var(--secondary-light);
+}
+
+.detail-actions-v2 {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.premium-actions {
+  padding: 30px 40px;
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .detail-grid-v2 { grid-template-columns: 1fr; }
+  .specs-card-premium { position: static; }
+  .hero-content h1 { font-size: 3.5rem; }
+}
+
+@media (max-width: 768px) {
+  .detail-hero { height: 50vh; }
+  .hero-content h1 { font-size: 2.8rem; }
+  .hero-meta { flex-direction: column; gap: 10px; }
+  .info-card { padding: 30px; }
+}

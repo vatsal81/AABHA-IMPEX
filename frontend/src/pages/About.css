@@ -1,0 +1,313 @@
+/* 1. About Company Section */
+.about-company-section {
+    background: var(--bg-main);
+}
+
+.company-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.company-image-container {
+    position: relative;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.image-offset-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 80%;
+    border: 15px solid var(--secondary);
+    z-index: 1;
+}
+
+.company-image-container img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: auto;
+    border: 5px solid var(--white);
+    box-shadow: var(--shadow-md);
+    background: var(--white);
+}
+
+.company-text-container {
+    padding-top: 10px;
+}
+
+.sub-heading {
+    color: var(--secondary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.company-text-container h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.heading-line {
+    width: 50px;
+    height: 3px;
+    background: var(--secondary);
+    margin-bottom: 25px;
+}
+
+.company-text-container p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+/* 2. Vision and Mission Section */
+.vision-mission-section {
+    background: var(--secondary);
+    padding: 80px 0;
+}
+
+.vm-wrapper {
+    background: var(--white);
+    padding: 60px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+}
+
+.vm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+}
+
+.vm-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.vm-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.vm-icon {
+    color: var(--secondary);
+}
+
+.vm-box h3 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.vm-box p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.vm-box ul {
+    list-style-position: inside;
+    color: var(--text-muted);
+}
+
+.vm-box ul li {
+    margin-bottom: 15px;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    position: relative;
+    padding-left: 15px;
+}
+
+.vm-box ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 2px;
+    height: 100%;
+    background: var(--secondary);
+}
+
+/* 3. Team Section */
+.team-section {
+    background: var(--white);
+}
+
+.team-header {
+    margin-bottom: 50px;
+}
+
+.team-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.team-header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.team-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-avatar-placeholder {
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.05);
+}
+
+.team-info {
+    width: 90%;
+    background: var(--bg-alt);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 4px solid var(--secondary);
+    margin-top: -40px;
+    position: relative;
+    z-index: 2;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.team-info h4 {
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.team-info p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* FAQ Styles */
+.trade-faq-section {
+    background: var(--bg-alt);
+}
+
+.faq-wrapper-premium {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 80px;
+    align-items: flex-start;
+}
+
+.faq-info {
+    position: sticky;
+    top: 120px;
+}
+
+.faq-info h2 {
+    font-size: 3.5rem;
+    margin: 25px 0;
+}
+
+.faq-icon-bg {
+    color: var(--secondary);
+    opacity: 0.05;
+    margin-top: 40px;
+}
+
+.faq-list-premium {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-item-premium {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    cursor: pointer;
+    border: 1px solid var(--bg-alt);
+    transition: var(--transition);
+}
+
+.faq-item-premium:hover {
+    border-color: var(--secondary);
+    box-shadow: var(--shadow-md);
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+.faq-answer {
+    overflow: hidden;
+}
+
+.faq-answer p {
+    margin-top: 20px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .company-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .vm-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .vm-wrapper {
+        padding: 30px;
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .faq-wrapper-premium { 
+        grid-template-columns: 1fr; 
+        gap: 40px; 
+    }
+    
+    .faq-info { 
+        position: static; 
+    }
+    
+    .faq-info h2 { 
+        font-size: 2.8rem; 
+    }
+}

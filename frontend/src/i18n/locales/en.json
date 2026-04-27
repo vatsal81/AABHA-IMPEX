@@ -1,0 +1,320 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "services": "Services",
+    "export": "Global Export",
+    "about": "About Us",
+    "contact": "Contact",
+    "getQuote": "Get Quote",
+    "admin": "Admin Portal"
+  },
+  "home": {
+    "hero": {
+      "label": "BEYOND BOUNDARIES",
+      "title": "Welcome To <br /><span class=\"text-gold\">AABHA IMPEX</span>",
+      "desc": "Our Company is engaged in the trading and marketing of agricultural produce and commodities such as sugar, spices like dry red chillies, turmeric, coriander, cumin seeds, food grains like rice, wheat, corn, sorghum, and tea, pulses, and agricultural feed.",
+      "cta_quote": "Get a Quote",
+      "cta_services": "Our Services",
+      "experience": "Years of <br />Excellence"
+    },
+    "about": {
+      "label": "WHO WE ARE",
+      "title": "Reliable Partner in International Trade",
+      "desc": "AABHA IMPEX stands at the forefront of the global import-export landscape. Based in India, we specialize in bridging the gap between quality producers and international buyers through efficient logistics and transparent documentation.",
+      "reach_title": "Global Reach",
+      "reach_desc": "Connecting markets across Asia, Middle East, Europe, and Africa.",
+      "integrity_title": "Integrity First",
+      "integrity_desc": "Transparent dealings and ethical business practices in every trade.",
+      "learn_more": "Learn More About Our Mission"
+    },
+    "services": {
+      "label": "OUR EXPERTISE",
+      "title": "Comprehensive Trade Solutions",
+      "desc": "We handle the complexities of international trade so you can focus on growing your business.",
+      "import": {
+        "title": "Import Services",
+        "desc": "Sourcing premium products globally and handling all local clearances for a smooth entry."
+      },
+      "export": {
+        "title": "Export Services",
+        "desc": "Strategic placement of your products in international markets with optimized supply chains."
+      },
+      "docs": {
+        "title": "Documentation & Compliance",
+        "desc": "Expert handling of licenses, customs paperwork, and international trade regulations."
+      },
+      "logistics": {
+        "title": "Logistics & Shipping",
+        "desc": "End-to-end freight management, from warehouse to port, ensuring timely delivery."
+      }
+    },
+    "global": {
+      "label": "GLOBAL FOOTPRINT",
+      "title": "Serving Markets Worldwide",
+      "desc": "Our strategic network allows us to operate seamlessly across key global trade hubs, ensuring efficient transit and local expertise in diverse regions."
+    },
+    "industries": {
+      "label": "TRADED INDUSTRIES",
+      "title": "Quality Without Compromise",
+      "agriculture": "Agriculture",
+      "chemicals": "Chemicals",
+      "textiles": "Textiles",
+      "machinery": "Machinery",
+      "products_count": "50+ Products",
+      "compounds_count": "20+ Compounds",
+      "high_grade": "High Grade",
+      "industrial": "Industrial",
+      "explore": "Explore"
+    },
+    "why": {
+      "label": "THE AABHA ADVANTAGE",
+      "title": "Why Global Businesses <br />Trust Us",
+      "desc": "We combine decades of industrial expertise with modern logistics technology to deliver unmatched value.",
+      "reliability": "Network Reliability",
+      "compliance": "Compliance Accuracy",
+      "satisfaction": "Client Satisfaction",
+      "trusted_network": {
+        "title": "Trusted Network",
+        "desc": "Verified partners across 30+ countries."
+      },
+      "fast_docs": {
+        "title": "Fast Documentation",
+        "desc": "Zero-error paperwork for rapid clearances."
+      },
+      "pricing": {
+        "title": "Competitive Pricing",
+        "desc": "Optimized supply chain for better margins."
+      },
+      "expertise": {
+        "title": "Global Expertise",
+        "desc": "In-depth knowledge of international trade laws."
+      }
+    },
+    "testimonials": {
+      "label": "CLIENT VOICES",
+      "title": "Trusted by Global Partners",
+      "list": [
+        { "name": "John Schmidt", "role": "Logistics Director, Germany", "text": "AABHA IMPEX has been our most reliable partner in Asia. Their attention to detail in documentation is unparalleled." },
+        { "name": "Ahmed Al-Farsi", "role": "Trading House CEO, Dubai", "text": "Transparent communication and high-quality agricultural products. We've seen consistent growth in our partnership." },
+        { "name": "Sarah Chen", "role": "Sourcing Manager, Singapore", "text": "The speed and efficiency of their export services saved us significant time and resources on our last textile shipment." }
+      ]
+    },
+    "contact_cta": {
+      "title": "Start Your Global <br /><span class=\"text-gold\">Trade</span> Journey Today",
+      "desc": "Ready to expand your market presence? Our trade experts are standing by to assist you.",
+      "btn": "Contact Us Now"
+    }
+  },
+  "footer": {
+    "tagline": "Bridging Indian farms to global markets with excellence, integrity, and trust. Rajkot's leading merchant export house.",
+    "quick_links": "Quick Links",
+    "contact_info": "Contact Info",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "about_page": {
+    "header": {
+      "label": "ESTABLISHED EXCELLENCE",
+      "title": "Legacy of <span class=\"italic\">Trust</span>",
+      "desc": "Bridging Indian quality with global demand through transparency and uncompromising standards."
+    },
+    "story": {
+      "subtitle": "OUR STORY",
+      "title": "Pioneering the Future of <span class=\"text-gold\">Merchant Exports</span>",
+      "p1": "AABHA IMPEX was initially established with a vision to become a world-class merchant export house. Initially focused on domestic agricultural supply, we diversified into international trade to meet the rising global demand for premium Indian commodities. Today, we are a prominent exporter of spices, pulses, grains, and industrial components, with a strong presence across Asia, the Middle East, and Europe.",
+      "p2": "As an emerging <strong>Two Star Export House</strong> recognized for excellence, AABHA IMPEX is registered with the Spices Board of India, APEDA, and FIEO. We maintain a strategic ability to switch between commodities based on market demand and seasonal pricing, ensuring that we deliver high-quality products like sugar, corn, and spices at the most competitive rates. With a global network spanning from India to our strategic partners in the UAE and beyond, we ensure end-to-end reliability in every shipment.",
+      "stats": {
+        "products": "Product Types",
+        "markets": "Global Markets",
+        "satisfaction": "Satisfaction",
+        "certified": "Certified Export House"
+      }
+    },
+    "values": {
+      "label": "OUR CORE",
+      "title": "Values That Drive Us",
+      "desc": "The principles that define every partnership we undertake.",
+      "v1": { "title": "Integrity", "desc": "Honesty and transparency are the bedrocks of our global business relations." },
+      "v2": { "title": "Precision", "desc": "From documentation to delivery, we ensure every detail is meticulously handled." },
+      "v3": { "title": "Agility", "desc": "Rapid response times and adaptive logistics to meet changing market demands." },
+      "v4": { "title": "Commitment", "desc": "We are committed to the growth of our farmers and the success of our clients." }
+    },
+    "vision": {
+      "label": "THE VISION",
+      "title": "Leading the Way in <span class=\"text-gold\">Quality Exports</span>",
+      "desc": "Our vision is to become India's most trusted gateway for the global marketplace. We aim to revolutionize the merchant export industry by integrating modern technology with traditional trade values, ensuring that \"Make in India\" is synonymous with \"Excellence Worldwide.\"",
+      "leadership": "The Leadership Team"
+    }
+  },
+  "global_export": {
+    "header": {
+      "label": "GLOBAL REACH",
+      "title": "World Class <span class=\"italic\">Export House</span>",
+      "desc": "Exporting premium Indian agricultural produce and industrial components to over 15+ countries."
+    },
+    "process": {
+      "label": "OUR PROCESS",
+      "title": "Seamless Export Roadmap",
+      "desc": "From the farms of India to your destination, we manage every step with precision.",
+      "steps": {
+        "s1": { "title": "1. Inquiry & Quotation", "desc": "Receive and analyze global requirements to provide competitive, transparent pricing." },
+        "s2": { "title": "2. Quality Inspection", "desc": "Multi-level quality checks ensuring compliance with APEDA, FDA, and ISO standards." },
+        "s3": { "title": "3. Custom Packaging", "desc": "Freshness-locked, export-grade packaging tailored to destination requirements." },
+        "s4": { "title": "4. Logistics & Documentation", "desc": "Expert handling of IEC, Phyto certificates, and multi-modal global shipping." },
+        "s5": { "title": "5. Global Delivery", "desc": "On-time delivery to your doorstep across 15+ countries worldwide." }
+      }
+    },
+    "geography": {
+      "label": "GEOGRAPHY",
+      "title": "Our Global Footprint",
+      "desc": "AABHA IMPEX is proud to serve a diverse global clientele across four continents, ensuring Indian excellence reaches every corner of the world.",
+      "middle_east": "Middle East",
+      "europe": "Europe",
+      "asia": "Asia",
+      "americas": "Americas"
+    },
+    "compliance": {
+      "title": "Certifications & Compliance",
+      "desc": "Ensuring the highest standards of quality and international safety protocols."
+    },
+    "cta": {
+      "title": "Start Your Global Partnership",
+      "desc": "Connect with our expert export team for a customized sourcing solution.",
+      "btn": "Request Export Quote"
+    }
+  },
+  "contact_page": {
+    "header": {
+      "label": "GET IN TOUCH",
+      "title": "Let's Connect <span class=\"italic\">Globally</span>",
+      "desc": "Our dedicated team is ready to assist you with global trade inquiries and expert product sourcing."
+    },
+    "cards": {
+      "email": "Email Us",
+      "call": "Call Us",
+      "visit": "Visit Us",
+      "hours": "Working Hours",
+      "mon_sat": "Mon - Sat: 9:00 AM - 7:00 PM",
+      "sun": "Sun: Closed"
+    },
+    "form": {
+      "title": "Direct Inquiry Form",
+      "desc": "Fill out the form below and we'll respond as soon as possible.",
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "subject": "Inquiry Type",
+      "message": "Your Message",
+      "placeholder_name": "John Smith",
+      "placeholder_email": "john@example.com",
+      "placeholder_phone": "+91 00000 00000",
+      "placeholder_message": "How can we help you?",
+      "btn_send": "Send Message",
+      "success_title": "Message Sent!",
+      "success_desc": "Thank you for reaching out. Our team will get back to you within 24 hours.",
+      "btn_another": "Send Another",
+      "subjects": {
+        "general": "General Inquiry",
+        "sourcing": "Product Sourcing",
+        "bulk": "Bulk Order",
+        "partnership": "Partnership"
+      },
+      "toast_success": "Inquiry submitted successfully!",
+      "toast_error": "Failed to send inquiry. Please try again."
+    }
+  },
+  "services_page": {
+    "header": {
+      "label": "OUR EXPERTISE",
+      "title": "Comprehensive <span class=\"italic\">Trade Solutions</span>",
+      "desc": "From sourcing to doorstep delivery, we provide end-to-end excellence in global merchant exports."
+    },
+    "list": {
+      "s1": {
+        "title": "Merchant Export",
+        "desc": "Direct sourcing and global distribution of premium Indian agricultural products. We manage everything from farm-level quality control to international shipping.",
+        "p1": "Quality Sourcing", "p2": "Packaging Excellence", "p3": "Global Logistics"
+      },
+      "s2": {
+        "title": "Customs & Documentation",
+        "desc": "Navigating the complexities of international trade paperwork. We ensure 100% compliance with customs, certificates of origin, and phytosanitary requirements.",
+        "p1": "IEC Registration", "p2": "Customs Clearance", "p3": "Phytosanitary Certificates"
+      },
+      "s3": {
+        "title": "Trade Consultancy",
+        "desc": "Strategic advisory for global market entry. We help you analyze demand, set competitive pricing, and understand international trade regulations.",
+        "p1": "Market Analysis", "p2": "Pricing Strategy", "p3": "Compliance Audits"
+      },
+      "s4": {
+        "title": "Global Sourcing Agency",
+        "desc": "Acting as your dedicated partner in India. We verify vendors, negotiate prices, and perform pre-shipment inspections to protect your interests.",
+        "p1": "Vendor Verification", "p2": "Quality Inspection", "p3": "Price Negotiation"
+      },
+      "inquire": "Inquire"
+    },
+    "quality": {
+      "title": "Uncompromising Quality Standards",
+      "desc": "At AABHA IMPEX, we don't just export products; we export trust. Every shipment undergoes rigorous multi-level inspections to meet international safety and quality benchmarks.",
+      "b1": "100% Organic Sourcing",
+      "b2": "FDA & APEDA Compliant",
+      "b3": "Global Logistics Reach",
+      "exp": "Years of Excellence"
+    }
+  },
+  "products_page": {
+    "header": {
+      "label": "OUR COLLECTIONS",
+      "title": "Quality & <span class=\"italic\">Freshness</span>",
+      "desc": "Hand-picked agricultural excellence, directly sourced for the global marketplace."
+    },
+    "filter": {
+      "all": "All",
+      "seeds": "Seeds",
+      "pulses": "Pulses",
+      "spices": "Spices",
+      "construction": "Construction",
+      "search": "Search our selection..."
+    },
+    "card": {
+      "view_details": "View Details"
+    }
+  },
+  "product_detail": {
+    "back": "Back to Collections",
+    "loading": "Loading Product Excellence...",
+    "not_found": "Product not found",
+    "premium_tag": "PREMIUM EXPORT QUALITY",
+    "specs": "Specifications",
+    "benefits": "Key Benefits",
+    "packing": "Packaging Details",
+    "inquire_now": "Inquire Now",
+    "download_specs": "Download Specs"
+  },
+  "common": {
+    "loading": "Loading...",
+    "search": "Search...",
+    "category": "Category",
+    "view_details": "View Details",
+    "select_language": "Select Language",
+    "overview": "Overview"
+  },
+  "blog_page": {
+    "header": {
+      "label": "TRADE INSIGHTS",
+      "title": "Knowledge Beyond <span class=\"italic\">Borders</span>",
+      "desc": "Expert analysis on global trade, logistics, and the future of Indian exports."
+    },
+    "newsletter": {
+      "title": "Subscribe to Trade <span class=\"text-gold\">Intelligence</span>",
+      "desc": "Get monthly market reports and policy updates directly in your inbox.",
+      "placeholder": "Your professional email",
+      "btn": "Subscribe"
+    }
+  },
+  "seo": {
+    "default_title": "AABHA IMPEX | Premium Indian Export House",
+    "default_description": "AABHA IMPEX exports premium Indian agricultural produce (Seeds, Pulses, Spices) and industrial components to over 15+ countries worldwide."
+  }
+}
