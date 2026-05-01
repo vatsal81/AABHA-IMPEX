@@ -44,7 +44,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="footer-certs">
+          {/* <div className="footer-certs">
             <h3>{t('footer.certifications') || 'Global Certifications'}</h3>
             <div className="cert-grid">
               <div className="cert-badge" title="Agricultural and Processed Food Products Export Development Authority">
@@ -60,7 +60,8 @@ const Footer = () => {
                  <span>ISO 9001</span>
               </div>
             </div>
-          </div>
+          </div> */}
+
         </div>
         
         <div className="footer-bottom">
