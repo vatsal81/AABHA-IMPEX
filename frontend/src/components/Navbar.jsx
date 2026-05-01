@@ -59,9 +59,10 @@ const Navbar = () => {
     { name: t('nav.products'), path: `/${lng}/products`, icon: <Package size={20} />, dropdown: productCategories },
     { name: t('nav.services'), path: `/${lng}/services`, icon: <Settings size={20} /> },
     { name: t('nav.export'), path: `/${lng}/global-export`, icon: <Globe size={20} /> },
-    { name: t('nav.about'), path: `/${lng}/about`, icon: <Users size={20} /> },
+    // { name: t('nav.about'), path: `/${lng}/about`, icon: <Users size={20} /> },
     { name: t('nav.insights'), path: `/${lng}/blog`, icon: <FileText size={20} /> },
     { name: t('nav.contact'), path: `/${lng}/contact`, icon: <Phone size={20} /> },
+
   ];
 
   const languages = [
