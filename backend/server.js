@@ -30,9 +30,11 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/aabha_
 const connectDB = async () => {
   try {
     await mongoose.connect(MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 10000, // Increased timeout
       socketTimeoutMS: 45000,
       autoIndex: true,
+      family: 4, // Force IPv4 (fixes many ECONNREFUSED issues)
+      retryWrites: true,
     });
     console.log('✅ Connected to MongoDB Successfully');
   } catch (err) {
