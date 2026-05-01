@@ -1,4 +1,4 @@
-name: AABHA IMPEX CI/CD Pipeline
+name: AABHA IMPEX CI/CD
 
 on:
   push:
@@ -7,43 +7,57 @@ on:
     branches: [ "main", "master" ]
 
 jobs:
-  build-and-test-frontend:
+  validate-backend:
+    name: Backend CI
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
-    
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Use Node.js 18.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-        cache: 'npm'
-        cache-dependency-path: ./frontend/package-lock.json
-        
-    - name: Install Frontend Dependencies
-      run: npm ci || npm install
+      - uses: actions/checkout@v4
       
-    - name: Build Frontend (Test)
-      run: npm run build
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
 
-  build-and-test-backend:
+      - name: Install Dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Lint Backend
+        working-directory: backend
+        run: |
+          # Only run if lint script exists
+          npm run lint --if-present
+
+  validate-frontend:
+    name: Frontend CI
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend
-        
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Use Node.js 18.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-        cache: 'npm'
-        cache-dependency-path: ./backend/package-lock.json
-        
-    - name: Install Backend Dependencies
-      run: npm ci || npm install
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build Frontend
+        working-directory: frontend
+        run: npm run build
+
+  # Example Deployment Job (can be configured for Vercel/Render/etc)
+  deploy:
+    name: Deployment
+    needs: [validate-backend, validate-frontend]
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deployment Placeholder
+        run: echo "Ready for deployment! Add your Vercel/Render/AWS tokens to GitHub Secrets to automate this step."
+
