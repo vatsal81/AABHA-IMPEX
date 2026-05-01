@@ -478,8 +478,33 @@
         display: flex;
     }
     .nav-floating-container {
-        padding: 10px 25px;
+        padding: 8px 15px;
         border-radius: 50px;
-        margin: 0 20px;
+        margin: 0 10px;
+    }
+    .navbar-wrapper {
+        padding: 15px 0;
+    }
+    .navbar-wrapper.scrolled {
+        padding: 10px 0;
+    }
+    .logo-container svg {
+        width: 50px;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-drawer {
+        padding: 40px 20px;
+    }
+    .mobile-link {
+        font-size: 1.4rem;
+    }
+    .mobile-drawer-header {
+        margin-bottom: 40px;
+    }
+    .logo-text {
+        font-size: 1.5rem;
     }
 }
