@@ -333,7 +333,7 @@
 }
 
 /* ============================================
-   PREMIUM EXPORT SHEET — PRINT STYLES
+   PREMIUM EXPORT SHEET ï¿½ PRINT STYLES
    ============================================ */
 
 /* Screen: hide print view, show web view */
@@ -682,7 +682,7 @@
 .es-footer-right { text-align: right; }
 
 /* ============================================
-   PRINT MEDIA QUERY — FINAL RENDERING
+   PRINT MEDIA QUERY ï¿½ FINAL RENDERING
    ============================================ */
 @media print {
   @page {
