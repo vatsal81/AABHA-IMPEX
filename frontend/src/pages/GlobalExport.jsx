@@ -85,19 +85,38 @@ const GlobalExport = () => {
 
   return (
     <div className="global-export-page">
-      <section className="page-header">
+      <section className="global-export-hero">
         <div className="container">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            className="hero-content-box"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <span className="label">{t('global_export.header.label')}</span>
             <h1 dangerouslySetInnerHTML={{ __html: t('global_export.header.title') }}></h1>
             <p>{t('global_export.header.desc')}</p>
+            <div className="hero-actions">
+              <button className="btn btn-secondary">{t('global_export.process.label')}</button>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            className="hero-visual-container"
+            initial={{ opacity: 0, scale: 0.8, x: 50 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
+            <div className="outer-container-box">
+              <div className="inner-image-box">
+                <img src="/export_container_floating_1777623496930.png" alt="Global Logistics" />
+              </div>
+              <div className="floating-accent"></div>
+            </div>
           </motion.div>
         </div>
       </section>
+
 
       {/* Export Process Roadmap */}
       <section className="section-padding">
