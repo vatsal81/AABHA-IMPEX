@@ -1,13 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Globe, Ship, ShieldCheck, ClipboardCheck, Package, Truck, ArrowRight, CheckCircle, X, Download, Eye } from 'lucide-react';
 import WorldMap from '../components/WorldMap';
+import { fetchCertificates } from '../services/api';
+import Skeleton from '../components/Skeleton';
 import './GlobalExport.css';
 
 const GlobalExport = () => {
   const { t } = useTranslation();
   const [selectedCert, setSelectedCert] = useState(null);
+  const [certificates, setCertificates] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isWindowFocused, setIsWindowFocused] = useState(true);
+
+  useEffect(() => {
+    const handleFocus = () => setIsWindowFocused(true);
+    const handleBlur = () => setIsWindowFocused(false);
+    
+    const handleKeyDown = (e) => {
+        if (e.key === 'PrintScreen' || (e.ctrlKey && e.key === 'p')) {
+            alert("Screenshots and printing are restricted for this document.");
+            e.preventDefault();
+        }
+    };
+
+    const loadCerts = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchCertificates();
+        setCertificates(data);
+      } catch (error) {
+        console.error("Error loading certificates:", error);
+      }
+      setLoading(false);
+    };
+
+    loadCerts();
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('blur', handleBlur);
+    window.addEventListener('keyup', handleKeyDown);
+    
+    return () => {
+        window.removeEventListener('focus', handleFocus);
+        window.removeEventListener('blur', handleBlur);
+        window.removeEventListener('keyup', handleKeyDown);
+    };
+  }, []);
 
   const exportSteps = [
     {
@@ -42,14 +81,6 @@ const GlobalExport = () => {
     { region: t('global_export.geography.europe'), list: ["UK", "Germany", "Netherlands", "Belgium", "Spain"] },
     { region: t('global_export.geography.asia'), list: ["Singapore", "Malaysia", "Vietnam", "Thailand"] },
     { region: t('global_export.geography.americas'), list: ["USA", "Canada"] }
-  ];
-
-  const certifications = [
-    { id: 1, name: 'APEDA', full: 'Agricultural & Processed Food Products Export Development Authority', icon: <ShieldCheck size={40} /> },
-    { id: 2, name: 'FSSAI', full: 'Food Safety and Standards Authority of India', icon: <ShieldCheck size={40} /> },
-    { id: 3, name: 'ISO 9001:2015', full: 'Quality Management System Certification', icon: <ShieldCheck size={40} /> },
-    { id: 4, name: 'US FDA', full: 'United States Food and Drug Administration Registration', icon: <ShieldCheck size={40} /> },
-    { id: 5, name: 'FIEO', full: 'Federation of Indian Export Organisations', icon: <ShieldCheck size={40} /> }
   ];
 
   return (
@@ -149,28 +180,34 @@ const GlobalExport = () => {
         <div className="container">
             <div className="section-title text-center">
                 <span className="label">COMPLIANCE</span>
-                <h2>{t('global_export.compliance.title')}</h2>
-                <p>{t('global_export.compliance.desc')}</p>
+                <h2>{t('global_export.compliance.title') || 'Certifications & Compliance'}</h2>
+                <p>{t('global_export.compliance.desc') || 'Ensuring the highest standards of quality and international safety protocols.'}</p>
             </div>
-            <div className="cert-grid-premium">
-                {certifications.map((cert) => (
-                    <motion.div 
-                        key={cert.id} 
-                        className="cert-card-premium"
-                        whileHover={{ y: -10 }}
-                        onClick={() => setSelectedCert(cert)}
-                    >
-                        <div className="cert-icon-premium">
-                            {cert.icon}
-                        </div>
-                        <h3>{cert.name}</h3>
-                        <p>{cert.full}</p>
-                        <div className="cert-action">
-                            <Eye size={18} /> <span>View Certificate</span>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
+            {loading ? (
+                <div className="cert-grid-premium">
+                    {[1,2,3,4,5].map(i => <Skeleton key={i} height="200px" />)}
+                </div>
+            ) : (
+                <div className="cert-grid-premium">
+                    {certificates.map((cert) => (
+                        <motion.div 
+                            key={cert._id} 
+                            className="cert-card-premium"
+                            whileHover={{ y: -10 }}
+                            onClick={() => setSelectedCert(cert)}
+                        >
+                            <div className="cert-icon-premium">
+                                {cert.imageUrl ? <img src={cert.imageUrl} alt={cert.name} style={{width: '60px', height: '60px', objectFit: 'contain'}} /> : <ShieldCheck size={40} />}
+                            </div>
+                            <h3>{cert.name}</h3>
+                            <p>{cert.fullName}</p>
+                            <div className="cert-action">
+                                <Eye size={18} /> <span>View Certificate</span>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            )}
         </div>
       </section>
 
@@ -194,17 +231,45 @@ const GlobalExport = () => {
                     <button className="close-modal" onClick={() => setSelectedCert(null)}><X size={24} /></button>
                     <div className="modal-header">
                         <h2>{selectedCert.name} Certification</h2>
-                        <p>{selectedCert.full}</p>
+                        <p>{selectedCert.fullName}</p>
                     </div>
-                    <div className="modal-body">
-                        <div className="cert-preview-placeholder">
-                            <ShieldCheck size={120} className="text-gold" />
-                            <p>Official Verification Document</p>
-                            <span className="seal">AABHA IMPEX EXCELLENCE</span>
-                        </div>
+                    <div 
+                        className="modal-body" 
+                        style={{ userSelect: 'none', filter: isWindowFocused ? 'none' : 'blur(40px)', transition: 'filter 0.3s' }} 
+                        onContextMenu={(e) => e.preventDefault()}
+                    >
+                        {selectedCert.fileUrl ? (
+                            <div className="cert-image-preview">
+                                {selectedCert.fileUrl.toLowerCase().endsWith('.pdf') ? (
+                                    <iframe 
+                                        src={`${selectedCert.fileUrl}#toolbar=0&navpanes=0&scrollbar=0`} 
+                                        title={selectedCert.name}
+                                        style={{width: '100%', height: '60vh', border: 'none', borderRadius: '8px'}}
+                                    />
+                                ) : (
+                                    <img 
+                                        src={selectedCert.fileUrl} 
+                                        alt={selectedCert.name} 
+                                        style={{width: '100%', maxHeight: '70vh', objectFit: 'contain', borderRadius: '8px', pointerEvents: 'none'}} 
+                                    />
+                                )}
+                                <div className="cert-overlay-protection">
+                                    <div className="watermark-container">
+                                        {[...Array(9)].map((_, i) => (
+                                            <span key={i} className="watermark-text">OFFICIAL DOCUMENT - DO NOT COPY</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="cert-preview-placeholder">
+                                <ShieldCheck size={120} className="text-gold" />
+                                <p>Official Verification Document</p>
+                                <span className="seal">AABHA IMPEX EXCELLENCE</span>
+                            </div>
+                        )}
                     </div>
                     <div className="modal-footer">
-                        <button className="btn btn-outline btn-sm"><Download size={16} /> Download Copy</button>
                         <button className="btn btn-primary btn-sm" onClick={() => setSelectedCert(null)}>Close</button>
                     </div>
                 </motion.div>

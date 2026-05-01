@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Target, Eye, Plus, Minus, HelpCircle, User } from 'lucide-react';
+import { Target, Eye, Plus, Minus, HelpCircle, User, Award, ShieldCheck, Clock, Lightbulb, TrendingUp } from 'lucide-react';
 import './About.css';
 
 const FAQItem = ({ question, answer }) => {
@@ -146,6 +146,59 @@ const About = () => {
                 </ul>
               </motion.div>
 
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2.5 Our Values Section (Pisum Style) */}
+      <section className="section-padding about-values-section">
+        <div className="container">
+          <div className="section-header text-center">
+             <span className="label">PRINCIPLES</span>
+             <h2>Our Core <span className="text-gold">Values</span></h2>
+             <div className="heading-line-centered"></div>
+          </div>
+
+          <div className="values-modern-grid">
+            <div className="value-item">
+              <div className="value-icon-badge">
+                <Award size={40} />
+              </div>
+              <h4>Best Quality Services</h4>
+              <p>When it comes to food, there must be no compromise. This is why we strive to provide you with the best quality services to ensure that the food stays healthy and fresh.</p>
+            </div>
+
+            <div className="value-item">
+              <div className="value-icon-badge">
+                <TrendingUp size={40} />
+              </div>
+              <h4>Vast Experience in Food Trading</h4>
+              <p>Our vast experience in the food industry is what makes us the ideal choice for your food trading needs.</p>
+            </div>
+
+            <div className="value-item center-item">
+              <div className="value-icon-badge">
+                <ShieldCheck size={40} />
+              </div>
+              <h4>Trusted & Legally Approved Certified Services</h4>
+              <p>Being a legally certified food export company in India, our services are transparent and trustworthy.</p>
+            </div>
+
+            <div className="value-item">
+              <div className="value-icon-badge">
+                <Clock size={40} />
+              </div>
+              <h4>Commitment & Time Adherence</h4>
+              <p>Time is a huge factor when it comes to food. This is why, at AABHA, we are committed to ensuring that we get the job done on schedule without fail.</p>
+            </div>
+
+            <div className="value-item">
+              <div className="value-icon-badge">
+                <Lightbulb size={40} />
+              </div>
+              <h4>Innovation</h4>
+              <p>Using innovative methods and equipment, we ensure that the food is packaged and stored to the best standards.</p>
             </div>
           </div>
         </div>

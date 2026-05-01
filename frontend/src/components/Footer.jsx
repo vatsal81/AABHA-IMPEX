@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, ArrowRight, Globe } from 'lucide-react';
+import Logo from './Logo';
 import './Footer.css';
 
 const Footer = () => {
@@ -13,12 +14,14 @@ const Footer = () => {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <h2 className="logo-text">AABHA IMPEX</h2>
+            <Link to={`/${lng}`} style={{ display: 'inline-block', marginBottom: '25px' }}>
+              <Logo size={60} />
+            </Link>
             <p>{t('footer.tagline')}</p>
             <div className="social-links">
-              <a href="#"><Instagram size={20} /></a>
-              <a href="#"><Facebook size={20} /></a>
-              <a href="#"><Linkedin size={20} /></a>
+              <a href="https://www.instagram.com/aabhaimpex?igsh=ZW05M3VsMWFweWEz" target="_blank" rel="noopener noreferrer"><Instagram size={20} /></a>
+              <a href="https://www.linkedin.com/company/aabha-impex/" target="_blank" rel="noopener noreferrer"><Linkedin size={20} /></a>
+              <a href="https://www.globallinker.com/seller/aabha-impex" target="_blank" rel="noopener noreferrer" title="Global Linker"><Globe size={20} /></a>
             </div>
           </div>
 
@@ -39,6 +42,24 @@ const Footer = () => {
               <li><Phone size={18} /> +91 94268 68883</li>
               <li><MapPin size={18} /> Vavdi Industrial Area, Rajkot, Gujarat</li>
             </ul>
+          </div>
+
+          <div className="footer-certs">
+            <h3>{t('footer.certifications') || 'Global Certifications'}</h3>
+            <div className="cert-grid">
+              <div className="cert-badge" title="Agricultural and Processed Food Products Export Development Authority">
+                 <span>APEDA</span>
+              </div>
+              <div className="cert-badge" title="Food Safety and Standards Authority of India">
+                 <span>FSSAI</span>
+              </div>
+              <div className="cert-badge" title="Import Export Code">
+                 <span>IEC</span>
+              </div>
+              <div className="cert-badge" title="ISO 9001:2015 Certified">
+                 <span>ISO 9001</span>
+              </div>
+            </div>
           </div>
         </div>
         

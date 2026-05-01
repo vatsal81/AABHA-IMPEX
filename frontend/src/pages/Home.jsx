@@ -11,6 +11,8 @@ import { fetchProducts } from '../services/api';
 import SEO from '../components/SEO';
 import TestimonialSlider from '../components/TestimonialSlider';
 import WorldMap from '../components/WorldMap';
+import { ProductSkeleton } from '../components/Skeleton';
+import heroImg from '../assets/hero.png';
 import './Home.css';
 
 const Home = () => {
@@ -71,7 +73,7 @@ const Home = () => {
         <div className="hero-atmosphere">
           <div className="hero-sky-overlay"></div>
           <img 
-            src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=2000" 
+            src={heroImg} 
             alt="International Trade" 
             className="hero-backdrop" 
           />
@@ -80,28 +82,79 @@ const Home = () => {
         <div className="container hero-inner-classic">
           <div className="hero-main-layout">
             <motion.div 
-              initial={{ opacity: 0, x: -60 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="hero-classic-text"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.2
+                  }
+                }
+              }}
             >
-              <div className="classic-pre-title">
+              <motion.div 
+                className="classic-pre-title"
+                variants={{
+                  hidden: { opacity: 0, x: -20 },
+                  visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+                }}
+              >
                 <span className="gold-line"></span>
-                <span>BEYOND BOUNDARIES</span>
-              </div>
-              <h1 className="classic-heading" dangerouslySetInnerHTML={{ __html: t('home.hero.title') }}></h1>
-              <p className="classic-subtext">
-                {t('home.hero.desc')}
-              </p>
+                <span>{t('home.hero.label')}</span>
+              </motion.div>
               
-              <div className="classic-button-row">
+              <motion.h1 
+                className="classic-heading"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: { 
+                    opacity: 1, 
+                    transition: { 
+                      staggerChildren: 0.05,
+                      delayChildren: 0.2
+                    } 
+                  }
+                }}
+              >
+                {t('home.hero.title').split('').map((char, index) => (
+                  <motion.span
+                    key={index}
+                    style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
+                    variants={{
+                      hidden: { opacity: 0, y: 30, scale: 0.9 },
+                      visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", damping: 12, stiffness: 100 } }
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </motion.h1>
+
+              <motion.p 
+                className="classic-subtext"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 1, delay: 0.8 } }
+                }}
+              >
+                {t('home.hero.desc')}
+              </motion.p>
+              
+              <motion.div 
+                className="classic-button-row"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 1, delay: 1 } }
+                }}
+              >
                 <Link to={`/${lng}/contact`} className="btn-gold-filled">
                   {t('home.hero.cta_quote')} <ArrowRight size={18} />
                 </Link>
                 <Link to={`/${lng}/services`} className="btn-glass-outline">
                   {t('home.hero.cta_services')}
                 </Link>
-              </div>
+              </motion.div>
             </motion.div>
 
             <motion.div 
@@ -112,7 +165,7 @@ const Home = () => {
             >
               <div className="classic-glass-badge">
                 <div className="badge-inner-glow"></div>
-                <span className="badge-number">15+</span>
+                <span className="badge-number">5+</span>
                 <span className="badge-label">YEARS OF</span>
                 <span className="badge-sub">EXCELLENCE</span>
               </div>
@@ -219,6 +272,8 @@ const Home = () => {
         </div>
       </section>
 
+
+
       {/* 4. Global Presence Section */}
       <section className="section-padding global-presence">
         <div className="container">
@@ -238,6 +293,21 @@ const Home = () => {
               <span>{t('global_export.geography.europe')}</span>
               <span>Africa</span>
               <span>{t('global_export.geography.americas')}</span>
+            </div>
+
+            <div className="presence-stats">
+              <div className="stat-item">
+                <span className="stat-num">25+</span>
+                <span className="stat-label">Countries Served</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-num">24/7</span>
+                <span className="stat-label">Global Logistics</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-num">500+</span>
+                <span className="stat-label">Bulk Shipments</span>
+              </div>
             </div>
           </motion.div>
           
@@ -286,7 +356,7 @@ const Home = () => {
                       <div className="ind-overlay">
                         <span className="ind-count">{product.category}</span>
                         <h3>{product.name}</h3>
-                        <Link to={`/${lng}/products/${product._id}`} className="ind-btn">
+                        <Link to={`/${lng}/${product.category.toLowerCase()}/${product.slug}`} className="ind-btn">
                            View Details <ArrowRight size={16} />
                         </Link>
                       </div>
@@ -294,8 +364,8 @@ const Home = () => {
                   </motion.div>
                 ))
             ) : (
-                <div className="no-products-message">
-                   <p>Fetching latest products from our global catalog...</p>
+                <div className="products-skeleton-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '30px', width: '100%' }}>
+                  {[1, 2, 3, 4].map(i => <ProductSkeleton key={i} />)}
                 </div>
             )}
           </div>
@@ -303,7 +373,7 @@ const Home = () => {
       </section>
 
       {/* 6. Why Choose Us Section */}
-      <section className="section-padding bg-dark why-choose-us">
+      <section className="section-padding why-choose-us">
         <div className="container">
           <div className="why-grid">
             <div className="why-header">

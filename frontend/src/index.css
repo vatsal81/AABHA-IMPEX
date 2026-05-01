@@ -10,9 +10,10 @@
   
   /* Neutral Colors */
   --white: #ffffff;
-  --bg-main: #FDFCF8;       /* Soft Ivory/Bone */
+  --bg-main: #ffffff;       /* Pure White Background */
   --bg-alt: #F8F9FA;
-  --bg-dark: #0A192F;
+  --bg-dark: #f1f5f9;       /* Light Gray for "dark" sections in light mode */
+  --bg-navy: #0A192F;       /* Kept for specific navy sections if needed */
   
   --text-main: #0f172a;
   --text-muted: #64748b;
@@ -255,13 +256,14 @@ img {
 
 /* Page Headers */
 .page-header {
-  background-color: var(--primary) !important;
-  color: var(--white) !important;
+  background-color: #f8fafc !important; /* Light background */
+  color: var(--primary) !important;
   padding: 220px 0 100px !important;
   text-align: center;
   position: relative;
   overflow: hidden;
   width: 100%;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .page-header::before {
@@ -276,7 +278,7 @@ img {
 
 .page-header h1 {
   font-size: 4.5rem !important;
-  color: var(--white) !important;
+  color: var(--primary) !important;
   margin-bottom: 20px;
   position: relative;
   z-index: 2;
@@ -285,7 +287,7 @@ img {
 
 .page-header p {
   font-size: 1.2rem;
-  color: var(--light-slate);
+  color: var(--text-muted);
   max-width: 750px;
   margin: 0 auto;
   position: relative;
@@ -418,8 +420,8 @@ img {
 /* Glass Outline Variation */
 .btn-glass-outline {
     padding: 16px 36px;
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    color: white !important;
+    border: 2px solid var(--primary);
+    color: var(--primary) !important;
     border-radius: 6px;
     font-weight: 800;
     text-decoration: none;
@@ -427,14 +429,13 @@ img {
     font-size: 0.85rem;
     letter-spacing: 2px;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    backdrop-filter: blur(10px);
     display: inline-flex;
     align-items: center;
     gap: 12px;
 }
 
 .btn-glass-outline:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: white;
+    background: rgba(10, 25, 47, 0.05);
+    border-color: var(--primary);
     transform: translateY(-5px);
 }

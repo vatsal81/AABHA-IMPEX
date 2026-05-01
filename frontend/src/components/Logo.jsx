@@ -15,7 +15,7 @@ const Logo = ({ size = 45, light = true }) => {
                The logo has dark blue text. On a dark navy navbar, we need to make it white.
                We use brightness(0) invert(1) to make the whole logo white/light.
             */
-            filter: light ? 'brightness(0) invert(1)' : 'none'
+            filter: 'none'
         }} 
       />
     </div>

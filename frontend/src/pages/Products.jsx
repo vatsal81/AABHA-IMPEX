@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Search, ArrowRight } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { fetchProducts } from '../services/api';
 import SEO from '../components/SEO';
 import Skeleton from '../components/Skeleton';
@@ -11,6 +11,7 @@ import './Products.css';
 const Products = () => {
   const { t } = useTranslation();
   const { lng } = useParams();
+  const location = useLocation();
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState('All');
   const [loading, setLoading] = useState(true);
@@ -26,12 +27,23 @@ const Products = () => {
     loadProducts();
   }, []);
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    if (categoryParam) {
+      setFilter(categoryParam);
+    }
+  }, [location.search]);
+
+
   const categories = [
-    { id: 'All', label: t('products_page.filter.all') },
-    { id: 'Seeds', label: t('products_page.filter.seeds') },
-    { id: 'Pulses', label: t('products_page.filter.pulses') },
-    { id: 'Spices', label: t('products_page.filter.spices') },
-    { id: 'Construction', label: t('products_page.filter.construction') }
+    { id: 'All', label: t('products_page.filter.all') || 'All' },
+    { id: 'Spices', label: 'Spices' },
+    { id: 'Fresh Fruits', label: 'Fresh Fruits' },
+    { id: 'Fresh Vegetables', label: 'Fresh Vegetables' },
+    { id: 'Oil Seeds', label: 'Oil Seeds' },
+    { id: 'Rice', label: 'Rice' },
+    { id: 'Pulses', label: 'Pulses' }
   ];
 
   const filteredProducts = products.filter(p => {
@@ -117,7 +129,7 @@ const Products = () => {
                   <div className="art-product-details">
                     <h3>{product.name}</h3>
                     <p>{product.description}</p>
-                    <Link to={`/${lng}/products/${product._id || product.id}`} className="btn btn-outline btn-sm">
+                    <Link to={`/${lng}/${product.category.toLowerCase()}/${product.slug}`} className="btn btn-outline btn-sm">
                         {t('products_page.card.view_details')} <ArrowRight size={14} style={{marginLeft: '8px'}} />
                     </Link>
                   </div>

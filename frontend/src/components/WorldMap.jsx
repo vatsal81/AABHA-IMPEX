@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import mapImage from '../assets/ChatGPT Image Apr 27, 2026, 01_57_28 PM.png';
+import mapImage from '../assets/world-map-light.png';
 import './WorldMap.css';
 
 const WorldMap = () => {

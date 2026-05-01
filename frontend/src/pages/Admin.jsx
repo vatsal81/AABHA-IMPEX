@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Inbox, Package, Trash2, Plus, LogOut, CheckCircle, Clock, BarChart3, Users, PieChart, TrendingUp, BookOpen, ExternalLink } from 'lucide-react';
+import { Inbox, Package, Trash2, Plus, LogOut, CheckCircle, Clock, BarChart3, Users, PieChart, TrendingUp, BookOpen, ExternalLink, ShieldCheck, Upload } from 'lucide-react';
 import { 
     fetchAllInquiries, 
     fetchProducts, 
@@ -11,7 +11,16 @@ import {
     updateInquiryStatus,
     fetchBlogs,
     addBlog,
-    deleteBlog
+    deleteBlog,
+    fetchServices,
+    addService,
+    updateService,
+    deleteService,
+    fetchCertificates,
+    addCertificate,
+    updateCertificate,
+    deleteCertificate,
+    uploadFile
 } from '../services/api';
 import Skeleton from '../components/Skeleton';
 import toast from 'react-hot-toast';
@@ -22,24 +31,47 @@ const Admin = () => {
   const [inquiries, setInquiries] = useState([]);
   const [products, setProducts] = useState([]);
   const [blogs, setBlogs] = useState([]);
+  const [services, setServices] = useState([]);
+  const [certificates, setCertificates] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [showBlogForm, setShowBlogForm] = useState(false);
+  const [showServiceForm, setShowServiceForm] = useState(false);
+  const [showCertForm, setShowCertForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [editingServiceId, setEditingServiceId] = useState(null);
+  const [editingCertId, setEditingCertId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('All');
 
   const initialProductState = {
-    name: '', category: 'Seeds', description: '', longDescription: '', image: '', packing: '', hsCode: '', origin: 'India', loadingPort: 'Mundra / Pipavav, India', available: true
+    name: '', slug: '', category: 'Seeds', description: '', longDescription: '', image: '', packing: '', hsCode: '', 
+    origin: 'India', loadingPort: 'Mundra / Pipavav, India', available: true,
+    specifications: [{ label: '', value: '' }],
+    nutrients: [{ label: '', value: '' }],
+    uses: [],
+    exportDetails: ''
   };
 
   const initialBlogState = {
     title: '', excerpt: '', content: '', author: 'Prince Patel', image: '', category: 'Market Trends', slug: ''
   };
 
+  const initialServiceState = {
+    title: '', description: '', icon: 'FileText', image: '', details: [''], color: 'var(--primary)'
+  };
+
+  const initialCertState = {
+    name: '', fullName: '', imageUrl: '', fileUrl: '', description: ''
+  };
+
   const [newProduct, setNewProduct] = useState(initialProductState);
   const [newBlog, setNewBlog] = useState(initialBlogState);
+  const [newService, setNewService] = useState(initialServiceState);
+  const [newCert, setNewCert] = useState(initialCertState);
+
 
   useEffect(() => {
     loadData();
@@ -51,10 +83,15 @@ const Admin = () => {
         const inqData = await fetchAllInquiries();
         const prodData = await fetchProducts();
         const blogData = await fetchBlogs();
+        const servData = await fetchServices();
+        const certData = await fetchCertificates();
         setInquiries(inqData);
         setProducts(prodData);
         setFilteredProducts(prodData);
         setBlogs(blogData);
+        setServices(servData);
+        setCertificates(certData);
+
     } catch (err) {
         console.error("Failed to load admin data");
     }
@@ -119,14 +156,22 @@ const Admin = () => {
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
-        if (editingId) await updateProduct(editingId, newProduct);
-        else await addProduct(newProduct);
+        // Auto-generate slug if not provided
+        const generatedSlug = newProduct.slug || newProduct.name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+        const productToSave = { ...newProduct, slug: generatedSlug };
+        
+        if (editingId) await updateProduct(editingId, productToSave);
+        else await addProduct(productToSave);
+        
         setShowAddForm(false);
         setEditingId(null);
         setNewProduct(initialProductState);
         toast.success(editingId ? "Product updated!" : "Product added!");
         loadData();
-    } catch (err) { toast.error("Error saving product"); }
+    } catch (err) { 
+        console.error("Error saving product:", err);
+        toast.error("Error saving product. Make sure the name is unique."); 
+    }
   };
 
   const handleAddBlog = async (e) => {
@@ -139,6 +184,111 @@ const Admin = () => {
         toast.success("Insight published!");
         loadData();
     } catch (err) { toast.error("Error saving insight"); }
+  };
+
+  const handleAddService = async (e) => {
+    e.preventDefault();
+    try {
+        if (editingServiceId) await updateService(editingServiceId, newService);
+        else await addService(newService);
+        
+        setShowServiceForm(false);
+        setEditingServiceId(null);
+        setNewService(initialServiceState);
+        toast.success(editingServiceId ? "Service updated!" : "Service added!");
+        loadData();
+    } catch (err) { toast.error("Error saving service"); }
+  };
+
+  const handleDeleteService = async (id) => {
+    if (window.confirm('Delete this service?')) {
+        try {
+            await deleteService(id);
+            toast.success("Service removed");
+            loadData();
+        } catch (err) {
+            toast.error("Failed to delete service");
+        }
+    }
+  };
+
+  const handleEditService = (serv) => {
+    setNewService({
+        ...initialServiceState,
+        ...serv,
+        details: serv.details || ['']
+    });
+    setEditingServiceId(serv._id);
+    setShowServiceForm(true);
+  };
+
+  const handleFileUpload = async (e, type, field) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+        const { url } = await uploadFile(file);
+        const fullUrl = `${import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'}${url}`;
+        
+        if (type === 'service') {
+            setNewService(prev => ({ ...prev, [field]: fullUrl }));
+        } else if (type === 'certificate') {
+            setNewCert(prev => ({ ...prev, [field]: fullUrl }));
+        } else if (type === 'product') {
+            setNewProduct(prev => ({ ...prev, [field]: fullUrl }));
+        }
+        
+        toast.success("File uploaded successfully");
+    } catch (err) {
+        toast.error("Upload failed");
+    } finally {
+        setUploading(false);
+    }
+  };
+
+  const handleAddCert = async (e) => {
+    e.preventDefault();
+    try {
+        if (editingCertId) await updateCertificate(editingCertId, newCert);
+        else await addCertificate(newCert);
+        
+        setShowCertForm(false);
+        setEditingCertId(null);
+        setNewCert(initialCertState);
+        toast.success(editingCertId ? "Certificate updated!" : "Certificate added!");
+        loadData();
+    } catch (err) { toast.error("Error saving certificate"); }
+  };
+
+  const handleDeleteCert = async (id) => {
+    if (window.confirm('Delete this certificate?')) {
+        try {
+            await deleteCertificate(id);
+            toast.success("Certificate removed");
+            loadData();
+        } catch (err) {
+            toast.error("Failed to delete certificate");
+        }
+    }
+  };
+
+  const handleEditCert = (cert) => {
+    setNewCert({ ...initialCertState, ...cert });
+    setEditingCertId(cert._id);
+    setShowCertForm(true);
+  };
+
+  const handleEditProduct = (prod) => {
+    setNewProduct({
+        ...initialProductState,
+        ...prod,
+        specifications: prod.specifications || [{ label: '', value: '' }],
+        nutrients: prod.nutrients || [{ label: '', value: '' }],
+        uses: prod.uses || []
+    });
+    setEditingId(prod._id);
+    setShowAddForm(true);
   };
 
   const handleLogout = () => {
@@ -165,7 +315,9 @@ const Admin = () => {
                 { id: 'overview', label: 'Overview', icon: <BarChart3 size={20} /> },
                 { id: 'inquiries', label: `Inquiries (${inquiries.length})`, icon: <Inbox size={20} /> },
                 { id: 'products', label: `Products (${products.length})`, icon: <Package size={20} /> },
-                { id: 'blogs', label: `Insights (${blogs.length})`, icon: <BookOpen size={20} /> }
+                { id: 'blogs', label: `Insights (${blogs.length})`, icon: <BookOpen size={20} /> },
+                { id: 'services', label: `Services (${services.length})`, icon: <Users size={20} /> },
+                { id: 'certificates', label: `Certificates (${certificates.length})`, icon: <ShieldCheck size={20} /> }
             ].map(tab => (
                 <button key={tab.id} className={`tab-btn ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)}>
                     {tab.icon} {tab.label}
@@ -297,8 +449,54 @@ const Admin = () => {
                             <div className="form-group"><label>Detailed Description</label><textarea rows="3" value={newProduct.longDescription} onChange={e => setNewProduct({...newProduct, longDescription: e.target.value})}></textarea></div>
                             <div className="form-grid">
                                 <div className="form-group"><label>Image URL</label><input type="text" value={newProduct.image} onChange={e => setNewProduct({...newProduct, image: e.target.value})} /></div>
-                                <div className="form-group"><label>Packing</label><input type="text" value={newProduct.packing} onChange={e => setNewProduct({...newProduct, packing: e.target.value})} /></div>
                             </div>
+                            
+                            <div className="form-section-title">Specifications</div>
+                            {newProduct.specifications?.map((spec, i) => (
+                                <div key={i} className="dynamic-row">
+                                    <input placeholder="Label" value={spec.label} onChange={e => {
+                                        const nextSpecs = [...newProduct.specifications];
+                                        nextSpecs[i].label = e.target.value;
+                                        setNewProduct({...newProduct, specifications: nextSpecs});
+                                    }} />
+                                    <input placeholder="Value" value={spec.value} onChange={e => {
+                                        const nextSpecs = [...newProduct.specifications];
+                                        nextSpecs[i].value = e.target.value;
+                                        setNewProduct({...newProduct, specifications: nextSpecs});
+                                    }} />
+                                    <button type="button" onClick={() => {
+                                        const nextSpecs = newProduct.specifications.filter((_, idx) => idx !== i);
+                                        setNewProduct({...newProduct, specifications: nextSpecs});
+                                    }}><Trash2 size={16} /></button>
+                                </div>
+                            ))}
+                            <button type="button" className="btn-add-row" onClick={() => setNewProduct({...newProduct, specifications: [...(newProduct.specifications || []), {label:'', value:''}]})}>+ Add Spec</button>
+
+                            <div className="form-section-title">Nutrients</div>
+                            {newProduct.nutrients?.map((n, i) => (
+                                <div key={i} className="dynamic-row">
+                                    <input placeholder="Nutrient" value={n.label} onChange={e => {
+                                        const next = [...newProduct.nutrients];
+                                        next[i].label = e.target.value;
+                                        setNewProduct({...newProduct, nutrients: next});
+                                    }} />
+                                    <input placeholder="Value" value={n.value} onChange={e => {
+                                        const next = [...newProduct.nutrients];
+                                        next[i].value = e.target.value;
+                                        setNewProduct({...newProduct, nutrients: next});
+                                    }} />
+                                    <button type="button" onClick={() => {
+                                        const next = newProduct.nutrients.filter((_, idx) => idx !== i);
+                                        setNewProduct({...newProduct, nutrients: next});
+                                    }}><Trash2 size={16} /></button>
+                                </div>
+                            ))}
+                            <button type="button" className="btn-add-row" onClick={() => setNewProduct({...newProduct, nutrients: [...(newProduct.nutrients || []), {label:'', value:''}]})}>+ Add Nutrient</button>
+
+                            <div className="form-group"><label>Uses (comma separated)</label><input type="text" value={Array.isArray(newProduct.uses) ? newProduct.uses.join(', ') : newProduct.uses} onChange={e => setNewProduct({...newProduct, uses: e.target.value.split(',').map(u => u.trim())})} /></div>
+                            <div className="form-group"><label>Export Details</label><textarea rows="3" value={newProduct.exportDetails} onChange={e => setNewProduct({...newProduct, exportDetails: e.target.value})}></textarea></div>
+                            <div className="form-group"><label>Packing</label><input type="text" value={newProduct.packing} onChange={e => setNewProduct({...newProduct, packing: e.target.value})} /></div>
+                            
                             <button type="submit" className="btn btn-primary">{editingId ? 'Update' : 'Save'}</button>
                         </form>
                     </motion.div>
@@ -307,11 +505,11 @@ const Admin = () => {
                 <table className="admin-table">
                     <thead><tr><th>Product</th><th>Category</th><th>Actions</th></tr></thead>
                     <tbody>
-                        {filteredProducts.map(prod => (
+                        {filteredProducts?.map(prod => (
                             <tr key={prod._id}>
                                 <td><strong>{prod.name}</strong></td><td>{prod.category}</td>
                                 <td className="table-actions">
-                                    <button className="btn-icon" onClick={() => {setNewProduct(prod); setEditingId(prod._id); setShowAddForm(true);}}><Plus size={18} /></button>
+                                    <button className="btn-icon" onClick={() => handleEditProduct(prod)}><Plus size={18} /></button>
                                     <button className="btn-icon delete" onClick={() => handleDeleteProduct(prod._id)}><Trash2 size={18} /></button>
                                 </td>
                             </tr>
@@ -363,7 +561,133 @@ const Admin = () => {
                     </div>
                 </div>
             )}
+
+            {activeTab === 'services' && (
+                <div className="services-admin">
+                    <div className="admin-actions">
+                        <button className="btn btn-primary" onClick={() => setShowServiceForm(!showServiceForm)}>
+                            {showServiceForm ? 'Cancel' : <><Plus size={18} /> Add New Service</>}
+                        </button>
+                    </div>
+                    {showServiceForm && (
+                        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="add-product-container">
+                            <form className="add-product-form" onSubmit={handleAddService}>
+                                <h3>{editingServiceId ? 'Edit Service' : 'Add New Service'}</h3>
+                                <div className="form-group"><label>Service Title</label><input type="text" value={newService.title} onChange={e => setNewService({...newService, title: e.target.value})} required /></div>
+                                <div className="form-group"><label>Description</label><textarea rows="3" value={newService.description} onChange={e => setNewService({...newService, description: e.target.value})} required></textarea></div>
+                                <div className="form-grid">
+                                    <div className="form-group"><label>Lucide Icon Name</label><input type="text" value={newService.icon} onChange={e => setNewService({...newService, icon: e.target.value})} placeholder="e.g. Ship, FileText, Globe" /></div>
+                                    <div className="form-group"><label>Accent Color</label><input type="text" value={newService.color} onChange={e => setNewService({...newService, color: e.target.value})} placeholder="e.g. var(--primary) or #d4af37" /></div>
+                                </div>
+                                <div className="form-group">
+                                    <label>Service Image (Upload from device)</label>
+                                    <div className="upload-wrapper">
+                                        <input type="file" onChange={(e) => handleFileUpload(e, 'service', 'image')} accept="image/*" />
+                                        {uploading && <span className="upload-spinner">Uploading...</span>}
+                                    </div>
+                                    {newService.image && (
+                                        <div className="upload-preview-small">
+                                            <img src={newService.image} alt="Preview" />
+                                            <span>File uploaded</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="form-section-title">Service Highlights (Details)</div>
+                                {newService.details?.map((detail, i) => (
+                                    <div key={i} className="dynamic-row">
+                                        <input placeholder="Feature/Detail" value={detail} onChange={e => {
+                                            const nextDetails = [...newService.details];
+                                            nextDetails[i] = e.target.value;
+                                            setNewService({...newService, details: nextDetails});
+                                        }} />
+                                        <button type="button" onClick={() => {
+                                            const nextDetails = newService.details.filter((_, idx) => idx !== i);
+                                            setNewService({...newService, details: nextDetails});
+                                        }}><Trash2 size={16} /></button>
+                                    </div>
+                                ))}
+                                <button type="button" className="btn-add-row" onClick={() => setNewService({...newService, details: [...(newService.details || []), '']})}>+ Add Highlight</button>
+                                <button type="submit" className="btn btn-primary">{editingServiceId ? 'Update Service' : 'Save Service'}</button>
+                            </form>
+                        </motion.div>
+                    )}
+                    <div className="admin-table-wrapper">
+                    <table className="admin-table">
+                        <thead><tr><th>Service</th><th>Icon</th><th>Details</th><th>Actions</th></tr></thead>
+                        <tbody>
+                            {services.map(serv => (
+                                <tr key={serv._id}>
+                                    <td><strong>{serv.title}</strong></td>
+                                    <td>{serv.icon}</td>
+                                    <td>{serv.details?.length || 0} items</td>
+                                    <td className="table-actions">
+                                        <button className="btn-icon" onClick={() => handleEditService(serv)}><Plus size={18} /></button>
+                                        <button className="btn-icon delete" onClick={() => handleDeleteService(serv._id)}><Trash2 size={18} /></button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            )}
+
+            {activeTab === 'certificates' && (
+                <div className="certificates-admin">
+                    <div className="admin-actions">
+                        <button className="btn btn-primary" onClick={() => setShowCertForm(!showCertForm)}>
+                            {showCertForm ? 'Cancel' : <><Plus size={18} /> Add New Certificate</>}
+                        </button>
+                    </div>
+                    {showCertForm && (
+                        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="add-product-container">
+                            <form className="add-product-form" onSubmit={handleAddCert}>
+                                <h3>{editingCertId ? 'Edit Certificate' : 'Add New Certificate'}</h3>
+                                <div className="form-group"><label>Certificate Name (Short)</label><input type="text" value={newCert.name} onChange={e => setNewCert({...newCert, name: e.target.value})} placeholder="e.g. APEDA" required /></div>
+                                <div className="form-group"><label>Authority Full Name</label><input type="text" value={newCert.fullName} onChange={e => setNewCert({...newCert, fullName: e.target.value})} placeholder="e.g. Agricultural & Processed Food Products Export Development Authority" required /></div>
+                                <div className="form-group"><label>Authority Logo URL</label><input type="text" value={newCert.imageUrl} onChange={e => setNewCert({...newCert, imageUrl: e.target.value})} placeholder="Optional icon link" /></div>
+                                <div className="form-group">
+                                    <label>Certificate File (Upload Image or PDF)</label>
+                                    <div className="upload-wrapper">
+                                        <input type="file" onChange={(e) => handleFileUpload(e, 'certificate', 'fileUrl')} accept="image/*,.pdf" />
+                                        {uploading && <span className="upload-spinner">Uploading...</span>}
+                                    </div>
+                                    {newCert.fileUrl && (
+                                        <div className="upload-preview-small">
+                                            <span className="file-name-info">
+                                                {newCert.fileUrl.split('/').pop()} 
+                                                {newCert.fileUrl.toLowerCase().endsWith('.pdf') ? ' (PDF Document)' : ' (Image)'}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="form-group"><label>Description</label><textarea rows="2" value={newCert.description} onChange={e => setNewCert({...newCert, description: e.target.value})}></textarea></div>
+                                <button type="submit" className="btn btn-primary">{editingCertId ? 'Update Certificate' : 'Save Certificate'}</button>
+                            </form>
+                        </motion.div>
+                    )}
+                    <div className="admin-table-wrapper">
+                    <table className="admin-table">
+                        <thead><tr><th>Certificate</th><th>Authority</th><th>Actions</th></tr></thead>
+                        <tbody>
+                            {certificates.map(cert => (
+                                <tr key={cert._id}>
+                                    <td><strong>{cert.name}</strong></td>
+                                    <td>{cert.fullName}</td>
+                                    <td className="table-actions">
+                                        <button className="btn-icon" onClick={() => handleEditCert(cert)}><Plus size={18} /></button>
+                                        <button className="btn-icon delete" onClick={() => handleDeleteCert(cert._id)}><Trash2 size={18} /></button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            )}
           </div>
+
+
         </div>
       </section>
     </div>

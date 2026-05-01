@@ -14,11 +14,13 @@ import Admin from './pages/Admin';
 import Login from './pages/Login';
 import GlobalExport from './pages/GlobalExport';
 import Blog from './pages/Blog';
+import IECRegistration from './pages/IECRegistration';
 import NotFound from './pages/NotFound';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import AnimatedBackground from './components/AnimatedBackground';
 import CargoLoader from './components/CargoLoader';
+import CookieConsent from './components/CookieConsent';
 import { Toaster } from 'react-hot-toast';
 
 // Layout component to keep Navbar and Footer persistent and handle language
@@ -43,6 +45,16 @@ const LanguageLayout = () => {
     } else {
       // Invalid language prefix, treat as 404 or redirect to en
       navigate(`/en${location.pathname.replace(`/${lng}`, '')}`, { replace: true });
+    }
+
+    // Set direction and body class for RTL support
+    const isRTL = lng === 'ar' || lng === 'ur';
+    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+    document.documentElement.lang = lng || 'en';
+    if (isRTL) {
+      document.body.classList.add('rtl-active');
+    } else {
+      document.body.classList.remove('rtl-active');
     }
   }, [lng, i18n, navigate, location.pathname]);
 
@@ -125,10 +137,14 @@ function App() {
             <Route path="global-export" element={<GlobalExport />} />
             <Route path="export" element={<Navigate to="../global-export" replace />} />
             <Route path="blog" element={<Blog />} />
+            <Route path="iec-registration" element={<IECRegistration />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="login" element={<Login />} />
             <Route path="admin-portal" element={<ProtectedAdminRoute />} />
+            
+            {/* Dynamic category route for products like pisumfoods.com/spices/chilli-pepper */}
+            <Route path=":category/:id" element={<ProductDetail />} />
             
             {/* Fallback for invalid URLs within language scope */}
             <Route path="*" element={<NotFound />} />
@@ -138,6 +154,7 @@ function App() {
           <Route path="*" element={<Navigate to="/en/404" replace />} />
         </Routes>
         <WhatsAppButton />
+        <CookieConsent />
       </div>
     </Router>
   );

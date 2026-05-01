@@ -3,6 +3,7 @@ const MONGODB_URI = 'mongodb://localhost:27017/aabha_impex';
 
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  slug: { type: String, required: true, unique: true },
   category: { type: String, required: true },
   description: String,
   longDescription: String,
@@ -10,6 +11,9 @@ const productSchema = new mongoose.Schema({
   specifications: [{ label: String, value: String }],
   benefits: [String],
   packing: String,
+  hsCode: String,
+  origin: { type: String, default: 'India' },
+  loadingPort: { type: String, default: 'Mundra / Pipavav, India' },
   available: { type: Boolean, default: true }
 });
 
@@ -22,77 +26,58 @@ async function seed() {
     
     const initialProducts = [
         { 
-          name: "Cumin Seeds", 
-          category: "Seeds", 
-          image: "https://images.unsplash.com/photo-1599330231908-09559f214690?auto=format&fit=crop&q=80&w=800", 
-          description: "Premium quality Cumin seeds with high purity and strong aroma.",
-          longDescription: "Our Cumin seeds (Jeera) are sourced from the finest farms in Gujarat. Available in European, Singapore, and US grades, they are known for their high oil content and distinct flavor profile.",
-          specifications: [
-              { label: "Purity", value: "99% to 99.5% (Extraneous Matter Max 0.5%)" },
-              { label: "Moisture", value: "Max 10%" },
-              { label: "Origin", value: "Gujarat, India" }
-          ],
-          benefits: ["Aids Digestion", "Rich in Iron", "Anti-inflammatory Properties"],
-          packing: "25kg, 50kg PP Bags / Jute Bags"
-        },
-        { 
-          name: "White Sesame Seeds", 
-          category: "Seeds", 
-          image: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&q=80&w=800", 
-          description: "High purity natural white sesame seeds for global culinary use.",
-          longDescription: "We offer premium Natural White Sesame Seeds, cleaned and graded to ensure the highest purity levels. These seeds are perfect for oil extraction, bakery, and confectionery industries.",
-          specifications: [
-              { label: "Purity", value: "99.95% (Sortex Cleaned)" },
-              { label: "Oil Content", value: "Min 48%" },
-              { label: "Admixture", value: "Max 0.05%" }
-          ],
-          benefits: ["High in Protein", "Supports Heart Health", "Rich in Fiber"],
-          packing: "25kg, 50kg Multi-wall Paper or PP Bags"
-        },
-        { 
-          name: "Coriander Seeds", 
-          category: "Seeds", 
-          image: "https://images.unsplash.com/photo-1610398041456-a1ff009e2501?auto=format&fit=crop&q=80&w=800", 
-          description: "Whole coriander seeds available in Eagle, Scooter, and Parrot grades.",
-          longDescription: "Our Coriander seeds are sourced from Rajasthan and Gujarat. We provide various grades including Eagle Plus and Parrot, characterized by their pleasant aroma and greenish-yellow color.",
-          specifications: [
-              { label: "Grade", value: "Eagle / Scooter / Parrot" },
-              { label: "Moisture", value: "Max 9%" },
-              { label: "Split Seeds", value: "Max 5%" }
-          ],
-          benefits: ["Digestive Aid", "Rich in Antioxidants", "Natural Preservative"],
-          packing: "25kg, 40kg Jute or PP Bags"
-        },
-        { 
-          name: "White Chickpeas (Kabuli Chana)", 
-          category: "Pulses", 
-          image: "https://images.unsplash.com/photo-1547050605-2f3062325c88?auto=format&fit=crop&q=80&w=800", 
-          description: "Large size premium Garbanzo beans (9mm to 12mm).",
-          longDescription: "Aabha Impex exports high-quality White Chickpeas, also known as Kabuli Chana. These are carefully processed and graded by size to meet international culinary requirements.",
-          specifications: [
-              { label: "Size", value: "42-44 / 44-46 (9mm to 12mm)" },
-              { label: "Purity", value: "99% Min" },
-              { label: "Moisture", value: "10% - 12% Max" }
-          ],
-          benefits: ["High Protein Content", "Rich in Fiber", "Versatile Ingredient"],
-          packing: "25kg, 50kg PP Bags"
-        },
-        { 
           name: "Organic Red Chilli Powder", 
+          slug: "red-chilli-powder",
           category: "Spices", 
           image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=800", 
           description: "100% pure and organic red chilli powder sourced directly from farms.",
-          longDescription: "Our organic red chilli powder is processed from the finest sun-dried chillies. It is free from artificial colors or additives, ensuring a natural pungency and vibrant red color for your dishes.",
+          longDescription: "Our organic red chilli powder is processed from the finest sun-dried chillies. It is free from artificial colors or additives, ensuring a natural pungency and vibrant red color for your dishes. We ensure that only the highest quality chillies are selected, stems removed, and then ground to the perfect texture.",
           specifications: [
               { label: "Type", value: "Organic / Pure" },
               { label: "Color Value", value: "60 - 100 ASTA" },
-              { label: "Pungency", value: "15,000 - 30,000 SHU" }
+              { label: "Pungency", value: "15,000 - 30,000 SHU" },
+              { label: "Form", value: "Fine Powder" }
+          ],
+          nutrients: [
+              { label: "Energy", value: "324 kcal" },
+              { label: "Carbohydrates", value: "70g" },
+              { label: "Fiber", value: "27g" },
+              { label: "Protein", value: "10g" }
           ],
           benefits: ["Metabolism Booster", "Rich in Vitamin C", "Natural Spice"],
-          packing: "5kg, 10kg, 25kg Kraft Paper or LDPE Bags"
+          uses: ["Curries and Stews", "Marinades", "Pickles", "Spice Blends"],
+          exportDetails: "Available in bulk shipments via Mundra Port. Standard lead time: 15-20 days. Full certificate of analysis provided with every batch.",
+          packing: "5kg, 10kg, 25kg Kraft Paper or LDPE Bags",
+          hsCode: "090422"
+        },
+        { 
+          name: "Cumin Seeds", 
+          slug: "cumin-seeds",
+          category: "Seeds", 
+          image: "https://images.unsplash.com/photo-1599330231908-09559f214690?auto=format&fit=crop&q=80&w=800", 
+          description: "Premium quality Cumin seeds with high purity and strong aroma.",
+          longDescription: "Our Cumin seeds (Jeera) are sourced from the finest farms in Gujarat. Available in European, Singapore, and US grades, they are known for their high oil content and distinct flavor profile. Cumin is one of the most popular spices in the world, essential in many cuisines for its warm, earthy flavor.",
+          specifications: [
+              { label: "Purity", value: "99% to 99.5% (Extraneous Matter Max 0.5%)" },
+              { label: "Moisture", value: "Max 10%" },
+              { label: "Origin", value: "Gujarat, India" },
+              { label: "Admixture", value: "Max 0.5%" }
+          ],
+          nutrients: [
+              { label: "Fat", value: "22g" },
+              { label: "Sodium", value: "168mg" },
+              { label: "Iron", value: "66mg" },
+              { label: "Vitamin B6", value: "25%" }
+          ],
+          benefits: ["Aids Digestion", "Rich in Iron", "Anti-inflammatory Properties"],
+          uses: ["Cooking Oil Infusion", "Bread Toppings", "Meat Rubs", "Ayurvedic Medicine"],
+          exportDetails: "Container loads (20ft/40ft) available. Phytosanitary certificate and Fumigation certificate included. Samples available on request.",
+          packing: "25kg, 50kg PP Bags / Jute Bags",
+          hsCode: "090931"
         },
         { 
           name: "Steel Rebar Couplers", 
+          slug: "steel-rebar-couplers",
           category: "Construction", 
           image: "https://images.unsplash.com/photo-1621905252507-b354bcadc441?auto=format&fit=crop&q=80&w=800", 
           description: "High-strength mechanical couplers for reinforcing bar connections.",
@@ -103,7 +88,8 @@ async function seed() {
               { label: "Size Range", value: "16mm to 40mm" }
           ],
           benefits: ["Reduces Rebar Congestion", "Superior Structural Integrity", "Cost-effective"],
-          packing: "Standard Industrial Crates / Boxes"
+          packing: "Standard Industrial Crates / Boxes",
+          hsCode: "730799"
         }
     ];
 

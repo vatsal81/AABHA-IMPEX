@@ -186,3 +186,136 @@ export const deleteBlog = async (id) => {
     throw error;
   }
 };
+
+// Services
+export const fetchServices = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/services`);
+    if (!response.ok) throw new Error('Failed to fetch services');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    return [];
+  }
+};
+
+export const addService = async (serviceData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/services`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(serviceData),
+    });
+    if (!response.ok) throw new Error('Failed to add service');
+    return await response.json();
+  } catch (error) {
+    console.error('Error adding service:', error);
+    throw error;
+  }
+};
+
+export const updateService = async (id, serviceData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/services/${id}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(serviceData),
+    });
+    if (!response.ok) throw new Error('Failed to update service');
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating service:', error);
+    throw error;
+  }
+};
+
+export const deleteService = async (id) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/services/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+    if (!response.ok) throw new Error('Failed to delete service');
+    return await response.json();
+  } catch (error) {
+    console.error('Error deleting service:', error);
+    throw error;
+  }
+};
+
+// Certificates
+export const fetchCertificates = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/certificates`);
+    if (!response.ok) throw new Error('Failed to fetch certificates');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching certificates:', error);
+    return [];
+  }
+};
+
+export const addCertificate = async (certData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/certificates`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(certData),
+    });
+    if (!response.ok) throw new Error('Failed to add certificate');
+    return await response.json();
+  } catch (error) {
+    console.error('Error adding certificate:', error);
+    throw error;
+  }
+};
+
+export const updateCertificate = async (id, certData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/certificates/${id}`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(certData),
+    });
+    if (!response.ok) throw new Error('Failed to update certificate');
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating certificate:', error);
+    throw error;
+  }
+};
+
+export const deleteCertificate = async (id) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/certificates/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+    if (!response.ok) throw new Error('Failed to delete certificate');
+    return await response.json();
+  } catch (error) {
+    console.error('Error deleting certificate:', error);
+    throw error;
+  }
+};
+
+// Upload
+export const uploadFile = async (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  
+  try {
+    const response = await fetch(`${API_BASE_URL}/upload`, {
+      method: 'POST',
+      headers: {
+        'x-auth-token': localStorage.getItem('adminToken') || ''
+      },
+      body: formData,
+    });
+    if (!response.ok) throw new Error('Upload failed');
+    return await response.json();
+  } catch (error) {
+    console.error('Error uploading file:', error);
+    throw error;
+  }
+};

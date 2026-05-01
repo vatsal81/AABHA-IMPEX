@@ -1,32 +1,27 @@
 import React from 'react';
 import './Skeleton.css';
 
-const Skeleton = ({ type }) => {
-  if (type === 'card') {
-    return (
-      <div className="skeleton-card">
-        <div className="skeleton-img"></div>
-        <div className="skeleton-details">
-          <div className="skeleton-title"></div>
-          <div className="skeleton-text"></div>
-          <div className="skeleton-btn"></div>
-        </div>
+const Skeleton = ({ width, height, borderRadius, className = '' }) => {
+  const style = {
+    width: width || '100%',
+    height: height || '20px',
+    borderRadius: borderRadius || '4px'
+  };
+
+  return <div className={`skeleton-base ${className}`} style={style} />;
+};
+
+export const ProductSkeleton = () => {
+  return (
+    <div className="product-skeleton-card">
+      <Skeleton height="250px" borderRadius="12px" />
+      <div className="skeleton-content">
+        <Skeleton width="40%" height="14px" />
+        <Skeleton width="80%" height="24px" />
+        <Skeleton width="100%" height="40px" borderRadius="8px" />
       </div>
-    );
-  }
-
-  if (type === 'table-row') {
-    return (
-      <tr className="skeleton-row">
-        <td><div className="skeleton-cell"></div></td>
-        <td><div className="skeleton-cell"></div></td>
-        <td><div className="skeleton-cell"></div></td>
-        <td><div className="skeleton-cell"></div></td>
-      </tr>
-    );
-  }
-
-  return <div className="skeleton-basic"></div>;
+    </div>
+  );
 };
 
 export default Skeleton;

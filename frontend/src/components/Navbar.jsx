@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Menu, X, Instagram, Linkedin, Globe, ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { 
+  Menu, X, Instagram, Linkedin, Globe, ChevronDown, 
+  Home as HomeIcon, Package, Settings, Users, FileText, Phone 
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Logo from './Logo';
 import './Navbar.css';
@@ -41,14 +45,23 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const productCategories = [
+    { name: 'Spices', path: `/${lng}/products?category=Spices` },
+    { name: 'Fresh Fruits', path: `/${lng}/products?category=Fresh%20Fruits` },
+    { name: 'Fresh Vegetables', path: `/${lng}/products?category=Fresh%20Vegetables` },
+    { name: 'Oil Seeds', path: `/${lng}/products?category=Oil%20Seeds` },
+    { name: 'Rice', path: `/${lng}/products?category=Rice` },
+    { name: 'Pulses', path: `/${lng}/products?category=Pulses` },
+  ];
+
   const navLinks = [
-    { name: t('nav.home'), path: `/${lng}` },
-    { name: t('nav.products'), path: `/${lng}/products` },
-    { name: t('nav.services'), path: `/${lng}/services` },
-    { name: t('nav.export'), path: `/${lng}/global-export` },
-    { name: t('nav.about'), path: `/${lng}/about` },
-    { name: t('nav.insights'), path: `/${lng}/blog` },
-    { name: t('nav.contact'), path: `/${lng}/contact` },
+    { name: t('nav.home'), path: `/${lng}`, icon: <HomeIcon size={20} /> },
+    { name: t('nav.products'), path: `/${lng}/products`, icon: <Package size={20} />, dropdown: productCategories },
+    { name: t('nav.services'), path: `/${lng}/services`, icon: <Settings size={20} /> },
+    { name: t('nav.export'), path: `/${lng}/global-export`, icon: <Globe size={20} /> },
+    { name: t('nav.about'), path: `/${lng}/about`, icon: <Users size={20} /> },
+    { name: t('nav.insights'), path: `/${lng}/blog`, icon: <FileText size={20} /> },
+    { name: t('nav.contact'), path: `/${lng}/contact`, icon: <Phone size={20} /> },
   ];
 
   const languages = [
@@ -69,62 +82,72 @@ const Navbar = () => {
 
   return (
     <header className={`navbar-wrapper ${scrolled ? 'scrolled' : ''} ${!isHome ? 'solid' : ''}`}>
-      <div className="container nav-content">
-        <div className="nav-left">
-          <Link to={`/${lng}`} className="logo-container">
-            <Logo light={!scrolled && isHome} size={scrolled || !isHome ? 70 : 90} />
-          </Link>
-        </div>
-
-        <div className="nav-center">
-          <nav className="desktop-menu">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        <div className="nav-right">
-          <div className="desktop-actions">
-
-            {/* Language Selector */}
-            <div className="lang-selector-container">
-              <button className="lang-selector-btn" onClick={() => setLangDropdown(!langDropdown)}>
-                <Globe size={18} />
-                <span>{currentLang?.label}</span>
-                <ChevronDown size={14} className={langDropdown ? 'rotate' : ''} />
-              </button>
-              {langDropdown && (
-                <div className="lang-dropdown">
-                  {languages.map((l) => (
-                    <button key={l.code} className={`lang-option ${lng === l.code ? 'active' : ''}`} onClick={() => changeLanguage(l.code)}>
-                      <span className="flag">{l.flag}</span>
-                      <span className="label">{l.label}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <div className="nav-socials">
-              <a href="#"><Instagram size={18} /></a>
-              <a href="#"><Linkedin size={18} /></a>
-            </div>
-
-            <Link to={`/${lng}/contact`} className="btn-elite-quote">
-              {t('nav.getQuote')}
+      <div className="container">
+        <div className="nav-floating-container">
+          <div className="nav-left">
+            <Link to={`/${lng}`} className="logo-container">
+              <Logo size={70} />
             </Link>
           </div>
 
-          <button className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X size={30} /> : <Menu size={30} />}
-          </button>
+          <div className="nav-center">
+            <nav className="desktop-menu">
+              {navLinks.map((link) => (
+                <div key={link.name} className={`nav-item-wrapper ${link.dropdown ? 'has-dropdown' : ''}`}>
+                  <Link
+                    to={link.path}
+                    className={`nav-link ${location.pathname.startsWith(link.path) && link.path !== `/${lng}` ? 'active' : (location.pathname === link.path ? 'active' : '')}`}
+                  >
+                    <motion.span 
+                      className="nav-icon"
+                      whileHover={{ scale: 1.2, rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      {link.icon}
+                    </motion.span>
+                    <span className="nav-text">
+                      {link.name} {link.dropdown && <ChevronDown size={12} className="dropdown-arrow" style={{display: 'inline', marginLeft: '4px', verticalAlign: 'middle'}} />}
+                    </span>
+                  </Link>
+                  {link.dropdown && (
+                    <div className="nav-dropdown-menu">
+                      {link.dropdown.map(dropItem => (
+                        <Link key={dropItem.name} to={dropItem.path} className="dropdown-item">
+                          {dropItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </div>
+
+          <div className="nav-right">
+            <div className="desktop-actions">
+              <div className="lang-selector-box">
+                <button className="lang-selector-btn" onClick={() => setLangDropdown(!langDropdown)}>
+                  <Globe size={18} />
+                  <span>{currentLang?.label}</span>
+                  <ChevronDown size={14} className={langDropdown ? 'rotate' : ''} />
+                </button>
+                {langDropdown && (
+                  <div className="lang-dropdown">
+                    {languages.map((l) => (
+                      <button key={l.code} className={`lang-option ${lng === l.code ? 'active' : ''}`} onClick={() => changeLanguage(l.code)}>
+                        <span className="flag">{l.flag}</span>
+                        <span className="label">{l.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <button className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <X size={30} /> : <Menu size={30} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -137,7 +160,20 @@ const Navbar = () => {
         </div>
         <div className="mobile-links">
           {navLinks.map((link) => (
-            <Link key={link.name} to={link.path} className="mobile-link" onClick={() => setIsOpen(false)}>{link.name}</Link>
+            <div key={link.name} className="mobile-nav-group">
+              <Link to={link.path} className="mobile-link" onClick={() => setIsOpen(false)}>
+                {link.name}
+              </Link>
+              {link.dropdown && (
+                <div className="mobile-dropdown-links">
+                  {link.dropdown.map(dropItem => (
+                    <Link key={dropItem.name} to={dropItem.path} className="mobile-dropdown-link" onClick={() => setIsOpen(false)}>
+                      — {dropItem.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
 

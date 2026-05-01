@@ -5,7 +5,7 @@
     "services": "Mga Serbisyo",
     "export": "Global Export",
     "about": "Tungkol sa Amin",
-    "insights": "Insights",
+    "insights": "Blogs",
     "contact": "Makipag-ugnayan",
     "getQuote": "Kumuha ng Quote",
     "admin": "Admin Portal"
@@ -13,7 +13,7 @@
   "home": {
     "hero": {
       "label": "HIGIT SA MGA HANGGANAN",
-      "title": "<span class=\"text-gold\">AABHA IMPEX</span>",
+      "title": "AABHA IMPEX",
       "desc": "Isang pangunahing pandaigdigang kasosyo sa pag-export at kalakalan ng mataas na kalidad na mga produktong agrikultural. Mula sa mga premium na pampalasa at mahahalagang butil hanggang sa masustansyang mga legumbre at pagkain ng hayop, naghahatid kami ng kahusayan mula sa mga sakahan ng India patungo sa pandaigdigang merkado nang may integridad at katumpakan.",
       "cta_quote": "Kumuha ng Quote",
       "cta_services": "Aming Mga Serbisyo",
@@ -102,7 +102,7 @@
       ]
     },
     "contact_cta": {
-      "title": "Simulan ang Iyong Pandaigdigang <br /><span class=\"text-gold\">Pakikipagkalakalan</span> Ngayon",
+      "title": "Simulan ang Iyong Pandaigdigang <br />Pakikipagkalakalan Ngayon",
       "desc": "Handa ka na bang palawakin ang iyong presensya sa merkado? Ang aming mga eksperto sa kalakalan ay handang tumulong sa iyo.",
       "btn": "Makipag-ugnayan sa Amin Ngayon"
     }
@@ -118,12 +118,12 @@
   "about_page": {
     "header": {
       "label": "ITINATAG NA KAHUSAYAN",
-      "title": "Pamana ng <span class=\"italic\">Tiwala</span>",
+      "title": "Pamana ng Tiwala",
       "desc": "Pag-uugnay sa kalidad ng India sa pandaigdigang pangangailangan sa pamamagitan ng transparency at hindi mapapantayang mga pamantayan."
     },
     "story": {
       "subtitle": "ANG AMING KWENTO",
-      "title": "Pangunguna sa Kinabukasan ng <span class=\"text-gold\">Merchant Exports</span>",
+      "title": "Pangunguna sa Kinabukasan ng Merchant Exports",
       "p1": "Ang AABHA IMPEX ay unang itinatag na may pananaw na maging isang world-class merchant export house. Unang nakatutok sa lokal na suplay ng agrikultura, nag-iba kami patungo sa internasyonal na kalakalan upang matugunan ang tumataas na pandaigdigang pangangailangan para sa mga premium na kalakal ng India. Ngayon, kami ay isang kilalang exporter ng mga pampalasa, legumbre, butil, at industriyal na mga bahagi, na may malakas na presensya sa buong Asya, Middle East, at Europa.",
       "p2": "Bilang isang umuusbong na <strong>Two Star Export House</strong> na kinikilala para sa kahusayan, ang AABHA IMPEX ay rehistrado sa Spices Board of India, APEDA, at FIEO. Pinapanatili namin ang isang estratehikong kakayahan na magpalipat-lipat sa mga kalakal batay sa pangangailangan ng merkado at pana-panahong presyo, tinitiyak na naghahatid kami ng mataas na kalidad na mga produkto tulad ng asukal, mais, at pampalasa sa pinakamapagkumpitensyang mga rate. Sa isang pandaigdigang network na umaabot mula sa India hanggang sa aming mga estratehikong kasosyo sa UAE at higit pa, tinitiyak namin ang end-to-end na pagkakatiwalaan sa bawat padala.",
       "stats": {
@@ -144,7 +144,7 @@
     },
     "vision": {
       "label": "ANG PANANAW",
-      "title": "Pangunguna sa <span class=\"text-gold\">Kalidad na Exports</span>",
+      "title": "Pangunguna sa Kalidad na Exports",
       "desc": "Ang aming pananaw ay maging pinakamapagkakatiwalaang gateway ng India para sa pandaigdigang merkado. Layunin naming baguhin ang industriya ng merchant export sa pamamagitan ng pagsasama ng modernong teknolohiya sa mga tradisyonal na halaga ng kalakalan, tinitiyak na ang \"Make in India\" ay kasingkahulugan ng \"Kahusayan sa Buong Mundo.\"",
       "leadership": "Ang Koponan ng Pamumuno"
     }
@@ -152,7 +152,7 @@
   "global_export": {
     "header": {
       "label": "PANDAIGDIGANG ABOT",
-      "title": "World Class na <span class=\"italic\">Export House</span>",
+      "title": "World Class na Export House",
       "desc": "Pag-e-export ng mga premium na produktong agrikultural ng India at mga industriyal na bahagi sa higit sa 15+ bansa."
     },
     "process": {
@@ -189,7 +189,7 @@
   "contact_page": {
     "header": {
       "label": "MAKIPAG-UGNAYAN",
-      "title": "Kumonekta Tayo <span class=\"italic\">sa Buong Mundo</span>",
+      "title": "Kumonekta Tayo sa Buong Mundo",
       "desc": "Ang aming dedikadong koponan ay handang tumulong sa iyo sa mga pandaigdigang inquiry sa kalakalan at ekspertong sourcing ng produkto."
     },
     "cards": {
@@ -229,7 +229,7 @@
   "services_page": {
     "header": {
       "label": "AMING KAHUSAYAN",
-      "title": "Komprehensibong <span class=\"italic\">Solusyon sa Kalakalan</span>",
+      "title": "Komprehensibong Solusyon sa Kalakalan",
       "desc": "Mula sa sourcing hanggang sa paghahatid sa pintuan, nagbibigay kami ng end-to-end na kahusayan sa pandaigdigang merchant exports."
     },
     "list": {
@@ -267,7 +267,7 @@
   "products_page": {
     "header": {
       "label": "AMING MGA KOLEKSYON",
-      "title": "Kalidad at <span class=\"italic\">Sariwa</span>",
+      "title": "Kalidad at Sariwa",
       "desc": "Pinili naming kahusayan sa agrikultura, direktang kinuha para sa pandaigdigang merkado."
     },
     "filter": {
@@ -304,11 +304,11 @@
   "blog_page": {
     "header": {
       "label": "IMPORMASYON SA KALAKALAN",
-      "title": "Kaalaman Higit sa <span class=\"italic\">Hangganan</span>",
+      "title": "Kaalaman Higit sa Hangganan",
       "desc": "Ekspertong pagsusuri sa pandaigdigang kalakalan, logistics, at ang kinabukasan ng exports ng India."
     },
     "newsletter": {
-      "title": "Mag-subscribe sa Trade <span class=\"text-gold\">Intelligence</span>",
+      "title": "Mag-subscribe sa Trade Intelligence",
       "desc": "Kumuha ng buwanang ulat sa merkado at mga update sa patakaran nang direkta sa iyong inbox.",
       "placeholder": "Iyong propesyonal na email",
       "btn": "Mag-subscribe"

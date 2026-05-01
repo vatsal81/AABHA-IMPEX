@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
@@ -7,6 +8,9 @@ const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const inquiryRoutes = require('./routes/inquiryRoutes');
 const blogRoutes = require('./routes/blogRoutes');
+const serviceRoutes = require('./routes/serviceRoutes');
+const certificateRoutes = require('./routes/certificateRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 const seedRoutes = require('./routes/seedRoutes');
 
 const app = express();
@@ -18,6 +22,7 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/aabha_impex';
@@ -37,6 +42,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/blogs', blogRoutes);
+app.use('/api/services', serviceRoutes);
+app.use('/api/certificates', certificateRoutes);
+app.use('/api/upload', uploadRoutes);
 app.use('/api/seed', seedRoutes);
 
 app.get('/', (req, res) => {

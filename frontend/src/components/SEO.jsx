@@ -27,9 +27,14 @@ const SEO = ({ title, description, keywords }) => {
       <meta name="twitter:description" content={description || defaultDescription} />
 
       {/* Alternate Language Links for SEO */}
-      <link rel="alternate" hrefLang="en" href={`${window.location.origin}/en${window.location.pathname.replace(/^\/(en|hi|gu)/, '')}`} />
-      <link rel="alternate" hrefLang="hi" href={`${window.location.origin}/hi${window.location.pathname.replace(/^\/(en|hi|gu)/, '')}`} />
-      <link rel="alternate" hrefLang="gu" href={`${window.location.origin}/gu${window.location.pathname.replace(/^\/(en|hi|gu)/, '')}`} />
+      {['en', 'hi', 'gu', 'ar', 'ur', 'ml', 'ta', 'bn', 'tl'].map((l) => (
+        <link 
+          key={l}
+          rel="alternate" 
+          hrefLang={l} 
+          href={`${window.location.origin}/${l}${window.location.pathname.replace(/^\/(en|hi|gu|ar|ur|ml|ta|bn|tl)/, '')}`} 
+        />
+      ))}
     </Helmet>
   );
 };
