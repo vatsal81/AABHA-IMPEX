@@ -14,7 +14,7 @@ const blogRoutes = require('./routes/blogRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const certificateRoutes = require('./routes/certificateRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
-const seedRoutes = require('./routes/seedRoutes');
+// const seedRoutes = require('./routes/seedRoutes');
 const marketRoutes = require('./routes/marketRoutes');
 
 const app = express();
@@ -85,7 +85,7 @@ app.use('/api/blogs', blogRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/upload', uploadRoutes);
-app.use('/api/seed', seedRoutes);
+// app.use('/api/seed', seedRoutes);
 app.use('/api/market', marketRoutes);
 
 app.get('/', (req, res) => {
@@ -95,6 +95,6 @@ app.get('/', (req, res) => {
 // Error Middleware (Must be after routes)
 app.use(errorMiddleware);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT} (All Interfaces)`);
 });

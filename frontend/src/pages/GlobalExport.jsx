@@ -14,6 +14,7 @@ const GlobalExport = () => {
   const { t } = useTranslation();
   const [selectedCert, setSelectedCert] = useState(null);
   const [isWindowFocused, setIsWindowFocused] = useState(true);
+  const [activeTab, setActiveTab] = useState('all');
 
   // Use Query for Certificates
   const { data: certificates = [], isLoading: loading } = useQuery({
@@ -212,70 +213,96 @@ const GlobalExport = () => {
       {/* Global Trade News Feed */}
       <section className="section-padding trade-news-section">
         <div className="container">
-          <div className="section-header-flex">
-            <div className="section-title">
-              <span className="label">{t('global_export.news.label')}</span>
-              <h2>{t('global_export.news.title')}</h2>
-              <p>{t('global_export.news.desc')}</p>
-            </div>
-            <div className="live-indicator-group">
-              <button 
-                className={`refresh-btn ${newsFetching ? 'spinning' : ''}`} 
-                onClick={() => refetchNews()}
-                title="Refresh News"
-              >
-                <RefreshCcw size={16} />
-              </button>
-              <div className="live-indicator">
-                <span className="pulse-dot"></span>
-                LIVE DATA
-              </div>
-            </div>
+          <div className="section-title text-center" style={{ marginBottom: '50px', position: 'relative' }}>
+            <span className="label">{t('global_export.news.label')}</span>
+            <h2>{t('global_export.news.title')}</h2>
+            <p>Latest high-impact updates from Business Standard and Times of India (Business & World).</p>
+            
+            <button 
+              className={`refresh-btn-premium ${newsFetching ? 'spinning' : ''}`}
+              onClick={() => refetchNews()}
+              title="Refresh Intelligence Feed"
+            >
+              <RefreshCcw size={18} />
+            </button>
+          </div>
+
+          {/* News Source Tabs */}
+          <div className="news-tabs-premium">
+            <button 
+              className={`news-tab ${activeTab === 'all' ? 'active' : ''}`}
+              onClick={() => setActiveTab('all')}
+            >
+              Top News
+            </button>
+            <button 
+              className={`news-tab ${activeTab === 'toi' ? 'active' : ''}`}
+              onClick={() => setActiveTab('toi')}
+            >
+              Times of India
+            </button>
+            <button 
+              className={`news-tab ${activeTab === 'bs' ? 'active' : ''}`}
+              onClick={() => setActiveTab('bs')}
+            >
+              Business Standard
+            </button>
           </div>
 
           <div className="news-grid-horizontal">
             {newsLoading ? (
               [1, 2, 3, 4].map(i => (
                 <div key={i} className="news-card-skeleton">
-                  <Skeleton height="200px" width="300px" />
+                  <Skeleton height="320px" width="100%" />
                 </div>
               ))
             ) : news.length > 0 ? (
               <div className="news-scroll-container">
-                {news.map((item, idx) => (
-                  <motion.a 
-                    key={idx}
-                    href={item.link || item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="trade-news-card"
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.05 }}
-                  >
-                    {item.imageUrl && (
-                      <div className="news-image">
-                        <img src={item.imageUrl} alt={item.title} loading="lazy" />
+                {news
+                  .filter(item => {
+                    if (activeTab === 'toi') return item.source.includes('Times of India');
+                    if (activeTab === 'bs') return item.source.includes('Business Standard');
+                    return true; // 'all' tab
+                  })
+                  .map((item, idx) => (
+                    <motion.div 
+                      key={idx} 
+                      className={`trade-news-card-premium impact-${item.impactLevel.toLowerCase()}`}
+                      onClick={() => window.open(item.url, '_blank')}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: idx * 0.05 }}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <div className="news-header-premium">
+                        <div className="source-badge">{item.source}</div>
                       </div>
-                    )}
-                    <div className="news-content-area">
-                      <div className="news-meta">
-                        <span className="news-source">{item.source}</span>
-                        <span className="news-date">{formatTimeAgo(item.pubDate)}</span>
+                      
+                      <div className="news-body-premium">
+                        <h3>{item.title}</h3>
+                        <p>{item.summary}</p>
                       </div>
-                      <h3>{item.title}</h3>
-                      <p>{item.contentSnippet?.substring(0, 120)}...</p>
-                      <div className="news-footer">
-                        <span className="news-category">{item.category}</span>
-                        <span className="visit-source">Read More <ArrowUpRight size={14} /></span>
+
+                      <div className="news-footer-premium">
+                        <div className="meta-info">
+                          <span className="category-tag">{item.category}</span>
+                          <span className="divider">•</span>
+                          <span className="region-tag">{item.region}</span>
+                        </div>
+                        <span className="time-ago">{formatTimeAgo(item.publishedAt)}</span>
                       </div>
-                    </div>
-                  </motion.a>
+                      
+                      <div className="card-glass-overlay"></div>
+                    </motion.div>
                 ))}
               </div>
             ) : (
-              <p className="no-news">No news updates available at the moment.</p>
+              <div className="no-news-box">
+                <RefreshCcw size={40} className="text-muted" />
+                <p>Analyzing global trade channels... No high-impact updates in the last 24h.</p>
+                <button className="btn btn-outline btn-sm" onClick={() => refetchNews()}>Retry Intelligence Fetch</button>
+              </div>
             )}
           </div>
         </div>
