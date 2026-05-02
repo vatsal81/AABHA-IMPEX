@@ -35,6 +35,29 @@ const SEO = ({ title, description, keywords }) => {
           href={`${window.location.origin}/${l}${window.location.pathname.replace(/^\/(en|hi|gu|ar|ur|ml|ta|bn|tl)/, '')}`} 
         />
       ))}
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": title ? "Product" : "Organization",
+          "name": title ? `${title} | AABHA IMPEX` : "AABHA IMPEX",
+          "description": description || defaultDescription,
+          "url": window.location.href,
+          "logo": `${window.location.origin}/logo.png`,
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91 94268 68883",
+            "contactType": "customer service",
+            "areaServed": "Global",
+            "availableLanguage": ["English", "Hindi", "Gujarati"]
+          },
+          "sameAs": [
+            "https://www.facebook.com/aabhaimpex",
+            "https://www.linkedin.com/company/aabha-impex"
+          ]
+        })}
+      </script>
     </Helmet>
   );
 };

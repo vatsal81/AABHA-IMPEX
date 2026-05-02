@@ -7,6 +7,6 @@ const serviceSchema = new mongoose.Schema({
   image: { type: String }, // Optional image URL
   details: [{ type: String }],
   color: { type: String, default: 'var(--primary)' }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Service', serviceSchema);

@@ -1,18 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Globe, Ship, ShieldCheck, ClipboardCheck, Package, Truck, ArrowRight, CheckCircle, X, Download, Eye } from 'lucide-react';
+import { Globe, Ship, ShieldCheck, ClipboardCheck, Package, Truck, ArrowRight, CheckCircle, X, Download, Eye, ArrowUpRight, RefreshCcw } from 'lucide-react';
 import WorldMap from '../components/WorldMap';
-import { fetchCertificates } from '../services/api';
+import { fetchCertificates, fetchMarketNews } from '../services/api';
+import { useQuery } from '@tanstack/react-query';
 import Skeleton from '../components/Skeleton';
+import { formatTimeAgo } from '../utils/timeAgo';
 import './GlobalExport.css';
+
 
 const GlobalExport = () => {
   const { t } = useTranslation();
   const [selectedCert, setSelectedCert] = useState(null);
-  const [certificates, setCertificates] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [isWindowFocused, setIsWindowFocused] = useState(true);
+
+  // Use Query for Certificates
+  const { data: certificates = [], isLoading: loading } = useQuery({
+    queryKey: ['certificates'],
+    queryFn: fetchCertificates
+  });
+
+  // Use Query for News
+  const { data: news = [], isLoading: newsLoading, refetch: refetchNews, isFetching: newsFetching } = useQuery({
+    queryKey: ['tradeNews'],
+    queryFn: fetchMarketNews,
+    refetchInterval: 300000, // Auto-refresh every 5 minutes (300,000 ms)
+    staleTime: 60000, // Consider data stale after 1 minute
+    refetchOnWindowFocus: true
+  });
+
+
+
+
+
+
+
 
   useEffect(() => {
     const handleFocus = () => setIsWindowFocused(true);
@@ -25,18 +48,6 @@ const GlobalExport = () => {
         }
     };
 
-    const loadCerts = async () => {
-      setLoading(true);
-      try {
-        const data = await fetchCertificates();
-        setCertificates(data);
-      } catch (error) {
-        console.error("Error loading certificates:", error);
-      }
-      setLoading(false);
-    };
-
-    loadCerts();
     window.addEventListener('focus', handleFocus);
     window.addEventListener('blur', handleBlur);
     window.addEventListener('keyup', handleKeyDown);
@@ -47,6 +58,7 @@ const GlobalExport = () => {
         window.removeEventListener('keyup', handleKeyDown);
     };
   }, []);
+
 
   const exportSteps = [
     {
@@ -116,6 +128,9 @@ const GlobalExport = () => {
           </motion.div>
         </div>
       </section>
+
+
+
 
 
       {/* Export Process Roadmap */}
@@ -191,6 +206,78 @@ const GlobalExport = () => {
           >
               <WorldMap />
           </motion.div>
+        </div>
+      </section>
+
+      {/* Global Trade News Feed */}
+      <section className="section-padding trade-news-section">
+        <div className="container">
+          <div className="section-header-flex">
+            <div className="section-title">
+              <span className="label">{t('global_export.news.label')}</span>
+              <h2>{t('global_export.news.title')}</h2>
+              <p>{t('global_export.news.desc')}</p>
+            </div>
+            <div className="live-indicator-group">
+              <button 
+                className={`refresh-btn ${newsFetching ? 'spinning' : ''}`} 
+                onClick={() => refetchNews()}
+                title="Refresh News"
+              >
+                <RefreshCcw size={16} />
+              </button>
+              <div className="live-indicator">
+                <span className="pulse-dot"></span>
+                LIVE DATA
+              </div>
+            </div>
+          </div>
+
+          <div className="news-grid-horizontal">
+            {newsLoading ? (
+              [1, 2, 3, 4].map(i => (
+                <div key={i} className="news-card-skeleton">
+                  <Skeleton height="200px" width="300px" />
+                </div>
+              ))
+            ) : news.length > 0 ? (
+              <div className="news-scroll-container">
+                {news.map((item, idx) => (
+                  <motion.a 
+                    key={idx}
+                    href={item.link || item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="trade-news-card"
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.05 }}
+                  >
+                    {item.imageUrl && (
+                      <div className="news-image">
+                        <img src={item.imageUrl} alt={item.title} loading="lazy" />
+                      </div>
+                    )}
+                    <div className="news-content-area">
+                      <div className="news-meta">
+                        <span className="news-source">{item.source}</span>
+                        <span className="news-date">{formatTimeAgo(item.pubDate)}</span>
+                      </div>
+                      <h3>{item.title}</h3>
+                      <p>{item.contentSnippet?.substring(0, 120)}...</p>
+                      <div className="news-footer">
+                        <span className="news-category">{item.category}</span>
+                        <span className="visit-source">Read More <ArrowUpRight size={14} /></span>
+                      </div>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+            ) : (
+              <p className="no-news">No news updates available at the moment.</p>
+            )}
+          </div>
         </div>
       </section>
 
@@ -295,6 +382,7 @@ const GlobalExport = () => {
             </motion.div>
         )}
       </AnimatePresence>
+
 
       {/* Final CTA */}
       <section className="section-padding global-cta">

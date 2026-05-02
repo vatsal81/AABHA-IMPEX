@@ -1,6 +1,6 @@
 .navbar-wrapper {
     position: fixed;
-    top: 0;
+    top: 40px; /* Reverted to old position: matches 40px height of full-width ticker */
     left: 0;
     width: 100%;
     z-index: 1000;
@@ -9,23 +9,27 @@
 }
 
 .navbar-wrapper.scrolled {
+    top: 40px; /* Stay below the fixed 40px ticker */
     padding: 15px 0;
 }
 
 .nav-floating-container {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 80px;
-    padding: 8px 12px 8px 35px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 40px;
+    padding: 10px 15px 10px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08), 0 0 20px rgba(212, 175, 55, 0.1);
+    box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+        0 2px 4px -1px rgba(0, 0, 0, 0.06),
+        inset 0 0 20px rgba(255, 255, 255, 0.5);
     max-width: 1400px;
     margin: 0 auto;
-    transition: all 0.4s ease;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navbar-wrapper.scrolled .nav-floating-container {

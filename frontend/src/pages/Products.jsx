@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useQuery } from '@tanstack/react-query';
 import { Search, ArrowRight } from 'lucide-react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { fetchProducts } from '../services/api';
@@ -12,20 +13,14 @@ const Products = () => {
   const { t } = useTranslation();
   const { lng } = useParams();
   const location = useLocation();
-  const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState('All');
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      setLoading(true);
-      const data = await fetchProducts();
-      setProducts(data);
-      setLoading(false);
-    };
-    loadProducts();
-  }, []);
+  const { data: products = [], isLoading: loading } = useQuery({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+    staleTime: 5 * 60 * 1000, // Keep data fresh for 5 minutes
+  });
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);

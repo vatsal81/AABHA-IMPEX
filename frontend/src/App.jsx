@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
@@ -14,6 +14,7 @@ import Admin from './pages/Admin';
 import Login from './pages/Login';
 import GlobalExport from './pages/GlobalExport';
 import Blog from './pages/Blog';
+import BlogDetail from './pages/BlogDetail';
 import IECRegistration from './pages/IECRegistration';
 import NotFound from './pages/NotFound';
 import Footer from './components/Footer';
@@ -22,6 +23,8 @@ import AnimatedBackground from './components/AnimatedBackground';
 import CargoLoader from './components/CargoLoader';
 import CookieConsent from './components/CookieConsent';
 import { Toaster } from 'react-hot-toast';
+
+import NewsTicker from './components/NewsTicker';
 
 // Layout component to keep Navbar and Footer persistent and handle language
 const LanguageLayout = () => {
@@ -60,6 +63,7 @@ const LanguageLayout = () => {
 
   return (
     <>
+      <NewsTicker />
       <Navbar />
       <div className="main-content">
         <AnimatePresence mode="wait">
@@ -87,12 +91,6 @@ const ProtectedAdminRoute = () => {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
 
   useEffect(() => {
     // Simulate initial loading for professional feel - reduced for better UX
@@ -106,20 +104,6 @@ function App() {
 
   return (
     <Router>
-      <motion.div
-        className="scroll-progress-bar"
-        style={{
-          scaleX,
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '4px',
-          background: 'var(--secondary)',
-          transformOrigin: '0%',
-          zIndex: 9999
-        }}
-      />
       <Toaster position="top-right" />
       <ScrollToTop />
       <div className="app">
@@ -137,6 +121,7 @@ function App() {
             <Route path="global-export" element={<GlobalExport />} />
             <Route path="export" element={<Navigate to="../global-export" replace />} />
             <Route path="blog" element={<Blog />} />
+            <Route path="blog/:slug" element={<BlogDetail />} />
             <Route path="iec-registration" element={<IECRegistration />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />

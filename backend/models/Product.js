@@ -17,6 +17,6 @@ const productSchema = new mongoose.Schema({
   origin: { type: String, default: 'India' },
   loadingPort: { type: String, default: 'Mundra / Pipavav, India' },
   available: { type: Boolean, default: true }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Product', productSchema);

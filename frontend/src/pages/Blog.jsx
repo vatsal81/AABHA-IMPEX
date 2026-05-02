@@ -116,6 +116,7 @@ const Blog = () => {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.05, duration: 0.5 }}
                   >
+                    <Link to={`/blog/${post.slug}`} className="card-click-overlay"></Link>
                     <div className="card-image-wrapper">
                        <img src={post.image || "https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=800"} alt={post.title} />
                        <div className="card-category-tag">{post.category || "General"}</div>
@@ -128,9 +129,9 @@ const Blog = () => {
                        <h3 className="card-title">{post.title}</h3>
                        <p className="card-excerpt">{post.excerpt || post.content?.substring(0, 110) + '...'}</p>
                        <div className="card-footer-premium">
-                          <button className="premium-read-more">
+                          <Link to={`/blog/${post.slug}`} className="premium-read-more">
                              Read Full Blog <ArrowRight size={16} />
-                          </button>
+                          </Link>
                           <div className="card-quick-actions">
                              <button title="Share"><Share2 size={16} /></button>
                              <button title="Bookmark"><Bookmark size={16} /></button>

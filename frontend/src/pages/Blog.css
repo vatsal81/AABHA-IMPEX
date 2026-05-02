@@ -172,15 +172,19 @@
 
 /* Premium Blog Card */
 .premium-blog-card {
-    background: var(--white);
-    border-radius: var(--radius-lg);
+    position: relative;
+    background: white;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid var(--bg-alt);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    transition: var(--transition);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.card-click-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    cursor: pointer;
 }
 
 .premium-blog-card:hover {

@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = '/api';
 
 // Helper to get token
 const getAuthHeaders = () => {
@@ -155,6 +155,17 @@ export const fetchBlogs = async () => {
   } catch (error) {
     console.error('Error fetching blogs:', error);
     return [];
+  }
+};
+
+export const fetchBlogBySlug = async (slug) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/blogs/${slug}`);
+    if (!response.ok) throw new Error('Failed to fetch blog');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching blog detail:', error);
+    return null;
   }
 };
 
@@ -319,3 +330,26 @@ export const uploadFile = async (file) => {
     throw error;
   }
 };
+// Market Data
+export const fetchMarketPrices = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/market/prices`);
+    if (!response.ok) throw new Error('Failed to fetch prices');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching prices:', error);
+    return [];
+  }
+};
+
+export const fetchMarketNews = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/market/news`);
+    if (!response.ok) throw new Error('Failed to fetch news');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    return [];
+  }
+};
+

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, Globe, Shield, Truck, Package, 
   ArrowUpRight, CheckCircle2, Users, Award, Zap, 
-  MapPin, Mail, Phone, ExternalLink 
+  MapPin, Mail, Phone, ExternalLink, Activity
 } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { fetchProducts } from '../services/api';
+import { useQuery } from '@tanstack/react-query';
+import { fetchProducts, fetchBlogs, fetchMarketPrices } from '../services/api';
 import SEO from '../components/SEO';
 import TestimonialSlider from '../components/TestimonialSlider';
 import WorldMap from '../components/WorldMap';
@@ -18,27 +19,41 @@ import './Home.css';
 const Home = () => {
   const { t } = useTranslation();
   const { lng } = useParams();
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-
-  const countries = [
-    { region: t('global_export.geography.middle_east'), list: ["UAE", "Saudi Arabia", "Qatar", "Oman", "Kuwait"] },
-    { region: t('global_export.geography.europe'), list: ["UK", "Germany", "Netherlands", "Belgium", "Spain"] },
-    { region: t('global_export.geography.asia'), list: ["Singapore", "Malaysia", "Vietnam", "Thailand"] },
-    { region: t('global_export.geography.americas'), list: ["USA", "Canada"] }
-  ];
+  const [activeTab, setActiveTab] = useState('global');
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const getFeaturedProducts = async () => {
-      try {
-        const products = await fetchProducts();
-        // Get up to 4 latest products for the home page
-        setFeaturedProducts(products.slice(0, 4));
-      } catch (error) {
-        console.error("Failed to load featured products:", error);
-      }
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
     };
-    getFeaturedProducts();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const { data: products = [], isLoading: productsLoading } = useQuery({
+    queryKey: ['products'],
+    queryFn: fetchProducts,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const { data: blogs = [], isLoading: blogsLoading } = useQuery({
+    queryKey: ['blogs'],
+    queryFn: fetchBlogs,
+    staleTime: 5 * 60 * 1000,
+  });
+
+
+
+  const { data: prices = [], isLoading: pricesLoading } = useQuery({
+    queryKey: ['marketPrices'],
+    queryFn: fetchMarketPrices,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const featuredProducts = Array.isArray(products) ? products.slice(0, 4) : [];
+  const latestBlogs = Array.isArray(blogs) ? blogs.slice(0, 3) : [];
+
+  const displayPrices = Array.isArray(prices) ? prices : [];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -72,6 +87,11 @@ const Home = () => {
       <section className="hero-classic-v2">
         <div className="hero-atmosphere">
           <div className="hero-sky-overlay"></div>
+          <div className="hero-particles">
+            {[...Array(20)].map((_, i) => (
+              <div key={i} className="particle"></div>
+            ))}
+          </div>
           <img 
             src={heroImg} 
             alt="International Trade" 
@@ -111,23 +131,32 @@ const Home = () => {
                   visible: { 
                     opacity: 1, 
                     transition: { 
-                      staggerChildren: 0.05,
-                      delayChildren: 0.2
+                      staggerChildren: 0.08,
+                      delayChildren: 0.3
                     } 
                   }
                 }}
               >
-                {t('home.hero.title').split('').map((char, index) => (
-                  <motion.span
-                    key={index}
-                    style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
-                    variants={{
-                      hidden: { opacity: 0, y: 30, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", damping: 12, stiffness: 100 } }
-                    }}
-                  >
-                    {char}
-                  </motion.span>
+                {t('home.hero.title').split(' ').map((word, i) => (
+                  <span key={i} style={{ display: 'inline-block', marginRight: '0.3em' }}>
+                    {word.split('').map((char, j) => (
+                      <motion.span
+                        key={j}
+                        style={{ display: 'inline-block' }}
+                        variants={{
+                          hidden: { opacity: 0, y: 50, rotateX: -90 },
+                          visible: { 
+                            opacity: 1, 
+                            y: 0, 
+                            rotateX: 0,
+                            transition: { type: "spring", damping: 12, stiffness: 100 } 
+                          }
+                        }}
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                  </span>
                 ))}
               </motion.h1>
 
@@ -372,50 +401,82 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 6. Why Choose Us Section */}
-      <section className="section-padding why-choose-us">
+      {/* 6. Elite Bento Why Choose Us Section */}
+      <section className="section-padding bento-why-section">
         <div className="container">
-          <div className="why-grid">
-            <div className="why-header">
-              <span className="label">{t('home.why.label')}</span>
-              <h2 className="text-white" dangerouslySetInnerHTML={{ __html: t('home.why.title') }}></h2>
-              <p>{t('home.why.desc')}</p>
-              
-              <div className="trust-bars">
-                <div className="t-bar"><span>{t('home.why.reliability')}</span><div className="bar"><div className="fill" style={{width: '98%'}}></div></div></div>
-                <div className="t-bar"><span>{t('home.why.compliance')}</span><div className="bar"><div className="fill" style={{width: '100%'}}></div></div></div>
-                <div className="t-bar"><span>{t('home.why.satisfaction')}</span><div className="bar"><div className="fill" style={{width: '95%'}}></div></div></div>
-              </div>
-            </div>
+          <div className="section-header text-center">
+            <span className="label">{t('home.why.label')}</span>
+            <h2>Why Partners Choose <span className="text-gold">AABHA</span></h2>
+            <p className="section-desc">Our commitment to excellence is built on four core pillars of international trade.</p>
+          </div>
 
-            <div className="why-features">
-              {[
-                { icon: <Users />, title: t('home.why.trusted_network.title'), text: t('home.why.trusted_network.desc') },
-                { icon: <Zap />, title: t('home.why.fast_docs.title'), text: t('home.why.fast_docs.desc') },
-                { icon: <Award />, title: t('home.why.pricing.title'), text: t('home.why.pricing.desc') },
-                { icon: <Globe />, title: t('home.why.expertise.title'), text: t('home.why.expertise.desc') }
-              ].map((f, i) => (
-                <motion.div 
-                  key={i} 
-                  className="why-feature-card"
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  <div className="wf-icon">{f.icon}</div>
-                  <div className="wf-text">
-                    <h4>{f.title}</h4>
-                    <p>{f.text}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          <div className="bento-grid-container">
+            {/* 1. Main Feature: Global Expertise (2x2) */}
+            <motion.div className="bento-item main-feature" variants={itemVariants}>
+              <div className="bento-card-glass">
+                <div className="bento-icon-box"><Globe size={32} /></div>
+                <h3>Global Expertise</h3>
+                <p>In-depth knowledge of international trade laws and cross-border logistics.</p>
+                <div className="bento-visual">
+                   <WorldMap mini />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* 2. Trusted Network (2x1) */}
+            <motion.div className="bento-item trusted-network" variants={itemVariants}>
+              <div className="bento-card-glass">
+                <div className="bento-flex-row">
+                   <div className="bento-text-stack">
+                      <h4>Trusted Network</h4>
+                      <p>Verified partners across 30+ countries.</p>
+                   </div>
+                   <div className="bento-mini-stats">
+                      <div className="b-stat"><span>25+</span> Countries</div>
+                      <div className="b-stat"><span>500+</span> Clients</div>
+                   </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* 3. Fast Documentation (1x1) */}
+            <motion.div className="bento-item fast-docs" variants={itemVariants}>
+              <div className="bento-card-glass">
+                <div className="bento-icon-box"><Zap size={32} /></div>
+                <h4>Fast Docs</h4>
+                <p>Zero-error paperwork for rapid clearances.</p>
+                <CheckCircle2 className="floating-check-icon" size={40} />
+              </div>
+            </motion.div>
+
+            {/* 4. Live Market Watch (1x1) */}
+            <motion.div className="bento-item market-watch" variants={itemVariants}>
+              <div className="bento-card-glass market-bento-card">
+                 <div className="market-bento-header">
+                    <div className="bento-icon-box"><Activity size={24} /></div>
+                    <h4>Live Market</h4>
+                 </div>
+                 <div className="market-bento-list">
+                    {pricesLoading ? (
+                      <div className="bento-price-skeleton"></div>
+                    ) : (
+                      displayPrices.slice(0, 2).map(price => (
+                        <div key={price.id} className="bento-price-row">
+                           <span className="bento-price-name">{price.name}</span>
+                           <span className="bento-price-amt">₹{price.price}</span>
+                        </div>
+                      ))
+                    )}
+                 </div>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* 7. Testimonials Section */}
+
+      {/* 8. Testimonials Section */}
       <section className="section-padding testimonials-section bg-alt">
         <div className="container">
           <div className="section-header text-center">
@@ -446,6 +507,19 @@ const Home = () => {
             <div className="cp-visual">
               <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e778?auto=format&fit=crop&q=80&w=1000" alt="Consultation" />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 9. Certification Strip */}
+      <section className="certification-strip">
+        <div className="container">
+          <div className="cert-logos">
+             <div className="cert-logo-item">ISO 9001:2015</div>
+             <div className="cert-logo-item">DGFT CERTIFIED</div>
+             <div className="cert-logo-item">APEDA REGISTERED</div>
+             <div className="cert-logo-item">FSSAI COMPLIANT</div>
+             <div className="cert-logo-item">GLOBAL GAP</div>
           </div>
         </div>
       </section>

@@ -105,7 +105,8 @@
       "title": "Start Your Global <br />Trade Journey Today",
       "desc": "Ready to expand your market presence? Our trade experts are standing by to assist you.",
       "btn": "Contact Us Now"
-    }
+    },
+    "live_market": "Live Market"
   },
   "footer": {
     "tagline": "Bridging Indian farms to global markets with excellence, integrity, and trust. Rajkot's leading merchant export house.",
@@ -184,8 +185,14 @@
       "title": "Start Your Global Partnership",
       "desc": "Connect with our expert export team for a customized sourcing solution.",
       "btn": "Request Export Quote"
+    },
+    "news": {
+      "label": "LIVE INTELLIGENCE",
+      "title": "Global Trade News",
+      "desc": "Latest updates from WTO, Global Trade Mag, and International Export Sources."
     }
   },
+
   "contact_page": {
     "header": {
       "label": "GET IN TOUCH",

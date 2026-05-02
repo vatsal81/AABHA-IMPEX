@@ -6,8 +6,7 @@ const inquirySchema = new mongoose.Schema({
   phone: String,
   subject: String,
   message: String,
-  status: { type: String, default: 'Pending' },
-  createdAt: { type: Date, default: Date.now }
-});
+  status: { type: String, default: 'Pending' }
+}, { timestamps: true });
 
 module.exports = mongoose.model('Inquiry', inquirySchema);

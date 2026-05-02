@@ -54,44 +54,50 @@ const About = () => {
         </div>
       </section>
 
-      {/* 1. About Company Section */}
-      <section className="section-padding about-company-section">
+      {/* 1. Elite Editorial About Section */}
+      <section className="section-padding about-editorial">
         <div className="container">
-          <div className="company-grid">
+          <div className="editorial-layout">
             <motion.div 
-              className="company-image-container"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className="editorial-image-side"
+              initial={{ opacity: 0, scale: 1.1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1.5, ease: "circOut" }}
             >
-              <div className="image-offset-border"></div>
-              <img src="https://images.unsplash.com/photo-1599330231908-09559f214690?auto=format&fit=crop&q=80&w=800" alt="AABHA IMPEX Products" />
+              <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1200" alt="Global Trade" className="editorial-img" />
+              <div className="img-caption-float">
+                 <span className="caption-num">01</span>
+                 <p>Connecting continents through quality agriculture.</p>
+              </div>
             </motion.div>
             
             <motion.div 
-              className="company-text-container"
-              initial={{ opacity: 0, x: 30 }}
+              className="editorial-content-side"
+              initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <span className="sub-heading">ABOUT</span>
-              <h2>AABHA IMPEX</h2>
-              <div className="heading-line"></div>
+              <span className="editorial-label">ESTABLISHED EXCELLENCE</span>
+              <h2 className="editorial-title">Pioneering the Future of <span className="text-gold">Agricultural Export</span></h2>
               
-              <p>
-                Our Company was initially incorporated as a merchant export house specializing in premium agricultural produce and commodities. Keeping in view the demand in global markets, our Company diversified from export of industrial materials to export of agricultural produce and commodities. Since then, our Company has been engaged in exporting agricultural produce including premium seeds, pulses, and spices.
-              </p>
-              <p>
-                Our Company is engaged into trading and marketing of agricultural produce and commodities such as cumin seeds, food grains like rice, wheat, corn, and pulses. We import and export in bulk quantities. Our major markets span across Asia, Europe, and the Middle East. We maintain stocks and distribute them to different institutional parties. We follow a standard packing process to ensure that quality and authentic taste of commodities remains intact.
-              </p>
-              <p>
-                Our Company has developed a business strategy to switch over exports/imports from one commodity to another with change in demand or inconsistency in pricing during any season. This policy ensures we do not pass through a lean period.
-              </p>
-              <p>
-                We are recognized by the Directorate General of Foreign Trade. We are registered with APEDA and the Federation of Indian Export Organizations. Our customer-oriented approach and cordial relations with them are the key strengths of our company. We aim to provide cost-effective solutions while adhering to the quality standards of the services.
-              </p>
+              <div className="editorial-text">
+                <p className="lead-para">
+                  Our journey began with a single vision: to bridge the gap between India's rich agricultural heritage and the global market's demand for purity.
+                </p>
+                <p>
+                  Originally incorporated as a specialized merchant export house, AABHA IMPEX has evolved into a diversified global entity. We have transitioned from industrial materials to a curated portfolio of premium agricultural produce, including cumin seeds, high-grade rice, wheat, and exotic spices.
+                </p>
+                <p>
+                  Today, we operate a sophisticated supply chain that spans Asia, Europe, and the Middle East. Our strategy is built on agility—switching between commodities to match market dynamics while maintaining an unwavering commitment to quality and ethical trade.
+                </p>
+                
+                <div className="editorial-stats">
+                   <div className="e-stat"><span>15+</span> Years Exp.</div>
+                   <div className="e-stat"><span>100%</span> Compliance</div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -151,55 +157,35 @@ const About = () => {
         </div>
       </section>
 
-      {/* 2.5 Our Values Section (Pisum Style) */}
-      <section className="section-padding about-values-section">
+      {/* 2.5 Modern Process Section */}
+      <section className="section-padding process-section bg-alt">
         <div className="container">
           <div className="section-header text-center">
-             <span className="label">PRINCIPLES</span>
-             <h2>Our Core <span className="text-gold">Values</span></h2>
-             <div className="heading-line-centered"></div>
+             <span className="label">OUR WORKFLOW</span>
+             <h2>The AABHA <span className="text-gold">Standard</span></h2>
+             <p className="section-desc">A meticulous journey from the farm to the global table.</p>
           </div>
 
-          <div className="values-modern-grid">
-            <div className="value-item">
-              <div className="value-icon-badge">
-                <Award size={40} />
-              </div>
-              <h4>Best Quality Services</h4>
-              <p>When it comes to food, there must be no compromise. This is why we strive to provide you with the best quality services to ensure that the food stays healthy and fresh.</p>
-            </div>
-
-            <div className="value-item">
-              <div className="value-icon-badge">
-                <TrendingUp size={40} />
-              </div>
-              <h4>Vast Experience in Food Trading</h4>
-              <p>Our vast experience in the food industry is what makes us the ideal choice for your food trading needs.</p>
-            </div>
-
-            <div className="value-item center-item">
-              <div className="value-icon-badge">
-                <ShieldCheck size={40} />
-              </div>
-              <h4>Trusted & Legally Approved Certified Services</h4>
-              <p>Being a legally certified food export company in India, our services are transparent and trustworthy.</p>
-            </div>
-
-            <div className="value-item">
-              <div className="value-icon-badge">
-                <Clock size={40} />
-              </div>
-              <h4>Commitment & Time Adherence</h4>
-              <p>Time is a huge factor when it comes to food. This is why, at AABHA, we are committed to ensuring that we get the job done on schedule without fail.</p>
-            </div>
-
-            <div className="value-item">
-              <div className="value-icon-badge">
-                <Lightbulb size={40} />
-              </div>
-              <h4>Innovation</h4>
-              <p>Using innovative methods and equipment, we ensure that the food is packaged and stored to the best standards.</p>
-            </div>
+          <div className="process-timeline">
+            {[
+              { num: '01', title: 'Ethical Sourcing', desc: 'Direct partnerships with certified farmers across India.' },
+              { num: '02', title: 'Quality Analysis', desc: 'Rigorous laboratory testing for purity and moisture levels.' },
+              { num: '03', title: 'Precision Packing', desc: 'Customized international-standard moisture-proof packaging.' },
+              { num: '04', title: 'Global Logistics', desc: 'Seamless export through Mundra and Kandla ports.' }
+            ].map((step, i) => (
+              <motion.div 
+                key={i} 
+                className="process-step"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <div className="step-num">{step.num}</div>
+                <h4>{step.title}</h4>
+                <p>{step.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
