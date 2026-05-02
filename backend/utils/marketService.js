@@ -181,6 +181,20 @@ class MarketService {
             return [];
         }
     }
+
+    async getDiagnostics() {
+        const diagnostics = [];
+        for (const source of this.sources) {
+            try {
+                const start = Date.now();
+                await axios.get(source.url, { timeout: 5000 });
+                diagnostics.push({ name: source.name, status: 'Success', time: `${Date.now() - start}ms` });
+            } catch (err) {
+                diagnostics.push({ name: source.name, status: 'Failed', error: err.message });
+            }
+        }
+        return diagnostics;
+    }
 }
 
 module.exports = new MarketService();

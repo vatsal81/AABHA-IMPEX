@@ -22,5 +22,15 @@ router.get('/news', async (req, res) => {
     }
 });
 
+// Diagnostics for News Sources
+router.get('/diagnostics', async (req, res) => {
+    try {
+        const diagnostics = await marketService.getDiagnostics();
+        res.json(diagnostics);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 module.exports = router;
 
