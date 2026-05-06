@@ -5,7 +5,17 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const errorMiddleware = require('./middleware/errorMiddleware');
+const logger = require('./utils/logger');
 require('dotenv').config();
+
+// Environment Validation
+const requiredEnv = ['MONGODB_URI', 'PORT'];
+requiredEnv.forEach(env => {
+  if (!process.env[env]) {
+    logger.error(`Critical Error: Environment variable ${env} is missing`);
+    process.exit(1);
+  }
+});
 
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
@@ -14,8 +24,8 @@ const blogRoutes = require('./routes/blogRoutes');
 const serviceRoutes = require('./routes/serviceRoutes');
 const certificateRoutes = require('./routes/certificateRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
-// const seedRoutes = require('./routes/seedRoutes');
 const marketRoutes = require('./routes/marketRoutes');
+const sitemapRoutes = require('./routes/sitemapRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -67,10 +77,10 @@ const connectDB = async () => {
       family: 4, // Force IPv4 (fixes many ECONNREFUSED issues)
       retryWrites: true,
     });
-    console.log('✅ Connected to MongoDB Successfully');
+    logger.info('✅ Connected to MongoDB Successfully');
   } catch (err) {
-    console.error('❌ MongoDB Connection Error:', err.message);
-    console.log('🔄 Retrying in 5 seconds...');
+    logger.error(`❌ MongoDB Connection Error: ${err.message}`);
+    logger.info('🔄 Retrying in 5 seconds...');
     setTimeout(connectDB, 5000);
   }
 };
@@ -85,8 +95,12 @@ app.use('/api/blogs', blogRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/upload', uploadRoutes);
-// app.use('/api/seed', seedRoutes);
 app.use('/api/market', marketRoutes);
+app.use('/', sitemapRoutes);
+
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'UP', timestamp: new Date().toISOString() });
+});
 
 app.get('/', (req, res) => {
   res.send('AABHA IMPEX API is running (Production Grade)...');
@@ -96,5 +110,5 @@ app.get('/', (req, res) => {
 app.use(errorMiddleware);
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on port ${PORT} (All Interfaces)`);
+  logger.info(`Server is running on port ${PORT} (All Interfaces)`);
 });

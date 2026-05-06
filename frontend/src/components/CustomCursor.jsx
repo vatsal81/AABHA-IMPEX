@@ -1,73 +1,84 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import './CustomCursor.css';
 
 const CustomCursor = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
   const springConfig = { damping: 25, stiffness: 250 };
-  const cursorX = useSpring(0, springConfig);
-  const cursorY = useSpring(0, springConfig);
+  const cursorX = useSpring(mouseX, springConfig);
+  const cursorY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-      cursorX.set(e.clientX - 10);
-      cursorY.set(e.clientY - 10);
+    const moveMouse = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      if (!isVisible) setIsVisible(true);
     };
 
     const handleMouseOver = (e) => {
       const target = e.target;
       if (
-        target.tagName === 'A' || 
-        target.tagName === 'BUTTON' || 
-        target.closest('a') || 
+        target.tagName === 'A' ||
+        target.tagName === 'BUTTON' ||
+        target.closest('a') ||
         target.closest('button') ||
-        target.classList.contains('interactive')
+        window.getComputedStyle(target).cursor === 'pointer'
       ) {
-        setIsHovering(true);
+        setIsHovered(true);
       } else {
-        setIsHovering(false);
+        setIsHovered(false);
       }
     };
 
     const handleMouseDown = () => setIsClicking(true);
     const handleMouseUp = () => setIsClicking(false);
+    const handleMouseLeave = () => setIsVisible(false);
+    const handleMouseEnter = () => setIsVisible(true);
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', moveMouse);
     window.addEventListener('mouseover', handleMouseOver);
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousemove', moveMouse);
       window.removeEventListener('mouseover', handleMouseOver);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [cursorX, cursorY]);
+  }, [mouseX, mouseY, isVisible]);
 
-  // Hide on touch devices
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-  useEffect(() => {
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
-  }, []);
-
-  if (isTouchDevice) return null;
+  if (!isVisible) return null;
 
   return (
-    <motion.div
-      className={`custom-cursor ${isHovering ? 'hovering' : ''} ${isClicking ? 'clicking' : ''}`}
-      style={{
-        left: cursorX,
-        top: cursorY,
-      }}
-    >
-      <div className="cursor-dot" />
-      <div className="cursor-ring" />
-    </motion.div>
+    <>
+      <motion.div
+        className="cursor-dot"
+        style={{
+          left: mouseX,
+          top: mouseY,
+        }}
+      />
+      <motion.div
+        className={`cursor-outline ${isHovered ? 'hovered' : ''} ${isClicking ? 'clicking' : ''}`}
+        style={{
+          left: cursorX,
+          top: cursorY,
+        }}
+      >
+        <div className="cursor-inner-ring"></div>
+      </motion.div>
+    </>
   );
 };
 

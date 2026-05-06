@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Globe, Ship, ShieldCheck, ClipboardCheck, Package, Truck, ArrowRight, CheckCircle, X, Download, Eye, ArrowUpRight, RefreshCcw } from 'lucide-react';
 import WorldMap from '../components/WorldMap';
@@ -12,9 +13,12 @@ import './GlobalExport.css';
 
 const GlobalExport = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { lng } = useParams();
   const [selectedCert, setSelectedCert] = useState(null);
   const [isWindowFocused, setIsWindowFocused] = useState(true);
   const [activeTab, setActiveTab] = useState('all');
+  const [selectedStep, setSelectedStep] = useState(null);
 
   // Use Query for Certificates
   const { data: certificates = [], isLoading: loading } = useQuery({
@@ -63,26 +67,31 @@ const GlobalExport = () => {
 
   const exportSteps = [
     {
+      id: 'inquiry',
       icon: <ClipboardCheck size={32} />,
       title: t('global_export.process.steps.s1.title'),
       desc: t('global_export.process.steps.s1.desc')
     },
     {
+      id: 'quality',
       icon: <ShieldCheck size={32} />,
       title: t('global_export.process.steps.s2.title'),
       desc: t('global_export.process.steps.s2.desc')
     },
     {
+      id: 'packaging',
       icon: <Package size={32} />,
       title: t('global_export.process.steps.s3.title'),
       desc: t('global_export.process.steps.s3.desc')
     },
     {
+      id: 'logistics',
       icon: <Truck size={32} />,
       title: t('global_export.process.steps.s4.title'),
       desc: t('global_export.process.steps.s4.desc')
     },
     {
+      id: 'delivery',
       icon: <Ship size={32} />,
       title: t('global_export.process.steps.s5.title'),
       desc: t('global_export.process.steps.s5.desc')
@@ -101,9 +110,9 @@ const GlobalExport = () => {
       <section className="global-export-hero">
         <div className="container">
           <motion.div
-            className="hero-content-box"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            className="hero-content-box centered"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <span className="label">{t('global_export.header.label')}</span>
@@ -114,19 +123,6 @@ const GlobalExport = () => {
             </div>
           </motion.div>
 
-          <motion.div 
-            className="hero-visual-container"
-            initial={{ opacity: 0, scale: 0.8, x: 50 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-          >
-            <div className="outer-container-box">
-              <div className="inner-image-box">
-                <img src="/export_container_floating_1777623496930.png" alt="Global Logistics" />
-              </div>
-              <div className="floating-accent"></div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -147,7 +143,8 @@ const GlobalExport = () => {
             {exportSteps.map((step, index) => (
               <motion.div 
                 key={index}
-                className="roadmap-step"
+                className="roadmap-step glass-panel clickable"
+                onClick={() => navigate(`/${lng}/export-process/${step.id}`)}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -159,6 +156,7 @@ const GlobalExport = () => {
                 </div>
                 <h3>{step.title}</h3>
                 <p>{step.desc}</p>
+                <div className="step-action-hint">Click to Learn More <ArrowUpRight size={14} /></div>
                 {index < exportSteps.length - 1 && <div className="step-arrow"><ArrowRight size={20} /></div>}
               </motion.div>
             ))}

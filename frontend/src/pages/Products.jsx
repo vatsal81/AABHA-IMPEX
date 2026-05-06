@@ -73,7 +73,7 @@ const Products = () => {
 
       <section className="section-padding">
         <div className="container">
-          <div className="modern-filter-bar">
+          <div className="modern-filter-bar glass-panel reveal-up">
             <div className="categories-pill">
               {categories.map(cat => (
                 <button 
@@ -85,7 +85,7 @@ const Products = () => {
                 </button>
               ))}
             </div>
-            <div className="modern-search">
+            <div className="modern-search glass-panel">
                 <Search size={18} />
                 <input 
                     type="text" 
@@ -109,7 +109,7 @@ const Products = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                   key={product._id || product.id} 
-                  className="art-product-card"
+                  className="art-product-card glass-panel reveal-up"
                 >
                   <div className="art-product-img">
                     <img 
@@ -119,12 +119,12 @@ const Products = () => {
                             e.target.src = "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=800";
                         }}
                     />
-                    <div className="art-cat-badge">{product.category}</div>
+                    <div className="art-cat-badge glass-panel">{product.category}</div>
                   </div>
                   <div className="art-product-details">
                     <h3>{product.name}</h3>
                     <p>{product.description}</p>
-                    <Link to={`/${lng}/${product.category.toLowerCase()}/${product.slug}`} className="btn btn-outline btn-sm">
+                    <Link to={`/${lng}/${product.category.toLowerCase()}/${product.slug}`} className="btn-premium gold btn-sm">
                         {t('products_page.card.view_details')} <ArrowRight size={14} style={{marginLeft: '8px'}} />
                     </Link>
                   </div>

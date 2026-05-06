@@ -72,7 +72,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="section-padding">
+      <section className="section-padding reveal-up">
         <div className="container">
           <div className="premium-contact-grid">
             <motion.div 
@@ -80,14 +80,15 @@ const Contact = () => {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="form-card-elite">
+              <div className="form-card-elite glass-panel">
                 {submitted ? (
                   <div className="success-elite">
                     <CheckCircle size={60} className="text-gold" />
                     <h3>Inquiry Received</h3>
                     <p>Our trade specialists will contact you within 24 business hours.</p>
-                    <button className="btn-gold-filled" onClick={() => setSubmitted(false)}>Send Another</button>
+                    <button className="btn-premium gold" onClick={() => setSubmitted(false)}>Send Another</button>
                   </div>
                 ) : (
                   <>
@@ -100,22 +101,22 @@ const Contact = () => {
                        <div className="form-grid-2">
                           <div className="input-group-elite">
                              <label>Full Name</label>
-                             <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder="John Doe" />
+                             <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder="John Doe" className="glass-panel" />
                           </div>
                           <div className="input-group-elite">
                              <label>Email Address</label>
-                             <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder="john@example.com" />
+                             <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder="john@example.com" className="glass-panel" />
                           </div>
                        </div>
                        
                        <div className="form-grid-2">
                           <div className="input-group-elite">
                              <label>Phone Number</label>
-                             <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 ..." />
+                             <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 ..." className="glass-panel" />
                           </div>
                           <div className="input-group-elite">
                              <label>Subject</label>
-                             <select name="subject" value={formData.subject} onChange={handleChange}>
+                             <select name="subject" value={formData.subject} onChange={handleChange} className="glass-panel">
                                <option value="General Inquiry">General Inquiry</option>
                                <option value="Bulk Order">Bulk Order</option>
                                <option value="Product Sourcing">Product Sourcing</option>
@@ -125,10 +126,10 @@ const Contact = () => {
 
                        <div className="input-group-elite">
                           <label>Message</label>
-                          <textarea rows="5" name="message" required value={formData.message} onChange={handleChange} placeholder="Tell us about your requirements..."></textarea>
+                          <textarea rows="5" name="message" required value={formData.message} onChange={handleChange} placeholder="Tell us about your requirements..." className="glass-panel"></textarea>
                        </div>
 
-                       <button type="submit" className="btn-gold-filled w-full" disabled={loading}>
+                       <button type="submit" className="btn-premium gold w-full" disabled={loading}>
                           {loading ? <Loader2 className="animate-spin" /> : <><Send size={18} /> Submit Inquiry</>}
                        </button>
                     </form>
@@ -142,9 +143,10 @@ const Contact = () => {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="details-stack">
-                 <div className="detail-item-elite">
+                 <div className="detail-item-elite glass-panel reveal-up">
                     <div className="die-icon"><MapPin /></div>
                     <div className="die-text">
                        <h4>Global Headquarters</h4>
@@ -152,7 +154,7 @@ const Contact = () => {
                     </div>
                  </div>
                  
-                 <div className="detail-item-elite">
+                 <div className="detail-item-elite glass-panel reveal-up">
                     <div className="die-icon"><Phone /></div>
                     <div className="die-text">
                        <h4>Direct Line</h4>
@@ -161,7 +163,7 @@ const Contact = () => {
                     </div>
                  </div>
 
-                 <div className="detail-item-elite">
+                 <div className="detail-item-elite glass-panel reveal-up">
                     <div className="die-icon"><Mail /></div>
                     <div className="die-text">
                        <h4>Digital Mail</h4>

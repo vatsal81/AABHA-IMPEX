@@ -35,36 +35,19 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="footer-contact">
-            <h3>{t('footer.contact_info')}</h3>
-            <ul>
-              <li><Mail size={18} /> aabhaimpex209@gmail.com</li>
-              <li><Phone size={18} /> +91 94268 68883</li>
-              <li><MapPin size={18} /> Vavdi Industrial Area, Rajkot, Gujarat</li>
-            </ul>
+          <div className="footer-newsletter">
+            <h3>{t('footer.newsletter_title') || 'Stay Globally Connected'}</h3>
+            <p>{t('footer.newsletter_desc') || 'Get the latest insights on international trade and market trends.'}</p>
+            <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
+              <input type="email" placeholder={t('footer.email_placeholder') || 'Your Business Email'} required className="glass-card" />
+              <button type="submit" className="btn-premium gold">
+                <ArrowRight size={18} />
+              </button>
+            </form>
           </div>
-
-          {/* <div className="footer-certs">
-            <h3>{t('footer.certifications') || 'Global Certifications'}</h3>
-            <div className="cert-grid">
-              <div className="cert-badge" title="Agricultural and Processed Food Products Export Development Authority">
-                 <span>APEDA</span>
-              </div>
-              <div className="cert-badge" title="Food Safety and Standards Authority of India">
-                 <span>FSSAI</span>
-              </div>
-              <div className="cert-badge" title="Import Export Code">
-                 <span>IEC</span>
-              </div>
-              <div className="cert-badge" title="ISO 9001:2015 Certified">
-                 <span>ISO 9001</span>
-              </div>
-            </div>
-          </div> */}
-
         </div>
         
-        <div className="footer-bottom">
+        <div className="footer-bottom glass-panel">
           <p>&copy; {new Date().getFullYear()} AABHA IMPEX. {t('footer.rights')}</p>
           <div className="footer-legal">
             <Link to="#">{t('footer.privacy')}</Link>

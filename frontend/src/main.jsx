@@ -6,13 +6,17 @@ import './i18n/config'
 import './index.css'
 import App from './App.jsx'
 
+import { ThemeProvider } from './context/ThemeContext'
+
 const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </QueryClientProvider>
     </HelmetProvider>
   </StrictMode>,

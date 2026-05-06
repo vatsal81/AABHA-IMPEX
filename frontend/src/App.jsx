@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
-import Home from './pages/Home';
-import Products from './pages/Products';
-import ProductDetail from './pages/ProductDetail';
-import About from './pages/About';
-import Services from './pages/Services';
-import Contact from './pages/Contact';
-import Admin from './pages/Admin';
-import Login from './pages/Login';
-import GlobalExport from './pages/GlobalExport';
-import Blog from './pages/Blog';
-import BlogDetail from './pages/BlogDetail';
-import IECRegistration from './pages/IECRegistration';
-import NotFound from './pages/NotFound';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import AnimatedBackground from './components/AnimatedBackground';
 import CargoLoader from './components/CargoLoader';
 import CookieConsent from './components/CookieConsent';
 import { Toaster } from 'react-hot-toast';
-
 import NewsTicker from './components/NewsTicker';
+
+// Lazy load pages for performance
+const Home = lazy(() => import('./pages/Home'));
+const Products = lazy(() => import('./pages/Products'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+const About = lazy(() => import('./pages/About'));
+const Services = lazy(() => import('./pages/Services'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Admin = lazy(() => import('./pages/Admin'));
+const Login = lazy(() => import('./pages/Login'));
+const GlobalExport = lazy(() => import('./pages/GlobalExport'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogDetail = lazy(() => import('./pages/BlogDetail'));
+const IECRegistration = lazy(() => import('./pages/IECRegistration'));
+const ExportProcessDetail = lazy(() => import('./pages/ExportProcessDetail'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Layout component to keep Navbar and Footer persistent and handle language
 const LanguageLayout = () => {
@@ -59,6 +61,32 @@ const LanguageLayout = () => {
     } else {
       document.body.classList.remove('rtl-active');
     }
+
+    // Reveal animation observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Small delay to ensure DOM is updated after route change
+    const timer = setTimeout(() => {
+      const revealElements = document.querySelectorAll('.reveal-up');
+      revealElements.forEach(el => observer.observe(el));
+    }, 100);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
   }, [lng, i18n, navigate, location.pathname]);
 
   return (
@@ -69,10 +97,10 @@ const LanguageLayout = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
             style={{ minHeight: '80vh' }}
           >
             <Outlet />
@@ -93,11 +121,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate initial loading for professional feel - reduced for better UX
+    // Simulate initial loading for professional feel
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1200);
-    return () => clearTimeout(timer);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   if (isLoading) return <CargoLoader />;
@@ -108,38 +139,39 @@ function App() {
       <ScrollToTop />
       <div className="app">
         <AnimatedBackground />
-        <Routes>
-          {/* Redirect root to default language */}
-          <Route path="/" element={<Navigate to="/en" replace />} />
-          
-          {/* Language prefixed routes with unified Layout */}
-          <Route path="/:lng" element={<LanguageLayout />}>
-            <Route index element={<Home />} />
-            <Route path="products" element={<Products />} />
-            <Route path="products/:id" element={<ProductDetail />} />
-            <Route path="services" element={<Services />} />
-            <Route path="global-export" element={<GlobalExport />} />
-            <Route path="export" element={<Navigate to="../global-export" replace />} />
-            <Route path="blog" element={<Blog />} />
-            <Route path="blog/:slug" element={<BlogDetail />} />
-            <Route path="iec-registration" element={<IECRegistration />} />
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
-
-
-            <Route path="login" element={<Login />} />
-            <Route path="admin-portal" element={<ProtectedAdminRoute />} />
+        <Suspense fallback={<CargoLoader />}>
+          <Routes>
+            {/* Redirect root to default language */}
+            <Route path="/" element={<Navigate to="/en" replace />} />
             
-            {/* Dynamic category route for products like pisumfoods.com/spices/chilli-pepper */}
-            <Route path=":category/:id" element={<ProductDetail />} />
+            {/* Language prefixed routes with unified Layout */}
+            <Route path="/:lng" element={<LanguageLayout />}>
+              <Route index element={<Home />} />
+              <Route path="products" element={<Products />} />
+              <Route path="products/:id" element={<ProductDetail />} />
+              <Route path="services" element={<Services />} />
+              <Route path="global-export" element={<GlobalExport />} />
+              <Route path="export-process/:stepId" element={<ExportProcessDetail />} />
+              <Route path="export" element={<Navigate to="../global-export" replace />} />
+              <Route path="blog" element={<Blog />} />
+              <Route path="blog/:slug" element={<BlogDetail />} />
+              <Route path="iec-registration" element={<IECRegistration />} />
+              <Route path="about" element={<About />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="login" element={<Login />} />
+              <Route path="admin-portal" element={<ProtectedAdminRoute />} />
+              
+              {/* Dynamic category route */}
+              <Route path=":category/:id" element={<ProductDetail />} />
+              
+              {/* Fallback for invalid URLs within language scope */}
+              <Route path="*" element={<NotFound />} />
+            </Route>
             
-            {/* Fallback for invalid URLs within language scope */}
-            <Route path="*" element={<NotFound />} />
-          </Route>
-          
-          {/* Fallback for completely invalid URLs */}
-          <Route path="*" element={<Navigate to="/en/404" replace />} />
-        </Routes>
+            {/* Fallback for completely invalid URLs */}
+            <Route path="*" element={<Navigate to="/en/404" replace />} />
+          </Routes>
+        </Suspense>
         <WhatsAppButton />
         <CookieConsent />
       </div>

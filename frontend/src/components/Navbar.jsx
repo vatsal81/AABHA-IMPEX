@@ -3,9 +3,11 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Menu, X, Instagram, Linkedin, Globe, ChevronDown, 
-  Home as HomeIcon, Package, Settings, Users, FileText, Phone 
+  Home as HomeIcon, Package, Settings, Users, FileText, Phone,
+  Sun, Moon
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../context/ThemeContext';
 import Logo from './Logo';
 import './Navbar.css';
 
@@ -15,6 +17,7 @@ const Navbar = () => {
   const [langDropdown, setLangDropdown] = useState(false);
   
   const { t, i18n } = useTranslation();
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
   const { lng } = useParams();
@@ -112,7 +115,7 @@ const Navbar = () => {
                     </span>
                   </Link>
                   {link.dropdown && (
-                    <div className="nav-dropdown-menu">
+                    <div className="nav-dropdown-menu glass-panel">
                       {link.dropdown.map(dropItem => (
                         <Link key={dropItem.name} to={dropItem.path} className="dropdown-item">
                           {dropItem.name}
@@ -127,6 +130,10 @@ const Navbar = () => {
 
           <div className="nav-right">
             <div className="desktop-actions">
+              <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle Theme">
+                {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+              </button>
+              
               <div className="lang-selector-box">
                 <button className="lang-selector-btn" onClick={() => setLangDropdown(!langDropdown)}>
                   <Globe size={18} />
@@ -134,7 +141,7 @@ const Navbar = () => {
                   <ChevronDown size={14} className={langDropdown ? 'rotate' : ''} />
                 </button>
                 {langDropdown && (
-                  <div className="lang-dropdown">
+                  <div className="lang-dropdown glass-panel">
                     {languages.map((l) => (
                       <button key={l.code} className={`lang-option ${lng === l.code ? 'active' : ''}`} onClick={() => changeLanguage(l.code)}>
                         <span className="flag">{l.flag}</span>

@@ -20,14 +20,19 @@
 .global-export-hero .container {
     position: relative;
     z-index: 2;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: 40px;
 }
 
 .hero-content-box {
-    max-width: 600px;
+    max-width: 900px;
+}
+
+.hero-content-box.centered {
+    margin: 0 auto;
 }
 
 .hero-content-box .label {
@@ -219,6 +224,85 @@
     font-size: 0.85rem;
     color: var(--text-muted);
     line-height: 1.6;
+}
+
+.roadmap-step.clickable {
+    cursor: pointer;
+}
+
+.step-action-hint {
+    margin-top: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.roadmap-step:hover .step-action-hint {
+    opacity: 1;
+}
+
+/* Roadmap Modal */
+.roadmap-modal {
+    background: #ffffff;
+    width: 100%;
+    max-width: 600px;
+    padding: 60px 40px;
+    border-radius: var(--radius-lg);
+    position: relative;
+    text-align: center;
+    box-shadow: 0 50px 100px rgba(10, 25, 47, 0.2);
+}
+
+.modal-icon-header {
+    width: 100px;
+    height: 100px;
+    background: var(--bg-alt);
+    color: var(--secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 30px;
+}
+
+.roadmap-modal h2 {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+    color: var(--primary);
+}
+
+.modal-detail-content {
+    margin-bottom: 40px;
+}
+
+.primary-detail {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 35px;
+}
+
+.detail-features {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.f-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    color: var(--primary);
 }
 
 .step-arrow {

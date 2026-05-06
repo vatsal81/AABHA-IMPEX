@@ -114,7 +114,10 @@
     "contact_info": "Contact Info",
     "rights": "All rights reserved.",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Service"
+    "terms": "Terms of Service",
+    "newsletter_title": "Stay Globally Connected",
+    "newsletter_desc": "Get the latest insights on international trade and market trends.",
+    "email_placeholder": "Your Business Email"
   },
   "about_page": {
     "header": {

@@ -229,7 +229,9 @@ const Admin = () => {
     setUploading(true);
     try {
         const { url } = await uploadFile(file);
-        const fullUrl = `${import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'}${url}`;
+        const apiBase = import.meta.env.VITE_API_URL || '/api';
+        const baseUrl = apiBase.startsWith('http') ? apiBase.replace('/api', '') : window.location.origin;
+        const fullUrl = `${baseUrl}${url}`;
         
         if (type === 'service') {
             setNewService(prev => ({ ...prev, [field]: fullUrl }));

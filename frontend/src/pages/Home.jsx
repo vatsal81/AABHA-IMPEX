@@ -173,14 +173,14 @@ const Home = () => {
               <motion.div 
                 className="classic-button-row"
                 variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 1, delay: 1 } }
+                   hidden: { opacity: 0, y: 20 },
+                   visible: { opacity: 1, y: 0, transition: { duration: 1, delay: 1 } }
                 }}
               >
-                <Link to={`/${lng}/contact`} className="btn-gold-filled">
+                <Link to={`/${lng}/contact`} className="btn-premium gold">
                   {t('home.hero.cta_quote')} <ArrowRight size={18} />
                 </Link>
-                <Link to={`/${lng}/services`} className="btn-glass-outline">
+                <Link to={`/${lng}/services`} className="btn-premium">
                   {t('home.hero.cta_services')}
                 </Link>
               </motion.div>
@@ -208,13 +208,14 @@ const Home = () => {
         <div className="container">
           <div className="about-grid">
             <motion.div 
-              className="about-image-stack"
+              className="about-image-stack reveal-up"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             >
-              <img src="https://images.unsplash.com/photo-1565891741441-64926e441838?auto=format&fit=crop&q=80&w=1000" alt="Logistics Hub" className="img-main" />
-              <div className="img-overlay-box">
+              <img src="https://images.unsplash.com/photo-1565891741441-64926e441838?auto=format&fit=crop&q=80&w=1000" alt="Logistics Hub" className="img-main glass-panel" />
+              <div className="img-overlay-box glass-panel">
                 <h4>Empowering Global Commerce</h4>
               </div>
             </motion.div>
@@ -223,21 +224,22 @@ const Home = () => {
               className="about-info"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className="label">{t('home.about.label')}</span>
-              <h2>{t('home.about.title')}</h2>
-              <p>{t('home.about.desc')}</p>
+              <h2 className="reveal-up">{t('home.about.title')}</h2>
+              <p className="reveal-up">{t('home.about.desc')}</p>
               
-              <div className="mission-vision">
-                <div className="mv-item">
+              <div className="mission-vision reveal-up">
+                <div className="mv-item glass-panel">
                   <Globe className="text-gold" />
                   <div>
                     <h4>{t('home.about.reach_title')}</h4>
                     <p>{t('home.about.reach_desc')}</p>
                   </div>
                 </div>
-                <div className="mv-item">
+                <div className="mv-item glass-panel">
                   <Shield className="text-gold" />
                   <div>
                     <h4>{t('home.about.integrity_title')}</h4>
@@ -246,7 +248,7 @@ const Home = () => {
                 </div>
               </div>
               
-              <Link to={`/${lng}/about`} className="btn-text">{t('home.about.learn_more')} <ArrowRight size={18} /></Link>
+              <Link to={`/${lng}/about`} className="btn-premium gold reveal-up">{t('home.about.learn_more')} <ArrowRight size={18} /></Link>
             </motion.div>
           </div>
         </div>

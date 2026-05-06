@@ -1,0 +1,231 @@
+.process-detail-page {
+    padding-top: 120px;
+    background: var(--bg-main);
+    min-height: 100vh;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 40px;
+    transition: var(--transition);
+}
+
+.back-link:hover {
+    color: var(--secondary);
+    transform: translateX(-5px);
+}
+
+.process-hero-section {
+    margin-bottom: 60px;
+}
+
+.hero-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.phase-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--secondary-light);
+    color: var(--secondary);
+    font-weight: 800;
+    font-size: 0.85rem;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.hero-text h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 25px;
+    color: var(--primary);
+}
+
+.hero-text .lead {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.trust-indicators {
+    display: flex;
+    gap: 30px;
+}
+
+.indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Icon Box Styling */
+.hero-icon-box {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--bg-alt);
+    border-radius: var(--radius-lg);
+}
+
+.main-icon {
+    color: var(--secondary);
+    z-index: 2;
+    filter: drop-shadow(0 10px 20px rgba(184, 134, 11, 0.2));
+}
+
+.floating-icons {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.f-icon {
+    position: absolute;
+    color: var(--bg-alt);
+    opacity: 0.5;
+}
+
+.f-1 { top: 20%; right: 20%; transform: rotate(15deg); }
+.f-2 { bottom: 20%; left: 20%; transform: rotate(-15deg); }
+
+.glow-effect {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(184, 134, 11, 0.1) 0%, transparent 70%);
+    z-index: 1;
+}
+
+/* Content Section */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+}
+
+.content-main {
+    padding: 60px;
+    background: var(--white);
+}
+
+.content-main h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: var(--primary);
+}
+
+.content-main p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+.feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.feature-item span {
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1.4;
+}
+
+/* Sidebar */
+.content-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.sidebar-card {
+    padding: 40px;
+    text-align: center;
+    background: var(--primary);
+    color: var(--white);
+}
+
+.sidebar-card h4 {
+    font-size: 1.5rem;
+    margin: 20px 0 15px;
+    color: var(--white);
+}
+
+.sidebar-card p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.next-step-card {
+    padding: 35px;
+    background: var(--white);
+    border: 1px solid var(--secondary-light);
+}
+
+.next-step-card .label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+
+.next-step-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.next-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--secondary);
+    transition: var(--transition);
+}
+
+.next-link:hover {
+    gap: 12px;
+}
+
+@media (max-width: 992px) {
+    .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-icon-box {
+        height: 300px;
+        order: -1;
+    }
+}

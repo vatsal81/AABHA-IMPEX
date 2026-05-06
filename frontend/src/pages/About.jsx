@@ -104,17 +104,18 @@ const About = () => {
       </section>
 
       {/* 2. Vision and Mission Section */}
-      <section className="vision-mission-section">
+      <section className="vision-mission-section reveal-up">
         <div className="container">
           <div className="vm-wrapper">
             <div className="vm-grid">
               
               {/* Vision */}
               <motion.div 
-                className="vm-box"
+                className="vm-box glass-panel"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="vm-icon-wrapper">
                   <Eye size={100} className="vm-icon" strokeWidth={1} />
@@ -131,11 +132,11 @@ const About = () => {
 
               {/* Mission */}
               <motion.div 
-                className="vm-box"
+                className="vm-box glass-panel"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="vm-icon-wrapper">
                   <Target size={100} className="vm-icon" strokeWidth={1} />
@@ -158,7 +159,7 @@ const About = () => {
       </section>
 
       {/* 2.5 Modern Process Section */}
-      <section className="section-padding process-section bg-alt">
+      <section className="section-padding process-section bg-alt reveal-up">
         <div className="container">
           <div className="section-header text-center">
              <span className="label">OUR WORKFLOW</span>
@@ -175,11 +176,11 @@ const About = () => {
             ].map((step, i) => (
               <motion.div 
                 key={i} 
-                className="process-step"
+                className="process-step glass-panel reveal-up"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="step-num">{step.num}</div>
                 <h4>{step.title}</h4>
@@ -191,7 +192,7 @@ const About = () => {
       </section>
 
       {/* 3. Management Team Section */}
-      <section className="section-padding team-section">
+      <section className="section-padding team-section reveal-up">
         <div className="container">
           <div className="team-header">
             <span className="sub-heading">TEAM MEMBER</span>
@@ -208,11 +209,11 @@ const About = () => {
             ].map((member, i) => (
               <motion.div 
                 key={i} 
-                className="team-card"
+                className="team-card glass-panel reveal-up"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="team-avatar-placeholder">
                   <User size={120} color="#cbd5e1" strokeWidth={1} />
@@ -228,9 +229,9 @@ const About = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="section-padding trade-faq-section">
+      <section className="section-padding trade-faq-section reveal-up">
         <div className="container">
-           <div className="faq-wrapper-premium">
+           <div className="faq-wrapper-premium glass-panel">
               <div className="faq-info">
                  <span className="label">KNOWLEDGE CENTER</span>
                  <h2>Global Trade <span className="text-gold">FAQ</span></h2>
