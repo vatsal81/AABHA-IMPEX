@@ -12,6 +12,7 @@ import { fetchProducts, fetchBlogs, fetchMarketPrices } from '../services/api';
 import SEO from '../components/SEO';
 import TestimonialSlider from '../components/TestimonialSlider';
 import WorldMap from '../components/WorldMap';
+import TrendChart from '../components/TrendChart';
 import { ProductSkeleton } from '../components/Skeleton';
 import heroImg from '../assets/hero.png';
 import './Home.css';
@@ -456,16 +457,26 @@ const Home = () => {
               <div className="bento-card-glass market-bento-card">
                  <div className="market-bento-header">
                     <div className="bento-icon-box"><Activity size={24} /></div>
-                    <h4>Live Market</h4>
+                    <h4>Live Trends</h4>
                  </div>
                  <div className="market-bento-list">
                     {pricesLoading ? (
                       <div className="bento-price-skeleton"></div>
                     ) : (
-                      displayPrices.slice(0, 2).map(price => (
-                        <div key={price.id} className="bento-price-row">
-                           <span className="bento-price-name">{price.name}</span>
-                           <span className="bento-price-amt">₹{price.price}</span>
+                      displayPrices.slice(0, 2).map((price, i) => (
+                        <div key={price.id} className="bento-price-row-vertical">
+                           <div className="bp-meta">
+                              <span className="bento-price-name">{price.name}</span>
+                              <span className="bento-price-amt">₹{price.price}</span>
+                           </div>
+                           <div className="bp-chart">
+                              <TrendChart 
+                                data={i === 0 ? [24000, 24200, 24100, 24500, 24400, 24600] : [18000, 18100, 18050, 18200, 18150, 18300]} 
+                                width={120} 
+                                height={30} 
+                                color={i === 0 ? "#d4af37" : "#4ade80"}
+                              />
+                           </div>
                         </div>
                       ))
                     )}

@@ -2,7 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 50px;
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .admin-header-content {
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
 }
 
 .admin-tabs {
@@ -217,11 +225,11 @@
 .add-product-form select, 
 .add-product-form textarea {
     width: 100%;
-    padding: 15px 20px;
-    border: 1px solid rgba(0,0,0,0.1);
-    border-radius: var(--radius-sm);
+    padding: 12px 18px;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-radius: 8px;
     font-size: 0.95rem;
-    background: var(--bg-alt);
+    background: #f8fafc;
     font-family: inherit;
     transition: var(--transition);
 }
@@ -232,7 +240,13 @@
     border-color: var(--secondary);
     background: var(--white);
     outline: none;
-    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+}
+
+.btn-save-main {
+    width: 100%;
+    margin-top: 30px;
+    padding: 18px !important;
+    font-size: 1rem !important;
 }
 
 .inquiry-status {
@@ -449,53 +463,85 @@
     .inquiry-card { flex-direction: column; align-items: flex-start; gap: 30px; }
     .form-grid { grid-template-columns: 1fr; }
     .overview-charts-grid { grid-template-columns: 1fr; }
+    .admin-header-content { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .stats-grid-premium { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-    .admin-header-content { flex-direction: column; align-items: flex-start; gap: 20px; }
-    
     /* Scrollable tables on mobile */
-    .admin-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .admin-table { min-width: 600px; }
+    .admin-table-wrapper { 
+        width: 100%;
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 20px;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+    }
+    .admin-table { min-width: 700px; }
     .admin-table th, .admin-table td { padding: 14px 18px; }
     
     /* Tabs scrollable row */
     .admin-tabs { 
         overflow-x: auto; 
         white-space: nowrap; 
-        padding-bottom: 5px; 
+        padding-bottom: 10px; 
         gap: 15px; 
         -webkit-overflow-scrolling: touch;
+        margin-bottom: 30px;
     }
     .tab-btn { padding: 12px 8px; font-size: 0.72rem; flex-shrink: 0; }
     
     /* Filters stack vertically */
-    .admin-actions { flex-direction: column; align-items: flex-start; }
-    .admin-filters { flex-direction: column; width: 100%; }
+    .admin-actions { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .admin-filters { flex-direction: column; width: 100%; gap: 10px; }
     .search-input { max-width: 100%; width: 100%; }
     .filter-select { width: 100%; }
     
     /* Forms */
     .add-product-form { padding: 25px; }
-    .form-grid { grid-template-columns: 1fr; gap: 0; }
-    
-    /* Stats */
-    .stats-grid-premium { grid-template-columns: 1fr 1fr; }
     
     /* Inquiry card */
     .inquiry-card { padding: 25px; }
     .inq-msg { padding: 15px; }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
     .stats-grid-premium { grid-template-columns: 1fr; }
-    .stat-card-modern { flex-direction: column; text-align: center; gap: 15px; }
+    .stat-card-modern { padding: 20px; }
+    .stat-details h3 { font-size: 1.5rem; }
+}
+
+@media (max-width: 768px) {
+    .admin-header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .admin-tabs {
+        gap: 15px;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        scrollbar-width: none;
+    }
+    
+    .admin-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .tab-btn {
+        white-space: nowrap;
+        padding: 10px 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stat-card-modern { flex-direction: column; text-align: center; gap: 15px; padding: 25px; }
+    .stat-icon-bg { width: 50px; height: 50px; }
+    .stat-details h3 { font-size: 1.5rem; }
     .stat-trend { position: static; margin-top: 5px; display: inline-block; }
-    .admin-tabs { gap: 8px; }
-    .tab-btn { font-size: 0.65rem; padding: 10px 6px; }
+    .tab-btn { font-size: 0.7rem; }
     .inquiry-card { padding: 20px; }
-    .dummy-chart-circle { width: 140px; height: 140px; }
-    .inner-circle { width: 100px; height: 100px; }
 }
 .form-section-title {
     margin: 30px 0 15px;

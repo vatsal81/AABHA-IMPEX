@@ -731,75 +731,57 @@
     object-fit: cover;
 }
 
+    .cp-content { padding: 30px 20px; }
+    .cp-content h2 { font-size: 1.7rem; }
+}
+
+/* Updated Responsive Overrides for Hero and Sections */
 @media (max-width: 1200px) {
-    .hero-text-block h1 { font-size: 4rem; }
-    .about-grid, .global-flex, .why-grid, .contact-premium-box { gap: 50px; }
+    .classic-heading { font-size: 4.5rem; }
+    .about-grid, .why-grid, .contact-premium-box { gap: 50px; }
     .cp-content { padding: 60px; }
 }
 
 @media (max-width: 992px) {
-    .hero-content-wrapper { grid-template-columns: 1fr; }
-    .hero-visual { width: 100%; opacity: 0.3; }
-    .about-grid, .global-flex, .why-grid, .industry-grid, .testimonials-grid, .contact-premium-box { grid-template-columns: 1fr; }
+    .hero-main-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 60px;
+    }
+    .classic-heading { font-size: 3.8rem; margin: 0 auto 30px; }
+    .classic-subtext { margin: 0 auto 40px; }
+    .classic-button-row { justify-content: center; }
+    .classic-glass-badge { margin: 0 auto; }
+    .classic-pre-title { justify-content: center; }
+    .hero-classic-v2 { min-height: auto; padding: 160px 0 100px; }
+
+    .about-grid, .why-grid, .industry-grid, .testimonials-grid, .contact-premium-box { grid-template-columns: 1fr; }
     .industry-card { height: 400px; }
-    .industry-grid { grid-template-columns: repeat(2, 1fr); }
     .about-image-stack { margin-bottom: 50px; }
     .cp-visual { order: -1; height: 300px; }
-    .why-features { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 768px) {
-    /* Hero */
-    .hero-premium { min-height: 600px; }
-    .hero-text-block h1 { font-size: 2.8rem; }
-    .hero-text-block p { font-size: 1rem; margin-bottom: 30px; }
-    .hero-button-group { flex-direction: column; gap: 15px; align-items: flex-start; }
-    .hero-badge-float { display: none; }
-    .premium-label { font-size: 0.75rem; letter-spacing: 3px; }
-
-    /* About */
+    .classic-heading { font-size: 3rem; }
+    .classic-button-row { flex-direction: column; gap: 15px; align-items: stretch; }
+    .classic-glass-badge { width: 100%; height: auto; padding: 40px 20px; }
+    .badge-number { font-size: 4.5rem; }
+    
     .about-info h2 { font-size: 2.2rem; margin: 15px 0; }
     .img-overlay-box { position: static; margin-top: 20px; max-width: 100%; }
-
-    /* Services */
     .services-modern-grid { grid-template-columns: 1fr; }
-
-    /* Global */
-    .global-content h2 { font-size: 2.2rem; }
-    .region-tags { gap: 10px; }
-    .region-tags span { padding: 8px 15px; font-size: 0.8rem; }
-
-    /* Industry */
-    .industry-grid { grid-template-columns: 1fr; }
     .industry-card { height: 350px; }
-
-    /* Why Choose */
-    .why-header h2 { font-size: 2.2rem; }
-    .why-features { grid-template-columns: 1fr; gap: 20px; }
-    .why-feature-card { padding: 30px; }
-
-    /* Testimonials */
     .testimonials-grid { grid-template-columns: 1fr; }
-    .testimonial-card { padding: 35px 25px; }
-
-    /* Contact CTA */
     .cp-content { padding: 40px 25px; }
     .cp-content h2 { font-size: 2rem; }
-    .c-item { font-size: 0.9rem; }
 }
 
 @media (max-width: 480px) {
-    .hero-premium { min-height: 500px; }
-    .hero-text-block h1 { font-size: 2.2rem; }
-    .hero-scroll-indicator { display: none; }
-    .experience-badge { padding: 25px; }
-    .exp-num { font-size: 2.5rem; }
-    .exp-text { font-size: 0.75rem; letter-spacing: 1px; }
+    .classic-heading { font-size: 2.4rem; }
+    .hero-classic-v2 { padding: 140px 0 80px; }
     .industry-card { height: 280px; }
     .ind-overlay h3 { font-size: 1.4rem; }
     .ind-overlay { padding: 20px; }
-    .cp-content { padding: 30px 20px; }
-    .cp-content h2 { font-size: 1.7rem; }
 }
 
 
@@ -918,38 +900,7 @@
     }
 }
 
-@media (max-width: 1200px) {
-    .classic-heading { font-size: 4.5rem; }
-    .hero-main-layout { gap: 40px; }
-}
-
-@media (max-width: 992px) {
-    .hero-main-layout {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 60px;
-        padding-top: 50px;
-    }
-    .classic-heading { font-size: 3.8rem; margin: 0 auto 30px; }
-    .classic-subtext { margin: 0 auto 40px; }
-    .classic-button-row { justify-content: center; }
-    .classic-glass-badge { margin: 0 auto; }
-    .classic-pre-title { justify-content: center; }
-    .hero-classic-v2 { min-height: auto; padding: 160px 0 100px; }
-}
-
-@media (max-width: 768px) {
-    .classic-heading { font-size: 3rem; }
-    .classic-button-row { flex-direction: column; gap: 15px; align-items: stretch; }
-    .btn-gold-filled, .btn-glass-outline { width: 100%; justify-content: center; }
-    .classic-glass-badge { width: 100%; height: auto; padding: 40px 20px; }
-    .badge-number { font-size: 4.5rem; }
-}
-
-@media (max-width: 480px) {
-    .classic-heading { font-size: 2.4rem; }
-    .hero-classic-v2 { padding: 140px 0 80px; }
-}
+/* Redundant Media Queries Removed */
 
 /* --- ELITE BENTO WHY CHOOSE US --- */
 .bento-why-section {
@@ -1663,4 +1614,32 @@
 
 .blog-card-style {
     border-top: 4px solid var(--secondary) !important;
+}
+.bento-price-row-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    margin-bottom: 12px;
+    transition: var(--transition);
+}
+
+.bento-item:hover .bento-price-row-vertical {
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.bp-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bp-chart {
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

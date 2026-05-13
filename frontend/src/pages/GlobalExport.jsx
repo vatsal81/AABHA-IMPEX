@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Globe, Ship, ShieldCheck, ClipboardCheck, Package, Truck, ArrowRight, CheckCircle, X, Download, Eye, ArrowUpRight, RefreshCcw } from 'lucide-react';
+import { Globe, Ship, ShieldCheck, ClipboardCheck, Package, Truck, ArrowRight, CheckCircle, X, Download, Eye, ArrowUpRight, RefreshCcw, Clock } from 'lucide-react';
 import WorldMap from '../components/WorldMap';
 import { fetchCertificates, fetchMarketNews } from '../services/api';
 import { useQuery } from '@tanstack/react-query';
@@ -130,36 +130,72 @@ const GlobalExport = () => {
 
 
 
-      {/* Export Process Roadmap */}
-      <section className="section-padding">
+      {/* Interactive Export Roadmap Stepper */}
+      <section className="section-padding roadmap-stepper-section">
         <div className="container">
           <div className="section-title text-center">
             <span className="label">{t('global_export.process.label')}</span>
-            <h2>{t('global_export.process.title')}</h2>
+            <h2>Interactive Export <span className="text-gold">Roadmap</span></h2>
             <p>{t('global_export.process.desc')}</p>
           </div>
 
-          <div className="roadmap-grid">
-            {exportSteps.map((step, index) => (
-              <motion.div 
-                key={index}
-                className="roadmap-step glass-panel clickable"
-                onClick={() => navigate(`/${lng}/export-process/${step.id}`)}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className="step-icon-box">
-                  {step.icon}
-                  <div className="step-number">{index + 1}</div>
+          <div className="stepper-container glass-panel">
+            {/* Stepper Header */}
+            <div className="stepper-header">
+              {exportSteps.map((step, index) => (
+                <div 
+                  key={step.id} 
+                  className={`step-item ${selectedStep?.id === step.id || (!selectedStep && index === 0) ? 'active' : ''} ${index < exportSteps.findIndex(s => s.id === selectedStep?.id) ? 'completed' : ''}`}
+                  onClick={() => setSelectedStep(step)}
+                >
+                  <div className="step-circle">
+                    {index < exportSteps.findIndex(s => s.id === selectedStep?.id) ? <CheckCircle size={18} /> : <span>{index + 1}</span>}
+                  </div>
+                  <span className="step-label">{step.title}</span>
                 </div>
-                <h3>{step.title}</h3>
-                <p>{step.desc}</p>
-                <div className="step-action-hint">Click to Learn More <ArrowUpRight size={14} /></div>
-                {index < exportSteps.length - 1 && <div className="step-arrow"><ArrowRight size={20} /></div>}
+              ))}
+            </div>
+
+            {/* Stepper Content */}
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={selectedStep?.id || 's1'}
+                className="stepper-content"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4 }}
+              >
+                <div className="step-detail-grid">
+                  <div className="step-visual-box">
+                    {(selectedStep || exportSteps[0]).icon}
+                  </div>
+                  <div className="step-text-box">
+                    <span className="step-num-tag">Step {(exportSteps.findIndex(s => s.id === (selectedStep?.id || 'inquiry')) + 1)}</span>
+                    <h3>{(selectedStep || exportSteps[0]).title}</h3>
+                    <p>{(selectedStep || exportSteps[0]).desc}</p>
+                    
+                    <div className="step-meta-info">
+                      <div className="meta-item">
+                        <Clock size={16} className="text-gold" />
+                        <span>Est. Time: {exportSteps.findIndex(s => s.id === (selectedStep?.id || 'inquiry')) === 0 ? '24-48 hrs' : '3-5 Days'}</span>
+                      </div>
+                      <div className="meta-item">
+                        <ShieldCheck size={16} className="text-gold" />
+                        <span>Quality Gates: 100% Passed</span>
+                      </div>
+                    </div>
+
+                    <button 
+                      className="btn btn-primary"
+                      onClick={() => navigate(`/${lng}/export-process/${(selectedStep?.id || 'inquiry')}`)}
+                    >
+                      View Detailed Documentation <ArrowRight size={18} />
+                    </button>
+                  </div>
+                </div>
               </motion.div>
-            ))}
+            </AnimatePresence>
           </div>
         </div>
       </section>

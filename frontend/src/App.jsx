@@ -9,8 +9,10 @@ import WhatsAppButton from './components/WhatsAppButton';
 import AnimatedBackground from './components/AnimatedBackground';
 import CargoLoader from './components/CargoLoader';
 import CookieConsent from './components/CookieConsent';
+import QuickActionFAB from './components/QuickActionFAB';
+import TradeAssistant from './components/TradeAssistant';
 import { Toaster } from 'react-hot-toast';
-import NewsTicker from './components/NewsTicker';
+import TradeIntelligenceBar from './components/TradeIntelligenceBar';
 
 // Lazy load pages for performance
 const Home = lazy(() => import('./pages/Home'));
@@ -91,7 +93,7 @@ const LanguageLayout = () => {
 
   return (
     <>
-      <NewsTicker />
+      <TradeIntelligenceBar />
       <Navbar />
       <div className="main-content">
         <AnimatePresence mode="wait">
@@ -118,20 +120,15 @@ const ProtectedAdminRoute = () => {
 };
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const currentPath = window.location.pathname;
+  const isHomePage = currentPath === '/' || 
+                     currentPath.match(/^\/(en|hi|gu|ar|ur|ml|ta|bn|tl)(\/)?$/);
 
-  useEffect(() => {
-    // Simulate initial loading for professional feel
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1200);
+  const [isLoading, setIsLoading] = useState(isHomePage);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
-  if (isLoading) return <CargoLoader />;
+  if (isLoading && isHomePage) {
+    return <CargoLoader onFinish={() => setIsLoading(false)} />;
+  }
 
   return (
     <Router>
@@ -139,11 +136,11 @@ function App() {
       <ScrollToTop />
       <div className="app">
         <AnimatedBackground />
-        <Suspense fallback={<CargoLoader />}>
+        <Suspense fallback={null}>
           <Routes>
             {/* Redirect root to default language */}
             <Route path="/" element={<Navigate to="/en" replace />} />
-            
+
             {/* Language prefixed routes with unified Layout */}
             <Route path="/:lng" element={<LanguageLayout />}>
               <Route index element={<Home />} />
@@ -160,19 +157,21 @@ function App() {
               <Route path="contact" element={<Contact />} />
               <Route path="login" element={<Login />} />
               <Route path="admin-portal" element={<ProtectedAdminRoute />} />
-              
+
               {/* Dynamic category route */}
               <Route path=":category/:id" element={<ProductDetail />} />
-              
+
               {/* Fallback for invalid URLs within language scope */}
               <Route path="*" element={<NotFound />} />
             </Route>
-            
+
             {/* Fallback for completely invalid URLs */}
             <Route path="*" element={<Navigate to="/en/404" replace />} />
           </Routes>
         </Suspense>
         <WhatsAppButton />
+        <QuickActionFAB />
+        <TradeAssistant />
         <CookieConsent />
       </div>
     </Router>

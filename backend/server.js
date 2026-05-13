@@ -25,6 +25,7 @@ const serviceRoutes = require('./routes/serviceRoutes');
 const certificateRoutes = require('./routes/certificateRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const marketRoutes = require('./routes/marketRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 const sitemapRoutes = require('./routes/sitemapRoutes');
 
 const app = express();
@@ -33,24 +34,24 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow any localhost or 127.0.0.1 origin
-    if (!origin || origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('vercel.app')) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'x-auth-token', 'Authorization', 'x-requested-with'],
   credentials: true
 }));
 
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: "cross-origin" } 
-}));
+// app.use(helmet({
+//   crossOriginResourcePolicy: { policy: "cross-origin" } 
+// }));
 
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    logger.error(`JSON Syntax Error: ${err.message}`);
+    return res.status(400).json({ error: "Malformed JSON in request body" });
+  }
+  next();
+});
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Rate Limiting
@@ -88,6 +89,7 @@ const connectDB = async () => {
 connectDB();
 
 // Routes
+app.use('/api/ai', aiRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/inquiries', inquiryRoutes);

@@ -254,7 +254,22 @@
 
 @media (max-width: 992px) {
     .iec-grid { grid-template-columns: 1fr; }
-    .iec-hero-content h1 { font-size: 2.5rem; }
+    .iec-hero-content h1 { font-size: 2.8rem; }
+    .cta-box { padding: 50px 30px; }
+}
+
+@media (max-width: 768px) {
+    .iec-hero { padding: 100px 0 60px; }
+    .iec-hero-content h1 { font-size: 2.2rem; }
+    .iec-hero-content p { font-size: 1rem; }
+    .content-block h2 { font-size: 1.5rem; }
+    .documents-block { padding: 30px 20px; }
+    .cta-box h2 { font-size: 1.8rem; }
+}
+
+@media (max-width: 480px) {
+    .iec-hero-content h1 { font-size: 1.8rem; }
     .cta-box { padding: 40px 20px; }
-    .cta-buttons { flex-direction: column; }
+    .cta-buttons { flex-direction: column; gap: 15px; }
+    .btn-sidebar { padding: 12px; font-size: 0.75rem; }
 }

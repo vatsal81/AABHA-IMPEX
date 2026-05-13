@@ -353,3 +353,19 @@ export const fetchMarketNews = async () => {
   }
 };
 
+export const chatWithAssistant = async (message, history = []) => {
+  console.log('Sending to AI:', { message, historyLength: history.length });
+  try {
+    const response = await fetch(`${API_BASE_URL}/ai/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, history }),
+    });
+    if (!response.ok) throw new Error('AI Assistant connection failed');
+    return await response.json();
+  } catch (error) {
+    console.error('AI Assistant Error:', error);
+    return { response: "I'm having trouble connecting to my knowledge base. Please try again or contact our support team." };
+  }
+};
+

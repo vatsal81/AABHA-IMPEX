@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Inbox, Package, Trash2, Plus, LogOut, CheckCircle, Clock, BarChart3, Users, PieChart, TrendingUp, BookOpen, ExternalLink, ShieldCheck, Upload } from 'lucide-react';
+import { Inbox, Package, Trash2, Plus, LogOut, CheckCircle, Clock, BarChart3, Users, PieChart, TrendingUp, BookOpen, ExternalLink, ShieldCheck, Upload, RefreshCcw } from 'lucide-react';
 import { 
     fetchAllInquiries, 
     fetchProducts, 
@@ -499,7 +499,9 @@ const Admin = () => {
                             <div className="form-group"><label>Export Details</label><textarea rows="3" value={newProduct.exportDetails} onChange={e => setNewProduct({...newProduct, exportDetails: e.target.value})}></textarea></div>
                             <div className="form-group"><label>Packing</label><input type="text" value={newProduct.packing} onChange={e => setNewProduct({...newProduct, packing: e.target.value})} /></div>
                             
-                            <button type="submit" className="btn btn-primary">{editingId ? 'Update' : 'Save'}</button>
+                            <button type="submit" className="btn btn-primary btn-save-main">
+                                {editingId ? <><RefreshCcw size={18} /> Update Product</> : <><CheckCircle size={18} /> Save Product</>}
+                            </button>
                         </form>
                     </motion.div>
                 )}

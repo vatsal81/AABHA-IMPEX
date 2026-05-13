@@ -229,7 +229,17 @@ const ProductDetail = () => {
         <section className="section-padding-sm detail-main-content">
           <div className="container">
             <div className="pisum-top-grid">
-              <motion.div className="pisum-visual-card" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+              <motion.div 
+                className="pisum-visual-card" 
+                initial={{ opacity: 0, scale: 0.95 }} 
+                animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ 
+                  rotateY: 10, 
+                  rotateX: -5, 
+                  perspective: 1000,
+                  transition: { type: "spring", stiffness: 300 }
+                }}
+              >
                 <img src={product.image} alt={product.name} />
               </motion.div>
 

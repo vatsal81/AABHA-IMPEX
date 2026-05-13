@@ -1,94 +1,16 @@
 .cargo-loader-overlay {
   position: fixed;
   inset: 0;
-  background-color: #020617;
-  background-image: radial-gradient(circle at 50% 50%, #0f172a 0%, #020617 100%);
+  background: #000;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 10000;
   overflow: hidden;
 }
 
-.loader-scene-cinematic {
-  width: 100%;
-  max-width: 600px;
-  height: 300px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.scene-svg-cinematic {
+.bg-video {
   width: 100%;
   height: 100%;
-  display: block;
-}
-
-.cargo-ship-master {
-  will-change: transform;
-}
-
-.cinematic-containers rect {
-  opacity: 0.9;
-}
-
-.loader-text-wrapper-premium {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-  max-width: 500px;
-  padding: 0 20px;
-  z-index: 10;
-}
-
-.brand-loader-name-gold {
-  color: var(--secondary);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 5px;
-  text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-}
-
-.loading-progress-bar-premium {
-  width: 100%;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-.loading-progress-fill-gold {
-  height: 100%;
-  background: linear-gradient(90deg, #b89121, var(--secondary), #f9e28e);
-  background-size: 200% 100%;
-  animation: gradientMove 2s linear infinite;
-  border-radius: 2px;
-  box-shadow: 0 0 15px var(--secondary);
-}
-
-@keyframes gradientMove {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
-}
-
-@media (max-width: 768px) {
-  .loader-scene-cinematic {
-    height: 300px;
-  }
-  .brand-loader-name-gold {
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-  }
-  .loading-progress-bar-premium {
-    max-width: 250px;
-  }
+  object-fit: cover;
 }
