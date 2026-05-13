@@ -731,9 +731,6 @@
     object-fit: cover;
 }
 
-    .cp-content { padding: 30px 20px; }
-    .cp-content h2 { font-size: 1.7rem; }
-}
 
 /* Updated Responsive Overrides for Hero and Sections */
 @media (max-width: 1200px) {
