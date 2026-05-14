@@ -5,7 +5,7 @@ const Blog = require('../models/Blog');
 
 router.get('/sitemap.xml', async (req, res) => {
   try {
-    const baseUrl = 'https://aabhaimpex.com';
+    const baseUrl = 'https://shreeharii.vercel.app';
     const languages = ['en', 'hi', 'gu', 'ar', 'ur', 'ml', 'ta', 'bn', 'tl'];
     const staticPages = ['', '/products', '/about', '/services', '/contact', '/blog', '/global-export'];
     
