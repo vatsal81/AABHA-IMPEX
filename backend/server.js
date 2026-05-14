@@ -113,4 +113,17 @@ app.use(errorMiddleware);
 
 app.listen(PORT, '0.0.0.0', () => {
   logger.info(`Server is running on port ${PORT} (All Interfaces)`);
+  
+  // Keep-alive mechanism for Render free tier
+  const RENDER_URL = 'https://aabha-impex.onrender.com/api/health';
+  if (RENDER_URL) {
+    setInterval(() => {
+      const https = require('https');
+      https.get(RENDER_URL, (res) => {
+        logger.info(`Keep-alive ping sent to ${RENDER_URL}: ${res.statusCode}`);
+      }).on('error', (err) => {
+        logger.error(`Keep-alive ping failed: ${err.message}`);
+      });
+    }, 840000); // Ping every 14 minutes (Render sleeps after 15)
+  }
 });
