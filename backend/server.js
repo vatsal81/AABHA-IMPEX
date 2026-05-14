@@ -33,29 +33,11 @@ const PORT = process.env.PORT || 5000;
 
 
 // Middleware
-const allowedOrigins = [
-  'https://shreeharii.vercel.app',
-  'https://billing-woad-sigma.vercel.app',
-  'https://aabha-impex.onrender.com',
-  'http://localhost:3000',
-  'http://localhost:5173',
-  'http://localhost:5000'
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'x-auth-token', 'Authorization', 'x-requested-with'],
-  credentials: true,
-  optionsSuccessStatus: 200
+  credentials: true
 }));
 
 // app.use(helmet({

@@ -13,7 +13,7 @@
   "home": {
     "hero": {
       "label": "BEYOND BOUNDARIES",
-      "title": "AABHA IMPEX",
+      "title": "SHREE HARI BILLING",
       "desc": "A premier global partner in the export and trade of high-quality agricultural commodities. From premium spices and essential food grains to nutritious pulses and animal feed, we deliver excellence from Indian farms to the global market with integrity and precision.",
       "cta_quote": "Get a Quote",
       "cta_services": "Our Services",
@@ -22,7 +22,7 @@
     "about": {
       "label": "WHO WE ARE",
       "title": "Reliable Partner in International Trade",
-      "desc": "AABHA IMPEX stands at the forefront of the global import-export landscape. Based in India, we specialize in bridging the gap between quality producers and international buyers through efficient logistics and transparent documentation.",
+      "desc": "SHREE HARI BILLING stands at the forefront of the global import-export landscape. Based in India, we specialize in bridging the gap between quality producers and international buyers through efficient logistics and transparent documentation.",
       "reach_title": "Global Reach",
       "reach_desc": "Connecting markets across Asia, Middle East, Europe, and Africa.",
       "integrity_title": "Integrity First",
@@ -69,7 +69,7 @@
       "explore": "Explore"
     },
     "why": {
-      "label": "THE AABHA ADVANTAGE",
+      "label": "THE SHREE HARI ADVANTAGE",
       "title": "Why Global Businesses <br />Trust Us",
       "desc": "We combine decades of industrial expertise with modern logistics technology to deliver unmatched value.",
       "reliability": "Network Reliability",
@@ -96,7 +96,7 @@
       "label": "CLIENT VOICES",
       "title": "Trusted by Global Partners",
       "list": [
-        { "name": "John Schmidt", "role": "Logistics Director, Germany", "text": "AABHA IMPEX has been our most reliable partner in Asia. Their attention to detail in documentation is unparalleled." },
+        { "name": "John Schmidt", "role": "Logistics Director, Germany", "text": "SHREE HARI BILLING has been our most reliable partner in Asia. Their attention to detail in documentation is unparalleled." },
         { "name": "Ahmed Al-Farsi", "role": "Trading House CEO, Dubai", "text": "Transparent communication and high-quality agricultural products. We've seen consistent growth in our partnership." },
         { "name": "Sarah Chen", "role": "Sourcing Manager, Singapore", "text": "The speed and efficiency of their export services saved us significant time and resources on our last textile shipment." }
       ]
@@ -128,8 +128,8 @@
     "story": {
       "subtitle": "OUR STORY",
       "title": "Pioneering the Future of Merchant Exports",
-      "p1": "AABHA IMPEX was initially established with a vision to become a world-class merchant export house. Initially focused on domestic agricultural supply, we diversified into international trade to meet the rising global demand for premium Indian commodities. Today, we are a prominent exporter of spices, pulses, grains, and industrial components, with a strong presence across Asia, the Middle East, and Europe.",
-      "p2": "As an emerging <strong>Two Star Export House</strong> recognized for excellence, AABHA IMPEX is registered with the Spices Board of India, APEDA, and FIEO. We maintain a strategic ability to switch between commodities based on market demand and seasonal pricing, ensuring that we deliver high-quality products like sugar, corn, and spices at the most competitive rates. With a global network spanning from India to our strategic partners in the UAE and beyond, we ensure end-to-end reliability in every shipment.",
+      "p1": "SHREE HARI BILLING was initially established with a vision to become a world-class merchant export house. Initially focused on domestic agricultural supply, we diversified into international trade to meet the rising global demand for premium Indian commodities. Today, we are a prominent exporter of spices, pulses, grains, and industrial components, with a strong presence across Asia, the Middle East, and Europe.",
+      "p2": "As an emerging <strong>Two Star Export House</strong> recognized for excellence, SHREE HARI BILLING is registered with the Spices Board of India, APEDA, and FIEO. We maintain a strategic ability to switch between commodities based on market demand and seasonal pricing, ensuring that we deliver high-quality products like sugar, corn, and spices at the most competitive rates. With a global network spanning from India to our strategic partners in the UAE and beyond, we ensure end-to-end reliability in every shipment.",
       "stats": {
         "products": "Product Types",
         "markets": "Global Markets",
@@ -174,7 +174,7 @@
     "geography": {
       "label": "GEOGRAPHY",
       "title": "Our Global Footprint",
-      "desc": "AABHA IMPEX is proud to serve a diverse global clientele across four continents, ensuring Indian excellence reaches every corner of the world.",
+      "desc": "SHREE HARI BILLING is proud to serve a diverse global clientele across four continents, ensuring Indian excellence reaches every corner of the world.",
       "middle_east": "Middle East",
       "europe": "Europe",
       "asia": "Asia",
@@ -267,7 +267,7 @@
     },
     "quality": {
       "title": "Uncompromising Quality Standards",
-      "desc": "At AABHA IMPEX, we don't just export products; we export trust. Every shipment undergoes rigorous multi-level inspections to meet international safety and quality benchmarks.",
+      "desc": "At SHREE HARI BILLING, we don't just export products; we export trust. Every shipment undergoes rigorous multi-level inspections to meet international safety and quality benchmarks.",
       "b1": "100% Organic Sourcing",
       "b2": "FDA & APEDA Compliant",
       "b3": "Global Logistics Reach",
@@ -314,18 +314,18 @@
   "blog_page": {
     "header": {
       "label": "OUR BLOGS",
-      "title": "AABHA Blogs",
+      "title": "SHREE HARI Blogs",
       "desc": "Stay updated with the latest trends, market analysis, and expert views on global trade and Indian exports."
     },
     "newsletter": {
-      "title": "Subscribe to AABHA Blogs",
+      "title": "Subscribe to SHREE HARI Blogs",
       "desc": "Get monthly market reports and policy updates directly in your inbox.",
       "placeholder": "Your professional email",
       "btn": "Subscribe"
     }
   },
   "seo": {
-    "default_title": "AABHA IMPEX | Premium Indian Export House",
-    "default_description": "AABHA IMPEX exports premium Indian agricultural produce (Seeds, Pulses, Spices) and industrial components to over 15+ countries worldwide."
+    "default_title": "SHREE HARI BILLING | Premium Indian Export House",
+    "default_description": "SHREE HARI BILLING exports premium Indian agricultural produce (Seeds, Pulses, Spices) and industrial components to over 15+ countries worldwide."
   }
 }

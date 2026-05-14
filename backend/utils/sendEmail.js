@@ -24,7 +24,7 @@ const sendEmail = async (options) => {
   });
 
   const mailOptions = {
-    from: `Shree Hari Billing <${process.env.EMAIL_FROM || 'noreply@shreeharii.vercel.app'}>`,
+    from: `AABHA IMPEX <${process.env.EMAIL_FROM || 'noreply@aabhaimpex.com'}>`,
     to: options.email,
     subject: options.subject,
     text: options.message,
