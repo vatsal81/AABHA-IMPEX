@@ -37,7 +37,6 @@ const allowedOrigins = [
   'https://shreeharii.vercel.app',
   'https://billing-woad-sigma.vercel.app',
   'https://aabha-impex.onrender.com',
-  'https://billing-i1lc.onrender.com',
   'http://localhost:3000',
   'http://localhost:5173',
   'http://localhost:5000'
